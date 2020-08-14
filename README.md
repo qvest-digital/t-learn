@@ -11,6 +11,10 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw quarkus:dev
 ```
 
+## Running a local Postgres server in a Docker container (no state)
+```
+docker run -d --rm --name postgres-quarkus-hibernate -e POSTGRES_USER=hibernate -e POSTGRES_PASSWORD=hibernate -e POSTGRES_DB=hibernate_db -p 5432:5432 postgres:13
+```
 ## Packaging and running the application
 
 The application can be packaged using `./mvnw package`.
