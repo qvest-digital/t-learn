@@ -1,1 +1,1 @@
-# weiterbildungsboerse
+# Weiterbildungsbörse
