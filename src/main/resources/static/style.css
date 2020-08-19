@@ -6,3 +6,9 @@
 .main-container {
 	flex: 1 0 auto;
 }
+
+.required-label::after {
+	color: red;
+	font-weight: bold;
+	content: '\00a0*';
+}
