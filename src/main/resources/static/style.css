@@ -1,0 +1,8 @@
+.overview-card {
+	min-width:18rem;
+	max-width:36rem;
+}
+
+.main-container {
+	flex: 1 0 auto;
+}
