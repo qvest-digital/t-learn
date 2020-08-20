@@ -2,13 +2,13 @@ package de.tarent.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.Set;
+
+import static javax.persistence.EnumType.STRING;
 
 @Entity
 public class Course extends PanacheEntity {
@@ -18,16 +18,21 @@ public class Course extends PanacheEntity {
     @NotBlank
     public String trainer;
     public String organizer;
-    public LocalDateTime date;
+    public LocalDateTime startDate;
+    public LocalDateTime endDate;
+    @Enumerated(STRING)
+    public CourseType courseType;
+    @Enumerated(STRING)
     public Location location;
+    public String address;
     public String targetAudience;
     public URL link;
-    @Lob
-    public byte[] image;
-    @ElementCollection
-    public Set<String> labels;
+
+    public enum CourseType {
+        EXTERNAL, INTERNAL
+    }
 
     public enum Location {
-        REMOTE, EXTERN, INTERN
+        REMOTE, ONSITE
     }
 }

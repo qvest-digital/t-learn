@@ -9,11 +9,11 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.Set;
 
+import static de.tarent.entities.Course.CourseType.EXTERNAL;
 import static de.tarent.entities.Course.Location.REMOTE;
 import static io.restassured.RestAssured.given;
+import static java.time.LocalDateTime.parse;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.Matchers.*;
 
@@ -30,9 +30,15 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(200)
                 .body("title", containsInAnyOrder("Quarkus Into", "Quarkus for Spring Devs"))
-                .body("date", containsInAnyOrder("2020-01-01T20:00:00", "2020-01-02T20:00:00"))
-                .body("labels", containsInAnyOrder(containsInAnyOrder("Dev", "Intro"), containsInAnyOrder("Dev", "Advanced")))
-                .body("image", containsInAnyOrder("Af8=", "AP8="));
+                .body("trainer", containsInAnyOrder("Tim Trainer", "Theo Trainer"))
+                .body("organizer", containsInAnyOrder("Otto Organizer", "Oskar Organizer"))
+                .body("startDate", containsInAnyOrder("2020-01-01T20:00:00", "2020-01-02T20:00:00"))
+                .body("endDate", containsInAnyOrder("2020-01-01T21:00:00", "2020-01-02T21:00:00"))
+                .body("courseType", containsInAnyOrder("EXTERNAL", "INTERNAL"))
+                .body("location", containsInAnyOrder("REMOTE", "ONSITE"))
+                .body("address", containsInAnyOrder("Rochusstraße 2-4, 53123 Bonn", "Dickobskreuz, 53123 Bonn"))
+                .body("targetAudience", containsInAnyOrder("alle", "devs"))
+                .body("link", containsInAnyOrder("http://tarent.de", "http://tarent.de"));
 
     }
 
@@ -43,27 +49,35 @@ public class CoursesResourceTest {
         course.title = "CreatedQuarkusCourse";
         course.trainer = "Norbert Neutrainer";
         course.organizer = "Oskar Neuorganizer";
-        course.date = LocalDateTime.parse("2020-01-03T21:00:00");
+        course.startDate = parse("2020-01-03T21:00:00");
+        course.endDate = parse("2020-01-03T22:00:00");
+        course.courseType = EXTERNAL;
         course.location = REMOTE;
+        course.address = "Rochusstraße 2-4, 53123 Bonn";
         course.targetAudience = "Alle";
         course.link = new URL("http://tarent.de");
-        course.image = new byte[]{1, 2, 3, 4, 5, 6, 7};
-        course.labels = Set.of("Dev", "Advanced");
 
-        given().body(course).header("Content-Type", APPLICATION_JSON)
+        final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
                 .then()
                 .statusCode(201)
                 .body("title", equalTo("CreatedQuarkusCourse"))
                 .body("trainer", equalTo("Norbert Neutrainer"))
                 .body("organizer", equalTo("Oskar Neuorganizer"))
-                .body("date", equalTo("2020-01-03T21:00:00"))
+                .body("startDate", equalTo("2020-01-03T21:00:00"))
+                .body("endDate", equalTo("2020-01-03T22:00:00"))
+                .body("courseType", equalTo("EXTERNAL"))
                 .body("location", equalTo("REMOTE"))
+                .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
                 .body("targetAudience", equalTo("Alle"))
                 .body("link", equalTo("http://tarent.de"))
-                .body("image", equalTo("AQIDBAUGBw=="))
-                .body("labels", containsInAnyOrder("Dev", "Advanced"));
+                .extract().path("id");
 
+        given().header("Accept", APPLICATION_JSON)
+                .when().get("/courses/{id}", id)
+                .then()
+                .statusCode(200)
+                .body("title", equalTo("CreatedQuarkusCourse"));
     }
 
     @Test
@@ -102,7 +116,7 @@ public class CoursesResourceTest {
                 .statusCode(204)
                 .body(is(emptyString()));
 
-        given()
+        given().header("Accept", APPLICATION_JSON)
                 .when().get("/courses/{id}", id)
                 .then()
                 .statusCode(200)
