@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="hasError" style="color: darkred">
+    <div v-show="hasError" style="color: darkred" data-testid="errorMsg">
       Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.
     </div>
     <form @submit.prevent="create">
@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import parse from 'date-fns/parse';
 
 export default {
@@ -120,33 +121,27 @@ export default {
       course.location = course.location === "" ? null : course.location;
 
       // TODO change hostname later
-      fetch('http://localhost:8080/courses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(course)
-      })
-          .then((response) => {
-            if (response.ok) {
-              this.resetForm()
-            } else {
-              response.text().then(this.handleError);
-            }
-            this.hasError = !response.ok;
+      axios.post('http://localhost:8080/courses', course)
+          .then(() => {
+            this.resetForm()
+            this.hasError = false;
           })
           .catch(this.handleError);
     },
     resetForm: function () {
       this.startDateRaw = null;
       this.endDateRaw = null;
-      Object.keys(this.course).forEach(prop => this.course[prop] = null)
+      Object.keys(this.course).forEach(prop => this.course[prop] = null);
       this.course.courseType = '';
       this.course.location = '';
     },
     handleError: function (error) {
-      console.error(error);
-      this.hasError = true
+      if (error.response) {
+        console.error(error.response.data);
+      } else {
+        console.error("an error has occurred when trying to send data to server.");
+      }
+      this.hasError = true;
     }
   }
 }
