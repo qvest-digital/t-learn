@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/vue';
 import axios from 'axios';
 import CourseCreationForm from '@/components/CourseCreationForm.vue';
+import { BootstrapVue } from 'bootstrap-vue'
 
 jest.mock('axios');
 
@@ -14,15 +15,17 @@ describe('CourseCreationForm.vue', () => {
             }),
         );
 
-        render(CourseCreationForm);
+        render(CourseCreationForm, {}, localVue => {
+            localVue.use(BootstrapVue)
+        });
 
         const errorMessage = screen.getByTestId('errorMsg');
         expect(errorMessage).not.toBeVisible();
-        const titleInput = screen.getByLabelText('Titel / Thema');
+        const titleInput = screen.getByTestId('title');
         expect(titleInput).toBeInTheDocument();
         await fireEvent.update(titleInput, 'Test');
 
-        await fireEvent.submit(screen.getByText('Anlegen'));
+        await fireEvent.submit(screen.getByText('Erstellen'));
 
         expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/courses', expect.anything());
         await waitFor(() => [
@@ -39,15 +42,17 @@ describe('CourseCreationForm.vue', () => {
             }),
         );
 
-        render(CourseCreationForm);
+        render(CourseCreationForm, {}, localVue => {
+            localVue.use(BootstrapVue)
+        });
 
         const errorMessage = screen.getByTestId('errorMsg');
         expect(errorMessage).not.toBeVisible();
-        const titleInput = screen.getByLabelText('Titel / Thema');
+        const titleInput = screen.getByTestId('title');
         expect(titleInput).toBeInTheDocument();
         await fireEvent.update(titleInput, 'Test');
 
-        await fireEvent.submit(screen.getByText('Anlegen'));
+        await fireEvent.submit(screen.getByText('Erstellen'));
 
         expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/courses', expect.anything());
         await waitFor(() => [
