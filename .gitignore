@@ -37,8 +37,8 @@ release.properties
 
 # SPA
 src/main/resources/META-INF/resources
-node_modules
-/dist
+/src/main/webapp/node_modules
+/src/main/webapp/dist
 
 # local env files
 .env.local
