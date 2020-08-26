@@ -40,6 +40,7 @@ public class ErrorMapper implements ExceptionMapper<Exception> {
             this.success = false;
             this.message = violations.stream()
                     .map(violation -> String.join(" ", violation.getPropertyPath().toString(), violation.getMessage()))
+                    .map(String::strip)
                     .collect(Collectors.joining(", "));
         }
 

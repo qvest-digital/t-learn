@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.time.LocalDateTime;
 
 import static de.tarent.entities.Course.CourseType.EXTERNAL;
 import static de.tarent.entities.Course.Location.REMOTE;
 import static io.restassured.RestAssured.given;
 import static java.time.LocalDateTime.parse;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.Matchers.*;
 
@@ -43,7 +43,7 @@ public class CoursesResourceTest {
     }
 
     @Test
-    public void testCreateNewCourse() throws MalformedURLException {
+    public void testCreateNewCourse() {
 
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
@@ -55,7 +55,7 @@ public class CoursesResourceTest {
         course.location = REMOTE;
         course.address = "Rochusstraße 2-4, 53123 Bonn";
         course.targetAudience = "Alle";
-        course.link = new URL("http://tarent.de");
+        course.link = "http://tarent.de";
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
@@ -81,7 +81,19 @@ public class CoursesResourceTest {
     }
 
     @Test
-    public void testCreateNewCourse_FailedValidation() {
+    public void testCreateNewCourse_HttpLink() {
+
+        checkCreateWithLink("http://tarent.de");
+    }
+
+    @Test
+    public void testCreateNewCourse_HttpsLink() {
+
+        checkCreateWithLink("https://tarent.de");
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_RequiredFields() {
 
         final Course course = new Course();
 
@@ -89,9 +101,63 @@ public class CoursesResourceTest {
                 .when().post("/courses")
                 .then()
                 .statusCode(400)
-                .body("message", matchesPattern("(trainer|title) must not be blank, (trainer|title) must not be blank"))
+                .body("message", allOf(
+                        containsString("title must not be blank"),
+                        containsString("trainer must not be blank"),
+                        containsString("courseType must not be null")))
                 .body("success", is(false));
 
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_StartEndDate() {
+        final LocalDateTime now = LocalDateTime.now();
+
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.startDate = now;
+        course.endDate = now.minus(1, SECONDS);
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("The start date must not be equal or before the end date"))
+                .body("success", is(false));
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_WrongProtocol() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.link = "ftp://tarent.de";
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("link protocol must be \"http\" or \"https\""))
+                .body("success", is(false));
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_InvalidURL() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.link = "https/tarent.de";
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("link must be a valid URL"))
+                .body("success", is(false));
     }
 
     @Test
@@ -100,6 +166,7 @@ public class CoursesResourceTest {
         final Course course = new Course();
         course.title = "UpdateableQuarkusCourse";
         course.trainer = "Dummy";
+        course.courseType = EXTERNAL;
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
@@ -131,5 +198,22 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(204);
 
+    }
+
+    private void checkCreateWithLink(String link) {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.link = link;
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(201)
+                .body("title", equalTo("CreatedQuarkusCourse"))
+                .body("trainer", equalTo("Norbert Neutrainer"))
+                .body("courseType", equalTo("EXTERNAL"))
+                .body("link", equalTo(link));
     }
 }
