@@ -1,65 +1,75 @@
 <template>
   <div>
-    <div v-show="hasError" style="color: darkred" data-testid="errorMsg">
-      Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.
-    </div>
-    <form @submit.prevent="create">
-      <div>
-        <label for="title">Titel / Thema</label>
-        <input v-model="course.title" id="title"/>
+    <b-form @submit.prevent="create">
+      <div v-show="hasError" style="color: darkred" data-testid="errorMsg">
+        Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.
       </div>
-      <div>
-        <label for="trainer">Trainer</label>
-        <input v-model="course.trainer" id="trainer"/>
+
+      <div class="mb-3">
+        <label for="title" class="form-label required-label">Titel / Thema</label>
+        <b-form-input v-model="course.title" id="title" size="lg" placeholder="Veranstaltungsbezeichnung" required
+                      data-testid="title"/>
       </div>
-      <div>
-        <label for="organizer">Organisator</label>
-        <input v-model="course.organizer" id="organizer"/>
-      </div>
-      <div>
-        <label for="startDate">Startzeitpunkt</label>
-        <input v-model="startDateRaw" id="startDate"/>
-      </div>
-      <div>
-        <label for="endDate">Endzeitpunkt</label>
-        <input v-model="endDateRaw" id="endDate"/>
-      </div>
-      <div>
-        <label for="courseType">Veranstaltungsart</label>
-        <select v-model="course.courseType" id="courseType">
-          <option value="">Bitte wählen</option>
-          <option v-for="courseType in courseTypes" :value="courseType.value" :key="courseType.value">
-            {{ courseType.text }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label for="location">Ort</label>
-        <select v-model="course.location" id="location">
-          <option value="">Bitte wählen</option>
-          <option v-for="location in locations" :value="location.value" :key="location.value">
-            {{ location.text }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label for="address">Adresse</label>
-        <input v-model="course.address" id="address"/>
-      </div>
-      <div>
-        <label for="targetAudience">Zielpublikum</label>
-        <textarea v-model="course.targetAudience" id="targetAudience"/>
-      </div>
-      <div>
-        <label for="link">Link</label>
-        <input v-model="course.link" id="link"/>
-      </div>
-      <div>
-        <button type="submit">
-          Anlegen
-        </button>
-      </div>
-    </form>
+
+      <b-row class="mb-3">
+        <b-col>
+          <label for="trainer" class="form-label required-label">Trainer</label>
+          <b-form-input v-model="course.trainer" id="trainer" placeholder="Trainer" required/>
+        </b-col>
+        <b-col>
+          <label for="organizer" class="form-label">Organisator</label>
+          <b-form-input v-model="course.organizer" id="organizer" placeholder="Organisator"/>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-3">
+        <b-col>
+          <label for="startDate" class="form-label">Start</label>
+          <b-form-input v-model="startDateRaw" id="startDate" placeholder="DD.MM.YYYY HH:MM"/>
+        </b-col>
+        <b-col>
+          <label for="endDate" class="form-label">Ende</label>
+          <b-form-input v-model="endDateRaw" id="endDate" placeholder="DD.MM.YYYY HH:MM"/>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-3">
+        <b-col>
+          <label for="courseType" class="form-label required-label">Veranstaltungsart</label>
+          <b-form-select v-model="course.courseType" :options="courseTypes" id="courseType" required/>
+        </b-col>
+        <b-col>
+          <label for="location" class="form-label">Ort</label>
+          <b-form-select v-model="course.location" :options="locations" id="location"/>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-3">
+        <b-col>
+          <label for="address" class="form-label">Veranstaltungsadresse</label>
+          <b-form-input v-model="course.address" id="address" placeholder="postalische Adresse"/>
+        </b-col>
+        <b-col>
+          <label for="link" class="form-label">Weiterführender Link</label>
+          <b-form-input v-model="course.link" id="link" placeholder="https://"/>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-3">
+        <b-col>
+          <label for="targetAudience" class="form-label">Zielgruppe</label>
+          <b-form-textarea v-model="course.targetAudience" id="targetAudience" placeholder="Veranstaltungsbeschreibung"
+                           rows="3" max-rows="6"/>
+        </b-col>
+      </b-row>
+      <b-row class="mb-3">
+        <b-col>
+          <b-button type="submit" variant="primary">
+            Erstellen
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-form>
   </div>
 </template>
 
@@ -75,10 +85,12 @@ export default {
       startDateRaw: null,
       endDateRaw: null,
       courseTypes: [
+        {value: null, text: 'Bitte wählen'},
         {value: "EXTERNAL", text: 'Extern'},
         {value: "INTERNAL", text: 'Intern'},
       ],
       locations: [
+        {value: null, text: 'Bitte wählen'},
         {value: "REMOTE", text: 'Remote'},
         {value: "ONSITE", text: 'Präsenz'},
       ],
@@ -88,8 +100,8 @@ export default {
         organizer: null,
         startDate: null,
         endDate: null,
-        courseType: '',
-        location: '',
+        courseType: null,
+        location: null,
         address: null,
         targetAudience: null,
         link: null
@@ -117,9 +129,6 @@ export default {
 
       const course = this.course;
 
-      course.courseType = course.courseType === "" ? null : course.courseType;
-      course.location = course.location === "" ? null : course.location;
-
       // TODO change hostname later
       axios.post('http://localhost:8080/courses', course)
           .then(() => {
@@ -132,8 +141,6 @@ export default {
       this.startDateRaw = null;
       this.endDateRaw = null;
       Object.keys(this.course).forEach(prop => this.course[prop] = null);
-      this.course.courseType = '';
-      this.course.location = '';
     },
     handleError: function (error) {
       if (error.response) {
@@ -148,5 +155,9 @@ export default {
 </script>
 
 <style scoped>
-
+.required-label::after {
+  color: red;
+  font-weight: bold;
+  content: '\00a0*';
+}
 </style>
