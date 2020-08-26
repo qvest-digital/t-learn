@@ -16,7 +16,8 @@
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
     "date-fns": "^2.15.0",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",

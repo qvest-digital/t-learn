@@ -5,7 +5,15 @@
               :img-src="cardimage(course)"
               :img-alt="course.title">
         <b-card-text>
-          {{ course.targetAudience }}
+          <div v-if="course.location === 'REMOTE'">
+            Remote
+          </div>
+          <div v-if="course.location === 'ONSITE'">
+            Präsenz
+          </div>
+          <div>
+            {{ course.targetAudience }}
+          </div>
           <a href="#" class="stretched-link"></a>
         </b-card-text>
       </b-card>
