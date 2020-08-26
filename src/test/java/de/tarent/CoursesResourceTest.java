@@ -81,6 +81,18 @@ public class CoursesResourceTest {
     }
 
     @Test
+    public void testCreateNewCourse_HttpLink() {
+
+        checkCreateWithLink("http://tarent.de");
+    }
+
+    @Test
+    public void testCreateNewCourse_HttpsLink() {
+
+        checkCreateWithLink("https://tarent.de");
+    }
+
+    @Test
     public void testCreateNewCourse_FailedValidation_RequiredFields() {
 
         final Course course = new Course();
@@ -154,7 +166,7 @@ public class CoursesResourceTest {
         final Course course = new Course();
         course.title = "UpdateableQuarkusCourse";
         course.trainer = "Dummy";
-        course.courseType= EXTERNAL;
+        course.courseType = EXTERNAL;
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
@@ -186,5 +198,22 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(204);
 
+    }
+
+    private void checkCreateWithLink(String link) {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.link = link;
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(201)
+                .body("title", equalTo("CreatedQuarkusCourse"))
+                .body("trainer", equalTo("Norbert Neutrainer"))
+                .body("courseType", equalTo("EXTERNAL"))
+                .body("link", equalTo(link));
     }
 }

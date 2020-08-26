@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,7 +56,7 @@ class StartDateBeforeEndDateValidatorTest {
 
         final Course course = new Course();
         course.startDate = now;
-        course.endDate = now.plus(1, HOURS);
+        course.endDate = now.plus(1, SECONDS);
 
         assertTrue(underTest.isValid(course, null));
     }
@@ -75,7 +75,7 @@ class StartDateBeforeEndDateValidatorTest {
     void testStartDateAfterEndDate() {
 
         final Course course = new Course();
-        course.startDate = now.plus(1, HOURS);
+        course.startDate = now.plus(1, SECONDS);
         course.endDate = now;
 
         assertFalse(underTest.isValid(course, null));
