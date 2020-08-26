@@ -20,6 +20,7 @@
     </nav>
     <b-container class="pt-5">
       <CourseCreationForm></CourseCreationForm>
+      <CourseOverview></CourseOverview>
     </b-container>
     <footer class="container-fluid bg-light text-center mt-4">
       <span class="text-muted">
@@ -33,11 +34,13 @@
 
 <script>
 import CourseCreationForm from "./components/CourseCreationForm";
+import CourseOverview from "./components/CourseOverview";
 
 export default {
   name: 'App',
   components: {
-    CourseCreationForm
+    CourseCreationForm,
+    CourseOverview
   }
 }
 </script>
