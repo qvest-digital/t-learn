@@ -100,12 +100,11 @@ const parseDate = (val) => parse(val, "dd.MM.yyyy H:m", new Date());
 
 const validDate = (val) => !helpers.req(val) || isValid(parseDate(val));
 
-const startBeforeEnd = (val, vm) => {
-  const startDate = parseDate(vm.startDateRaw);
-  const endDate = parseDate(vm.endDateRaw);
+const startBeforeEnd = (val, model) => {
+  const startDate = parseDate(model.startDateRaw);
+  const endDate = parseDate(model.endDateRaw);
 
   if (!isValid(startDate) || !isValid(endDate)) {
-    // we only want to check when both dates are valid
     return true;
   }
   return startDate.getTime() < endDate.getTime();
@@ -214,7 +213,7 @@ export default {
       this.hasError = true;
     },
     validateState: function (path) {
-      const {$dirty, $error} = path.split('.').reduce((prev, curr) => prev ? prev[curr] : null, this.$v);
+      const {$dirty, $error} = path.split('.').reduce((previous, current) => previous ? previous[current] : null, this.$v);
 
       return $dirty ? !$error : null;
     }
