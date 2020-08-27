@@ -11,6 +11,11 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw quarkus:dev
 ```
 
+## Build Docker image
+```
+./mvnw clean package -Dquarkus.container-image.build=true
+```
+
 ## Running a local Postgres server in a Docker container (no state)
 
 ```
