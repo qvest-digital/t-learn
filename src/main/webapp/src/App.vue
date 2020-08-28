@@ -11,9 +11,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/foor">bar</a>
-            </li>
           </ul>
         </div>
       </b-container>
@@ -24,7 +21,6 @@
     </b-container>
     <footer class="container-fluid bg-light text-center mt-4">
       <span class="text-muted">
-        something |
         <a class="link-secondary" href="/privacy-policy">Privacy Policy</a>
         | <a class="link-secondary" href="/impressum">Impressum</a>
       </span>
