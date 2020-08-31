@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Anlegen einer neuen Veranstaltung</h2>
     <b-form @submit.prevent="create">
       <div v-show="hasError" style="color: darkred" data-testid="errorMsg">
         Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.
@@ -8,7 +9,7 @@
       <div class="mb-3">
         <label for="title" class="form-label required-label">Titel / Thema</label>
         <b-form-input v-model="$v.course.title.$model" :state="validateState('course.title')" id="title" size="lg"
-                      placeholder="Veranstaltungsbezeichnung" data-testid="title"/>
+                      placeholder="Veranstaltungsbezeichnung"/>
         <b-form-invalid-feedback>Titel / Thema ist ein Pflichtfeld.</b-form-invalid-feedback>
       </div>
 
@@ -92,7 +93,6 @@
 
 <script>
 import axios from 'axios';
-import Vue from 'vue'
 import { isValid, parse } from 'date-fns';
 import { helpers, required, url } from 'vuelidate/lib/validators'
 
@@ -168,18 +168,10 @@ export default {
   },
   watch: {
     startDateRaw: function (val) {
-      try {
-        this.course.startDate = parseDate(val).toISOString();
-      } catch (e) {
-        console.error(`start date "${val}" not parseable!`);
-      }
+      this.course.startDate = this.parseValidDate(val);
     },
     endDateRaw: function (val) {
-      try {
-        this.course.endDate = parseDate(val).toISOString();
-      } catch (e) {
-        console.error(`end date "${val}" not parseable!`);
-      }
+      this.course.endDate = this.parseValidDate(val);
     }
   },
   methods: {
@@ -192,17 +184,9 @@ export default {
       // TODO change hostname later
       axios.post('http://localhost:8080/courses', this.course)
           .then(() => {
-            this.resetForm()
-            this.hasError = false;
+            this.$router.push('/');
           })
           .catch(this.handleError);
-    },
-    resetForm: function () {
-      this.startDateRaw = null;
-      this.endDateRaw = null;
-      Object.keys(this.course).forEach(prop => this.course[prop] = null);
-
-      Vue.nextTick().then(() => this.$v.$reset());
     },
     handleError: function (error) {
       if (error.response) {
@@ -216,6 +200,10 @@ export default {
       const {$dirty, $error} = path.split('.').reduce((previous, current) => previous ? previous[current] : null, this.$v);
 
       return $dirty ? !$error : null;
+    },
+    parseValidDate: (val) => {
+      const date = parseDate(val);
+      return isValid(date) ? date.toISOString() : null;
     }
   }
 }

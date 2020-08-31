@@ -1,24 +1,27 @@
 <template>
-  <b-row cols-lg="3">
-    <b-col v-for="course in courses" :key="course.id">
-      <b-card :title="course.title"
-              :img-src="cardimage(course)"
-              :img-alt="course.title">
-        <b-card-text>
-          <div v-if="course.location === 'REMOTE'">
-            Remote
-          </div>
-          <div v-if="course.location === 'ONSITE'">
-            Präsenz
-          </div>
-          <div>
-            {{ course.targetAudience }}
-          </div>
-          <a href="#" class="stretched-link"></a>
-        </b-card-text>
-      </b-card>
-    </b-col>
-  </b-row>
+  <div>
+    <h2>Übersicht über alle Veranstaltungen</h2>
+    <b-row cols-lg="3">
+      <b-col v-for="course in courses" :key="course.id">
+        <b-card :title="course.title"
+                :img-src="cardimage(course)"
+                :img-alt="course.title">
+          <b-card-text>
+            <div v-if="course.location === 'REMOTE'">
+              Remote
+            </div>
+            <div v-if="course.location === 'ONSITE'">
+              Präsenz
+            </div>
+            <div>
+              {{ course.targetAudience }}
+            </div>
+            <a href="#" class="stretched-link"></a>
+          </b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
+  </div>
 </template>
 
 <script>
