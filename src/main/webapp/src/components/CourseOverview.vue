@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import coffeeImg from '../assets/coffee.jpg';
 import signsImg from '../assets/signs.jpg';
+import {getCourses} from "@/services/BackendService";
 
 export default {
   name: "CourseOverview",
@@ -47,11 +47,8 @@ export default {
     }
   },
   mounted: function () {
-    // TODO change hostname later
-    axios.get('http://localhost:8080/courses')
-        .then((response) => {
-          this.courses = response.data;
-        })
+    getCourses()
+        .then((response) => this.courses = response.data)
         .catch(() => this.courses = []);
   }
 }
