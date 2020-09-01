@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/vue';
 import axios from 'axios';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { BootstrapVue } from 'bootstrap-vue';
+import {BACKEND_URL} from "@/services/BackendService";
 import routes from "@/routes";
 
 jest.mock('axios');
@@ -38,7 +39,7 @@ describe('CourseOverview.vue', () => {
         const targetAudiences = await screen.findAllByText(/TestTestTest/);
         expect(targetAudiences).toHaveLength(2);
 
-        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/courses');
+        expect(axios.get).toHaveBeenCalledWith(BACKEND_URL + '/courses');
 
     })
 })
