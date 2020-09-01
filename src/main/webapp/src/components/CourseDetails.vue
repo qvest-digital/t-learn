@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import coffeeImg from '../assets/coffee.jpg';
 import signsImg from '../assets/signs.jpg';
+import { getCourse } from "@/services/BackendService";
 
 export default {
   name: "CourseDetails",
@@ -72,8 +72,7 @@ export default {
       }
     },
     loadCourse: function (courseId) {
-      // TODO change hostname later
-      axios.get(`http://localhost:8080/courses/${courseId}`)
+      getCourse(courseId)
           .then((response) => {
             this.course = response.data;
           })
