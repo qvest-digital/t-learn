@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import axios from 'axios';
-import {getCourses, postCourse} from '@/services/BackendService';
+import {BACKEND_URL, getCourses, postCourse} from '@/services/BackendService';
 
 jest.mock('axios');
 
@@ -24,7 +24,7 @@ describe('BackendService.js', () => {
         );
 
         const courses = await getCourses();
-        expect(axios.get).toHaveBeenCalledWith('http://localhost:8080/courses');
+        expect(axios.get).toHaveBeenCalledWith(BACKEND_URL + '/courses');
         expect(courses.data).toHaveLength(2);
     })
 
@@ -43,7 +43,7 @@ describe('BackendService.js', () => {
         );
 
         const response = await postCourse(course);
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/courses', course);
+        expect(axios.post).toHaveBeenCalledWith(BACKEND_URL + '/courses', course);
         expect(response.data).toBe(course)
     })
 

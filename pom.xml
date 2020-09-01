@@ -138,6 +138,9 @@
             </goals>
             <configuration>
               <arguments>run prod</arguments>
+              <environmentVariables>
+                <VUE_APP_BACKEND_URL>${env.VUE_APP_BACKEND_URL}</VUE_APP_BACKEND_URL>
+              </environmentVariables>
             </configuration>
           </execution>
         </executions>

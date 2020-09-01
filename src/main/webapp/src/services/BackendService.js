@@ -1,11 +1,12 @@
 import axios from 'axios';
+import config from '../../config'
 
-const BACKEND_URL = 'http://localhost:8080';
+export const BACKEND_URL = config.backendUrl;
 
-export async function getCourses() {
-    return await axios.get(BACKEND_URL + '/courses');
+export function getCourses() {
+    return axios.get(BACKEND_URL + '/courses');
 }
 
-export async function postCourse(course) {
-    return await axios.post(BACKEND_URL + '/courses', course);
+export function postCourse(course) {
+    return axios.post(BACKEND_URL + '/courses', course);
 }

@@ -5,6 +5,7 @@ import CourseCreationForm from '@/components/CourseCreationForm.vue';
 import { BootstrapVue } from 'bootstrap-vue'
 import Vuelidate from 'vuelidate';
 import routes from '../../src/routes';
+import {BACKEND_URL} from "@/services/BackendService";
 
 jest.mock('axios');
 global.console = {error: jest.fn()}
@@ -45,7 +46,7 @@ describe('CourseCreationForm.vue', () => {
         await fireEvent.submit(getByRole('button'));
 
         expect(getByTestId('errorMsg')).not.toBeVisible();
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/courses', expect.anything());
+        expect(axios.post).toHaveBeenCalledWith(BACKEND_URL + '/courses', expect.anything());
         expect(routerPushSpy).toHaveBeenCalledWith('/')
     })
 
@@ -69,7 +70,7 @@ describe('CourseCreationForm.vue', () => {
 
         await fireEvent.submit(getByRole('button'));
 
-        expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/courses', expect.anything());
+        expect(axios.post).toHaveBeenCalledWith(BACKEND_URL + '/courses', expect.anything());
         await waitFor(() => [
             expect(errorMessages).toBeVisible(),
         ]);
