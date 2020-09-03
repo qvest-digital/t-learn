@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import {postCourse} from "@/services/BackendService";
 import { isValid, parse } from 'date-fns';
 import { helpers, required, url } from 'vuelidate/lib/validators'
 
@@ -181,8 +181,7 @@ export default {
         return false;
       }
 
-      // TODO change hostname later
-      axios.post('http://localhost:8080/courses', this.course)
+      postCourse(this.course)
           .then(() => {
             this.$router.push('/');
           })
