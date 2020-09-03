@@ -6,17 +6,16 @@
         <b-card :title="course.title"
                 :img-src="cardimage(course)"
                 :img-alt="course.title">
+          <b-card-text v-if="course.location === 'REMOTE'">
+            Remote
+          </b-card-text>
+          <b-card-text v-if="course.location === 'ONSITE'">
+            Präsenz
+          </b-card-text>
           <b-card-text>
-            <div v-if="course.location === 'REMOTE'">
-              Remote
-            </div>
-            <div v-if="course.location === 'ONSITE'">
-              Präsenz
-            </div>
-            <div>
-              {{ course.targetAudience }}
-            </div>
-            <a href="#" class="stretched-link"></a>
+            {{ course.targetAudience }}
+            <router-link :to="{ name: 'courseDetails', params: {courseId : course.id}}"
+                         class="stretched-link"></router-link>
           </b-card-text>
         </b-card>
       </b-col>

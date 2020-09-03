@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/vue';
 import axios from 'axios';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { BootstrapVue } from 'bootstrap-vue';
+import routes from "@/routes";
 
 jest.mock('axios');
 
@@ -26,7 +27,9 @@ describe('CourseOverview.vue', () => {
             }),
         );
 
-        render(CourseOverview, {}, localVue => {
+        render(CourseOverview, {
+            routes: routes
+        }, localVue => {
             localVue.use(BootstrapVue)
         });
 
