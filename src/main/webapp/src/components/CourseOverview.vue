@@ -3,9 +3,11 @@
     <h2>Übersicht über alle Veranstaltungen</h2>
     <b-row cols-lg="3">
       <b-col v-for="course in courses" :key="course.id">
-        <b-card :title="course.title"
-                :img-src="cardimage(course)"
-                :img-alt="course.title">
+        <b-card
+          :title="course.title"
+          :img-src="cardimage(course)"
+          :img-alt="course.title"
+        >
           <b-card-text v-if="course.location === 'REMOTE'">
             Remote
           </b-card-text>
@@ -14,8 +16,10 @@
           </b-card-text>
           <b-card-text>
             {{ course.targetAudience }}
-            <router-link :to="{ name: 'courseDetails', params: {courseId : course.id}}"
-                         class="stretched-link"></router-link>
+            <router-link
+              :to="{ name: 'courseDetails', params: { courseId: course.id } }"
+              class="stretched-link"
+            ></router-link>
           </b-card-text>
         </b-card>
       </b-col>
@@ -24,19 +28,19 @@
 </template>
 
 <script>
-import coffeeImg from '../assets/coffee.jpg';
-import signsImg from '../assets/signs.jpg';
-import { getCourses } from '@/services/BackendService';
+import coffeeImg from "../assets/coffee.jpg";
+import signsImg from "../assets/signs.jpg";
+import { getCourses } from "@/services/BackendService";
 
 export default {
   name: "CourseOverview",
-  data: function () {
+  data: function() {
     return {
       courses: []
-    }
+    };
   },
   methods: {
-    cardimage: function (course) {
+    cardimage: function(course) {
       switch (course.courseType) {
         case "EXTERNAL":
           return signsImg;
@@ -46,14 +50,12 @@ export default {
       }
     }
   },
-  mounted: function () {
+  mounted: function() {
     getCourses()
-        .then((response) => this.courses = response.data)
-        .catch(() => this.courses = []);
+      .then(response => (this.courses = response.data))
+      .catch(() => (this.courses = []));
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

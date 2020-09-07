@@ -5,7 +5,12 @@
         <router-link class="navbar-brand py-0" to="/">
           t-learn
         </router-link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -14,7 +19,9 @@
               <router-link class="nav-link" to="/">Übersicht</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'courseCreation'}">Anlegen</router-link>
+              <router-link class="nav-link" :to="{ name: 'courseCreation' }"
+                >Anlegen</router-link
+              >
             </li>
           </ul>
         </div>
@@ -33,13 +40,10 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
   components: {}
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
