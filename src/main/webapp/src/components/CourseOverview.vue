@@ -26,7 +26,7 @@
 <script>
 import coffeeImg from '../assets/coffee.jpg';
 import signsImg from '../assets/signs.jpg';
-import {getCourses} from "@/services/BackendService";
+import { getCourses } from '@/services/BackendService';
 
 export default {
   name: "CourseOverview",

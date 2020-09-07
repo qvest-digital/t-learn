@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import {postCourse} from "@/services/BackendService";
+import { postCourse } from '@/services/BackendService';
 import { isValid, parse } from 'date-fns';
 import { helpers, required, url } from 'vuelidate/lib/validators'
 

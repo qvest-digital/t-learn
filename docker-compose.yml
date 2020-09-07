@@ -2,8 +2,7 @@ version: "3.7"
 services:
   app-backend:
     restart: always
-    # Don't set the environment variable if you want to use your local Docker registry
-    image: ${DOCKER_REGISTRY}tarent/t-learn-backend:1.0.0-SNAPSHOT
+    image: t-learn-backend:1.0.0-SNAPSHOT
     ports:
       - 8080:8080
     depends_on:

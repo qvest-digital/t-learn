@@ -1,16 +1,13 @@
 import axios from 'axios';
-import config from '../../config'
-
-export const BACKEND_URL = config.backendUrl;
 
 export function getCourses() {
-    return axios.get(`${BACKEND_URL}/courses`);
+    return axios.get('courses');
 }
 
 export function getCourse(courseId) {
-    return axios.get(`${BACKEND_URL}/courses/${courseId}`);
+    return axios.get(`courses/${courseId}`);
 }
 
 export function postCourse(course) {
-    return axios.post(`${BACKEND_URL}/courses`, course);
+    return axios.post('courses', course);
 }

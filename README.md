@@ -16,15 +16,6 @@ You can run your application in dev mode that enables live coding using:
 ./mvnw clean package -Dquarkus.container-image.build=true
 ```
 
-Per default the frontend will send its requests to `http://localhost:8080`. You can change the backend URL by providing
-a different one via environment variable during the build: 
-
-```
-export VUE_APP_BACKEND_URL=http://<custom-address>:8080
-./mvnw clean package -Dquarkus.container-image.build=true
-```
-
-
 ## Running a local Postgres server in a Docker container (no state)
 
 ```

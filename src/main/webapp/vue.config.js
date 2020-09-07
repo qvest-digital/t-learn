@@ -1,4 +1,10 @@
 module.exports = {
+    pages: {
+        index: {
+            entry: 'src/main.js',
+            title: 't-learn'
+        }
+    },
     chainWebpack: config => {
         config.module
             .rule('vue')
@@ -20,5 +26,9 @@ module.exports = {
 
                 return options
             })
+    },
+    publicPath: './',
+    devServer: {
+        proxy: 'http://localhost:8080'
     }
 }

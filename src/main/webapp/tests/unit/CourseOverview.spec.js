@@ -1,17 +1,16 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/vue';
-import axios from 'axios';
 import CourseOverview from '@/components/CourseOverview.vue';
+import { getCourses } from '@/services/BackendService';
 import { BootstrapVue } from 'bootstrap-vue';
-import routes from "@/routes";
-import {BACKEND_URL} from "@/services/BackendService";
+import routes from '@/routes';
 
-jest.mock('axios');
+jest.mock('@/services/BackendService');
 
 describe('CourseOverview.vue', () => {
     it('requests and displays course data from server', async () => {
 
-        axios.get.mockImplementationOnce(() =>
+        getCourses.mockImplementationOnce(() =>
             Promise.resolve({
                 data: [
                     {
@@ -39,7 +38,7 @@ describe('CourseOverview.vue', () => {
         const targetAudiences = await screen.findAllByText(/TestTestTest/);
         expect(targetAudiences).toHaveLength(2);
 
-        expect(axios.get).toHaveBeenCalledWith(BACKEND_URL + '/courses');
+        expect(getCourses).toHaveBeenCalled();
 
     })
 })
