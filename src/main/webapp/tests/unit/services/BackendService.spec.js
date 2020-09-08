@@ -1,6 +1,11 @@
 import "@testing-library/jest-dom";
 import axios from "axios";
-import { getCourses, getCourse, postCourse } from "@/services/BackendService";
+import {
+  getCourses,
+  getCourse,
+  createCourse,
+  updateCourse
+} from "@/services/BackendService";
 
 jest.mock("axios");
 
@@ -60,8 +65,28 @@ describe("BackendService.js", () => {
       })
     );
 
-    const response = await postCourse(course);
+    const response = await createCourse(course);
     expect(axios.post).toHaveBeenCalledWith("courses", course);
+    expect(response.data).toBe(course);
+  });
+
+  it("send updated course data to the server", async () => {
+    const course = {
+      id: 1,
+      title: "title",
+      trainer: "trainer",
+      courseType: "courseType",
+      link: "link"
+    };
+
+    axios.put.mockImplementationOnce(() =>
+      Promise.resolve({
+        data: course
+      })
+    );
+
+    const response = await updateCourse(course);
+    expect(axios.put).toHaveBeenCalledWith("courses/1", course);
     expect(response.data).toBe(course);
   });
 });

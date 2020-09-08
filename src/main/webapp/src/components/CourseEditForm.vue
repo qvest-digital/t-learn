@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>Anlegen einer neuen Veranstaltung</h2>
-    <b-form @submit.prevent="create">
+    <h2>Editieren einer Veranstaltung</h2>
+    <b-form @submit.prevent="update">
       <div v-show="hasError" style="color: darkred" data-testid="errorMsg">
         Ein Fehler ist aufgetreten, bitte versuchen Sie es später erneut.
       </div>
@@ -14,8 +14,16 @@
 
       <b-row class="mb-3">
         <b-col>
+          <b-button
+            @click="
+              $router.push({ name: 'courseDetails', params: { courseId } })
+            "
+            variant="secondary"
+          >
+            Abbrechen
+          </b-button>
           <b-button type="submit" variant="primary">
-            Erstellen
+            Speichern
           </b-button>
         </b-col>
       </b-row>
@@ -24,32 +32,31 @@
 </template>
 
 <script>
-import { createCourse } from "@/services/BackendService";
+import { getCourse, updateCourse } from "@/services/BackendService";
 import CourseInputForm from "@/components/CourseInputForm";
 
 export default {
-  name: "CourseCreationForm",
+  name: "CourseEditForm",
   components: { CourseInputForm },
   data: function() {
     return {
-      isValid: false,
+      isValid: true,
       hasError: false,
-      course: {
-        title: null,
-        trainer: null,
-        organizer: null,
-        startDate: null,
-        endDate: null,
-        courseType: null,
-        location: null,
-        address: null,
-        targetAudience: null,
-        link: null
-      }
+      course: {}
     };
   },
+  props: {
+    courseId: {
+      type: Number
+    }
+  },
+  watch: {
+    courseId: function(courseId) {
+      this.loadCourse(courseId);
+    }
+  },
   methods: {
-    create: function() {
+    update: function() {
       this.$refs.courseForm.touch();
 
       this.$nextTick(() => {
@@ -57,9 +64,13 @@ export default {
           return false;
         }
 
-        createCourse(this.course)
+        const id = this.courseId;
+        updateCourse(this.course)
           .then(() => {
-            this.$router.push("/");
+            this.$router.push({
+              name: "courseDetails",
+              params: { courseId: id }
+            });
           })
           .catch(this.handleError);
       });
@@ -73,7 +84,17 @@ export default {
         );
       }
       this.hasError = true;
+    },
+    loadCourse: function(courseId) {
+      getCourse(courseId)
+        .then(response => {
+          this.course = response.data;
+        })
+        .catch(this.handleError);
     }
+  },
+  mounted: function() {
+    this.loadCourse(this.courseId);
   }
 };
 </script>

@@ -1,21 +1,21 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, waitFor } from "@testing-library/vue";
 import CourseCreationForm from "@/components/CourseCreationForm.vue";
-import { postCourse } from "@/services/BackendService";
+import { createCourse } from "@/services/BackendService";
 import { BootstrapVue } from "bootstrap-vue";
 import Vuelidate from "vuelidate";
-import routes from "../../src/routes";
+import routes from "@/routes";
 
 jest.mock("@/services/BackendService");
 global.console = { error: jest.fn() };
 
 describe("CourseCreationForm.vue", () => {
   afterEach(() => {
-    postCourse.mockReset();
+    createCourse.mockReset();
   });
 
   it("sends form data on submit to server and navigates to overview", async () => {
-    postCourse.mockImplementationOnce(() =>
+    createCourse.mockImplementationOnce(() =>
       Promise.resolve({
         data: {}
       })
@@ -54,7 +54,7 @@ describe("CourseCreationForm.vue", () => {
     await fireEvent.submit(getByRole("button"));
 
     expect(getByTestId("errorMsg")).not.toBeVisible();
-    expect(postCourse).toHaveBeenCalledWith({
+    expect(createCourse).toHaveBeenCalledWith({
       address: null,
       courseType: "EXTERNAL",
       endDate: null,
@@ -70,7 +70,7 @@ describe("CourseCreationForm.vue", () => {
   });
 
   it("shows error message on unsuccessful form data submit to server", async () => {
-    postCourse.mockImplementationOnce(() =>
+    createCourse.mockImplementationOnce(() =>
       Promise.reject({
         data: {}
       })
@@ -97,7 +97,7 @@ describe("CourseCreationForm.vue", () => {
 
     await fireEvent.submit(getByRole("button"));
 
-    expect(postCourse).toHaveBeenCalledWith({
+    expect(createCourse).toHaveBeenCalledWith({
       address: null,
       courseType: "EXTERNAL",
       endDate: null,
@@ -109,7 +109,7 @@ describe("CourseCreationForm.vue", () => {
       title: "Test",
       trainer: "Trainer"
     });
-    await waitFor(() => [expect(errorMessages).toBeVisible()]);
+    await waitFor(() => expect(errorMessages).toBeVisible());
   });
 
   it("shows validation errors when required fields are not filled", async () => {
@@ -119,7 +119,7 @@ describe("CourseCreationForm.vue", () => {
 
     await fireEvent.submit(getByRole("button"));
 
-    expect(postCourse).not.toBeCalled();
+    expect(createCourse).not.toBeCalled();
 
     expect(getByTestId("errorMsg")).not.toBeVisible();
     expect(getByRole("textbox", { name: "Titel / Thema" }).classList).toContain(

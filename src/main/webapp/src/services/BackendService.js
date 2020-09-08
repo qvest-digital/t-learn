@@ -8,6 +8,10 @@ export function getCourse(courseId) {
   return axios.get(`courses/${courseId}`);
 }
 
-export function postCourse(course) {
+export function createCourse(course) {
   return axios.post("courses", course);
+}
+
+export function updateCourse(course) {
+  return axios.put(`courses/${course.id}`, course);
 }

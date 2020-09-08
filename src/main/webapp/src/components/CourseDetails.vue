@@ -53,6 +53,17 @@
         </b-col>
       </b-row>
       <p>{{ course.targetAudience }}</p>
+      <b-row class="mb-3">
+        <b-col>
+          <b-button
+            @click="$router.push({ name: 'courseEdit', params: { courseId } })"
+            type="submit"
+            variant="primary"
+          >
+            Bearbeiten
+          </b-button>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -71,8 +82,7 @@ export default {
   },
   props: {
     courseId: {
-      type: Number,
-      default: 0
+      type: Number
     }
   },
   watch: {
