@@ -1,4 +1,4 @@
-import { format, parseISO } from "date-fns";
+import { format, toDate } from "date-fns-tz";
 
 export function dateFormatFilter(value, dateFormat) {
   if (!value) {
@@ -6,8 +6,8 @@ export function dateFormatFilter(value, dateFormat) {
   }
 
   if (dateFormat) {
-    return format(parseISO(value), dateFormat);
+    return format(toDate(value), dateFormat);
   } else {
-    return format(parseISO(value), "dd.MM.yyyy HH:mm");
+    return format(toDate(value), "dd.MM.yyyy HH:mm");
   }
 }

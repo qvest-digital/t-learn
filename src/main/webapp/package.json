@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.16.0",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
+    "date-fns-tz": "^1.0.10",
     "vue": "^2.6.12",
     "vue-router": "^3.4.3",
     "vuelidate": "^0.7.5"

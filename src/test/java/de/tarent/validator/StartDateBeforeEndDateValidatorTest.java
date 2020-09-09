@@ -4,7 +4,7 @@ import de.tarent.entities.Course;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class StartDateBeforeEndDateValidatorTest {
 
     private StartDateBeforeEndDateValidator underTest;
-    private final LocalDateTime now = LocalDateTime.now();
+    private final OffsetDateTime now = OffsetDateTime.now();
 
     @BeforeEach
     void setUp() {

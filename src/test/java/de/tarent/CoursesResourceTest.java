@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import static de.tarent.entities.Course.CourseType.EXTERNAL;
 import static de.tarent.entities.Course.Location.REMOTE;
 import static io.restassured.RestAssured.given;
-import static java.time.LocalDateTime.parse;
+import static java.time.OffsetDateTime.parse;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.Matchers.*;
@@ -32,8 +32,8 @@ public class CoursesResourceTest {
                 .body("title", containsInAnyOrder("Quarkus Into", "Quarkus for Spring Devs"))
                 .body("trainer", containsInAnyOrder("Tim Trainer", "Theo Trainer"))
                 .body("organizer", containsInAnyOrder("Otto Organizer", "Oskar Organizer"))
-                .body("startDate", containsInAnyOrder("2020-01-01T20:00:00", "2020-01-02T20:00:00"))
-                .body("endDate", containsInAnyOrder("2020-01-01T21:00:00", "2020-01-02T21:00:00"))
+                .body("startDate", containsInAnyOrder("2020-01-01T20:00:00Z", "2020-01-02T20:00:00Z"))
+                .body("endDate", containsInAnyOrder("2020-01-01T21:00:00Z", "2020-01-02T21:00:00Z"))
                 .body("courseType", containsInAnyOrder("EXTERNAL", "INTERNAL"))
                 .body("location", containsInAnyOrder("REMOTE", "ONSITE"))
                 .body("address", containsInAnyOrder("Rochusstraße 2-4, 53123 Bonn", "Dickobskreuz, 53123 Bonn"))
@@ -49,8 +49,8 @@ public class CoursesResourceTest {
         course.title = "CreatedQuarkusCourse";
         course.trainer = "Norbert Neutrainer";
         course.organizer = "Oskar Neuorganizer";
-        course.startDate = parse("2020-01-03T21:00:00");
-        course.endDate = parse("2020-01-03T22:00:00");
+        course.startDate = parse("2020-01-03T21:00:00Z");
+        course.endDate = parse("2020-01-03T22:00:00Z");
         course.courseType = EXTERNAL;
         course.location = REMOTE;
         course.address = "Rochusstraße 2-4, 53123 Bonn";
@@ -64,8 +64,8 @@ public class CoursesResourceTest {
                 .body("title", equalTo("CreatedQuarkusCourse"))
                 .body("trainer", equalTo("Norbert Neutrainer"))
                 .body("organizer", equalTo("Oskar Neuorganizer"))
-                .body("startDate", equalTo("2020-01-03T21:00:00"))
-                .body("endDate", equalTo("2020-01-03T22:00:00"))
+                .body("startDate", equalTo("2020-01-03T21:00:00Z"))
+                .body("endDate", equalTo("2020-01-03T22:00:00Z"))
                 .body("courseType", equalTo("EXTERNAL"))
                 .body("location", equalTo("REMOTE"))
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
@@ -111,7 +111,7 @@ public class CoursesResourceTest {
 
     @Test
     public void testCreateNewCourse_FailedValidation_StartEndDate() {
-        final LocalDateTime now = LocalDateTime.now();
+        final OffsetDateTime now = OffsetDateTime.now();
 
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";

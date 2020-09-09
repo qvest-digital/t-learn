@@ -1,7 +1,10 @@
 package de.tarent.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import de.tarent.config.UtcOffsetDateTimeSerializer;
 import de.tarent.validator.StartDateBeforeEndDate;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Entity;
@@ -9,7 +12,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
@@ -23,8 +26,10 @@ public class Course extends PanacheEntity {
     @NotBlank
     public String trainer;
     public String organizer;
-    public LocalDateTime startDate;
-    public LocalDateTime endDate;
+    @JsonSerialize(using = UtcOffsetDateTimeSerializer.class)
+    public OffsetDateTime startDate;
+    @JsonSerialize(using = UtcOffsetDateTimeSerializer.class)
+    public OffsetDateTime endDate;
     @NotNull
     @Enumerated(STRING)
     public CourseType courseType;
