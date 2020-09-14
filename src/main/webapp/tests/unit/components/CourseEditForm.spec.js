@@ -108,15 +108,13 @@ describe("CourseEditForm.vue", () => {
     await waitFor(() => expect(errorMessages).toBeVisible());
   });
 
-  it("shows error message on unsuccessful initial load course from server", async () => {
+  it("navigates to overview page when course was not found", async () => {
     getCourse.mockImplementationOnce(() =>
-      Promise.reject({
-        data: {}
-      })
+      Promise.reject({ response: { status: 404 } })
     );
 
     let routerPushSpy;
-    const { getByTestId } = render(
+    render(
       CourseEditForm,
       {
         props: { courseId: 1 },
@@ -130,11 +128,10 @@ describe("CourseEditForm.vue", () => {
       }
     );
 
-    expect(getCourse).toHaveBeenCalledWith(1);
-
-    await waitFor(() => expect(getByTestId("errorMsg")).toBeVisible());
-
-    expect(routerPushSpy).not.toHaveBeenCalled();
+    await waitFor(() => [
+      expect(getCourse).toHaveBeenCalledWith(1),
+      expect(routerPushSpy).toHaveBeenCalledWith("/")
+    ]);
   });
 
   it("shows validation errors when required fields are not filled", async () => {

@@ -1,6 +1,6 @@
-import "@testing-library/jest-dom";
 import axios from "axios";
 import {
+  deleteCourse,
   getCourses,
   getCourse,
   createCourse,
@@ -51,7 +51,7 @@ describe("BackendService.js", () => {
     expect(courses.data).toHaveLength(1);
   });
 
-  it("send course data to the server", async () => {
+  it("sends course data to the server", async () => {
     const course = {
       title: "title",
       trainer: "trainer",
@@ -70,7 +70,7 @@ describe("BackendService.js", () => {
     expect(response.data).toBe(course);
   });
 
-  it("send updated course data to the server", async () => {
+  it("sends updated course data to the server", async () => {
     const course = {
       id: 1,
       title: "title",
@@ -88,5 +88,12 @@ describe("BackendService.js", () => {
     const response = await updateCourse(course);
     expect(axios.put).toHaveBeenCalledWith("courses/1", course);
     expect(response.data).toBe(course);
+  });
+
+  it("deletes course on the server side", async () => {
+    axios.delete.mockImplementationOnce(() => Promise.resolve({}));
+
+    await deleteCourse(1);
+    expect(axios.delete).toHaveBeenCalledWith("courses/1");
   });
 });

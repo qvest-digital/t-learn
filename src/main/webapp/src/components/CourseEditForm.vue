@@ -34,6 +34,7 @@
 <script>
 import { getCourse, updateCourse } from "@/services/BackendService";
 import CourseInputForm from "@/components/CourseInputForm";
+import handleError from "@/components/handleError";
 
 export default {
   name: "CourseEditForm",
@@ -90,7 +91,7 @@ export default {
         .then(response => {
           this.course = response.data;
         })
-        .catch(this.handleError);
+        .catch(error => handleError(this, error));
     }
   },
   mounted: function() {

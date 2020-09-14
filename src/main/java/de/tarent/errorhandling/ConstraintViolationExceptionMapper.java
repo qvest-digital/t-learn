@@ -1,33 +1,24 @@
 package de.tarent.errorhandling;
 
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
+
 @Provider
-public class ErrorMapper implements ExceptionMapper<Exception> {
+public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
 
     @Override
-    public Response toResponse(Exception exception) {
-        Throwable cause = exception.getCause();
-
-        while (cause != null && !(cause instanceof ConstraintViolationException)) {
-            cause = cause.getCause();
-        }
-
-        if (cause != null) {
-            return Response.status(400)
-                    .entity(new Result(((ConstraintViolationException) cause).getConstraintViolations()))
-                    .build();
-        }
-
-        return Response.status(500)
-                .entity(exception.getMessage())
+    public Response toResponse(ConstraintViolationException constraintViolationException) {
+        return Response.status(BAD_REQUEST)
+                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(new Result(constraintViolationException.getConstraintViolations()))
                 .build();
     }
 
