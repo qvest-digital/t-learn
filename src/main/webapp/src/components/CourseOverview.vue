@@ -16,6 +16,15 @@
           </b-card-text>
           <b-card-text>
             {{ course.targetAudience }}
+            <div>
+              <b-button
+                @click="deleteCourse(course)"
+                type="submit"
+                variant="primary"
+              >
+                Löschen
+              </b-button>
+            </div>
             <router-link
               :to="{ name: 'courseDetails', params: { courseId: course.id } }"
               class="stretched-link"
@@ -30,7 +39,8 @@
 <script>
 import coffeeImg from "../assets/coffee.jpg";
 import signsImg from "../assets/signs.jpg";
-import { getCourses } from "@/services/BackendService";
+import { deleteCourse, getCourses } from "@/services/BackendService";
+import deleteCourseModal from "./deleteCourseModal";
 
 export default {
   name: "CourseOverview",
@@ -48,6 +58,18 @@ export default {
         default:
           return coffeeImg;
       }
+    },
+    deleteCourse: function(course) {
+      deleteCourseModal(this, course.title, () => {
+        deleteCourse(course.id)
+          .then(
+            () =>
+              (this.courses = this.courses.filter(
+                elem => elem.id !== course.id
+              ))
+          )
+          .catch(() => console.error(`${course.id} could not be deleted)`));
+      });
     }
   },
   mounted: function() {
@@ -58,4 +80,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.card .btn {
+  z-index: 2;
+  position: relative;
+}
+</style>

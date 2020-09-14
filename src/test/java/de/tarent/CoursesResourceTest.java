@@ -16,6 +16,7 @@ import static java.time.OffsetDateTime.parse;
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -24,7 +25,6 @@ public class CoursesResourceTest {
     @Test
     @Order(1)
     public void testGetAllCourses() {
-
         given().header("Accept", APPLICATION_JSON)
                 .when().get("/courses")
                 .then()
@@ -38,8 +38,45 @@ public class CoursesResourceTest {
                 .body("location", containsInAnyOrder("REMOTE", "ONSITE"))
                 .body("address", containsInAnyOrder("Rochusstraße 2-4, 53123 Bonn", "Dickobskreuz, 53123 Bonn"))
                 .body("targetAudience", containsInAnyOrder("alle", "devs"))
-                .body("link", containsInAnyOrder("http://tarent.de", "http://tarent.de"));
+                .body("link", containsInAnyOrder("http://tarent.de", "http://tarent.de"))
+                .body("any { it.any { it.key == 'deleted' }}", is(false));
+    }
 
+    @Test
+    @Order(1)
+    public void testGetCourse() {
+        given().header("Accept", APPLICATION_JSON)
+                .when().get("/courses/1")
+                .then()
+                .statusCode(200)
+                .body("title", equalTo("Quarkus Into"))
+                .body("trainer", equalTo("Tim Trainer"))
+                .body("organizer", equalTo("Otto Organizer"))
+                .body("startDate", equalTo("2020-01-01T20:00:00Z"))
+                .body("endDate", equalTo("2020-01-01T21:00:00Z"))
+                .body("courseType", equalTo("EXTERNAL"))
+                .body("location", equalTo("REMOTE"))
+                .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
+                .body("targetAudience", equalTo("alle"))
+                .body("link", equalTo("http://tarent.de"));
+    }
+
+    @Test
+    public void testGetCourse_DeletedCourse() {
+        given().header("Accept", APPLICATION_JSON)
+                .when().get("/courses/3")
+                .then()
+                .statusCode(404)
+                .body(is(emptyString()));
+    }
+
+    @Test
+    public void testGetCourse_UnknownCourse() {
+        given().header("Accept", APPLICATION_JSON)
+                .when().get("/courses/123456789")
+                .then()
+                .statusCode(404)
+                .body(is(emptyString()));
     }
 
     @Test
@@ -72,6 +109,8 @@ public class CoursesResourceTest {
                 .body("targetAudience", equalTo("Alle"))
                 .body("link", equalTo("http://tarent.de"))
                 .extract().path("id");
+
+        assertNotNull(id);
 
         given().header("Accept", APPLICATION_JSON)
                 .when().get("/courses/{id}", id)
@@ -175,6 +214,8 @@ public class CoursesResourceTest {
                 .body("title", equalTo("UpdateableQuarkusCourse"))
                 .extract().path("id");
 
+        assertNotNull(id);
+
         course.title = "UpdatedQuarkusCourse";
 
         given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -191,13 +232,56 @@ public class CoursesResourceTest {
     }
 
     @Test
+    public void testUpdateCourse_DeletedCourse() {
+
+        final Course course = new Course();
+        course.title = "UpdateableQuarkusCourse";
+        course.trainer = "Dummy";
+        course.courseType = EXTERNAL;
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().put("/courses/3")
+                .then()
+                .statusCode(404)
+                .body(is(emptyString()));
+    }
+
+    @Test
+    public void testUpdateCourse_UnknownCourse() {
+
+        final Course course = new Course();
+        course.title = "UpdateableQuarkusCourse";
+        course.trainer = "Dummy";
+        course.courseType = EXTERNAL;
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().put("/courses/123456789")
+                .then()
+                .statusCode(404)
+                .body(is(emptyString()));
+    }
+
+    @Test
     public void testDeleteCourse() {
 
         given()
-                .when().delete("/courses/1")
+                .when().delete("/courses/2")
                 .then()
                 .statusCode(204);
 
+        given().header("Accept", APPLICATION_JSON)
+                .when().get("/courses/2")
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
+    public void testDeleteCourse_UnknownCourse() {
+
+        given()
+                .when().delete("/courses/123456789")
+                .then()
+                .statusCode(204);
     }
 
     private void checkCreateWithLink(String link) {

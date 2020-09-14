@@ -62,6 +62,13 @@
           >
             Bearbeiten
           </b-button>
+          <b-button
+            @click="deleteCourse(courseId)"
+            type="submit"
+            variant="secondary"
+          >
+            Löschen
+          </b-button>
         </b-col>
       </b-row>
     </div>
@@ -69,9 +76,10 @@
 </template>
 
 <script>
-import coffeeImg from "../assets/coffee.jpg";
-import signsImg from "../assets/signs.jpg";
-import { getCourse } from "@/services/BackendService";
+import coffeeImg from "@/assets/coffee.jpg";
+import signsImg from "@/assets/signs.jpg";
+import { deleteCourse, getCourse } from "@/services/BackendService";
+import deleteCourseModal from "@/components/deleteCourseModal";
 
 export default {
   name: "CourseDetails",
@@ -106,6 +114,13 @@ export default {
           this.course = response.data;
         })
         .catch(() => (this.course = {}));
+    },
+    deleteCourse: function(courseId) {
+      deleteCourseModal(this, this.course.title, () => {
+        deleteCourse(courseId)
+          .then(() => this.$router.push("/"))
+          .catch(() => console.error(`${courseId} could not be deleted)`));
+      });
     }
   },
   mounted: function() {
