@@ -2,7 +2,7 @@ version: "3.7"
 services:
   app-backend:
     restart: always
-    image: t-learn-backend:1.0.0-SNAPSHOT
+    image: t-learn:1.0.0-SNAPSHOT
     ports:
       - 8080:8080
     depends_on:
