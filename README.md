@@ -21,7 +21,7 @@ You can run your application in dev mode that enables live coding using:
 ## Running a local Postgres server in a Docker container with Volume
 
 ```
-docker-compose -f docker-compose.db.yml up -d
+docker-compose up postgres
 
 ```
 
