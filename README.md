@@ -7,13 +7,22 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
+
 ```
 ./mvnw quarkus:dev
 ```
 
 ## Build Docker image
+
 ```
 ./mvnw clean package -Dquarkus.container-image.build=true
+```
+
+## Running a local Postgres server in a Docker container with Volume
+
+```
+docker-compose -f docker-compose.db.yml up -d
+
 ```
 
 ## Running a local Postgres server in a Docker container (no state)

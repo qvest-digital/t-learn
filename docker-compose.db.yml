@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  postgres:
+    restart: always
+    image: postgres:13
+    container_name: t-learn-postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: "hibernate"
+      POSTGRES_PASSWORD: "hibernate"
+      POSTGRES_DB: "hibernate_db"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
