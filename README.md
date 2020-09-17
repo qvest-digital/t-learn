@@ -7,19 +7,28 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
+
 ```
 ./mvnw quarkus:dev
 ```
 
 ## Build Docker image
+
 ```
 ./mvnw clean package -Dquarkus.container-image.build=true
+```
+
+## Running a local Postgres server in a Docker container with Volume
+
+```
+docker-compose up postgres
+
 ```
 
 ## Running a local Postgres server in a Docker container (no state)
 
 ```
-docker run -d --rm --name postgres-quarkus-hibernate -e POSTGRES_USER=hibernate -e POSTGRES_PASSWORD=hibernate -e POSTGRES_DB=hibernate_db -p 5432:5432 postgres:13
+docker run -d --rm --name postgres-quarkus-hibernate -e POSTGRES_USER=t-learn -e POSTGRES_PASSWORD=t-learn -e POSTGRES_DB=t_learn_db -p 5432:5432 postgres:13
 ```
 
 ## Frontend SPA

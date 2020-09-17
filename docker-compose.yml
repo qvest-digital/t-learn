@@ -3,6 +3,7 @@ services:
   app-backend:
     restart: always
     image: t-learn:1.0.0-SNAPSHOT
+    container_name: t-learn-backend
     ports:
       - 8080:8080
     depends_on:
@@ -15,6 +16,7 @@ services:
   postgres:
     restart: always
     image: postgres:13
+    container_name: t-learn-db
     ports:
       - 5432:5432
     environment:
