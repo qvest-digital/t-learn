@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.tarent.config.UtcOffsetDateTimeSerializer;
 import de.tarent.validator.StartDateBeforeEndDate;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Entity;
@@ -36,9 +37,11 @@ public class Course extends PanacheEntity {
     @Enumerated(STRING)
     public Location location;
     public String address;
+    @Length(max = 2000)
     public String targetAudience;
     @Pattern(regexp = "https?\\W.*", flags = CASE_INSENSITIVE, message = "protocol must be \"http\" or \"https\"")
     @URL
+    @Length(max = 1000)
     public String link;
     @JsonIgnore
     public Boolean deleted;

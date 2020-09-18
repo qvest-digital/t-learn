@@ -117,8 +117,9 @@
                     placeholder="https://"
                 />
                 <b-form-invalid-feedback>
-                    Der Link muss ein gültiger URL sein und mit den Protokollen
-                    "http" oder "https" beginnen.
+                    Der Link muss ein gültiger URL sein, mit den Protokollen
+                    "http" oder "https" beginnen und darf nur maximal 1000
+                    Zeichen lang sein.
                 </b-form-invalid-feedback>
             </b-col>
         </b-row>
@@ -129,12 +130,16 @@
                     >Zielgruppe</label
                 >
                 <b-form-textarea
-                    v-model="course.targetAudience"
+                    v-model="$v.course.targetAudience.$model"
+                    :state="validateState('course.targetAudience')"
                     id="targetAudience"
                     placeholder="Veranstaltungsbeschreibung"
                     rows="3"
                     max-rows="6"
                 />
+                <b-form-invalid-feedback>
+                    Die maximale Länge sind 2000 Zeichen.
+                </b-form-invalid-feedback>
             </b-col>
         </b-row>
     </div>
@@ -142,7 +147,7 @@
 
 <script>
 import { isValid, parse } from 'date-fns';
-import { helpers, required, url } from 'vuelidate/lib/validators';
+import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
 
 const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -198,7 +203,11 @@ export default {
             },
             link: {
                 url,
-                protocol: helpers.regex('protocol', /https?\W/)
+                protocol: helpers.regex('protocol', /https?\W/),
+                maxLength: maxLength(1000)
+            },
+            targetAudience: {
+                maxLength: maxLength(2000)
             }
         }
     },
