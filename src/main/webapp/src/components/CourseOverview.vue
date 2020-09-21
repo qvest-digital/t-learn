@@ -1,41 +1,55 @@
 <template>
     <div>
-        <h2>Übersicht über alle Veranstaltungen</h2>
-        <b-row cols-lg="3">
-            <b-col v-for="course in courses" :key="course.id">
-                <b-card
-                    :title="course.title"
-                    :img-src="cardimage(course)"
-                    :img-alt="course.title"
+        <div class="page-title">Übersicht über alle Veranstaltungen</div>
+        <div v-for="course in courses" :key="course.id">
+            <div class="course-card">
+                <div class="course-card-title">
+                    {{ course.title }}
+                </div>
+                <div class="course-image-container">
+                    <img
+                        class="course-img"
+                        :src="cardimage(course)"
+                        :alt="course.title"
+                    />
+                </div>
+
+                <span
+                    class="course-card-text"
+                    v-if="course.location === 'ONSITE'"
                 >
-                    <b-card-text v-if="course.location === 'REMOTE'">
-                        Remote
-                    </b-card-text>
-                    <b-card-text v-if="course.location === 'ONSITE'">
-                        Präsenz
-                    </b-card-text>
-                    <b-card-text>
-                        {{ course.targetAudience }}
-                        <div>
-                            <b-button
-                                @click="deleteCourse(course)"
-                                type="submit"
-                                variant="primary"
-                            >
-                                Löschen
-                            </b-button>
-                        </div>
-                        <router-link
-                            :to="{
-                                name: 'courseDetails',
-                                params: { courseId: course.id }
-                            }"
-                            class="stretched-link"
-                        ></router-link>
-                    </b-card-text>
-                </b-card>
-            </b-col>
-        </b-row>
+                    Präsenz
+                </span>
+                <span
+                    class="course-card-text"
+                    v-if="course.location === 'REMOTE'"
+                >
+                    Remote
+                </span>
+                <span class="course-card-description">{{
+                    course.targetAudience
+                }}</span>
+
+                <div>
+                    <button
+                        class="course-card-delete-button"
+                        @click="deleteCourse(course)"
+                        type="submit"
+                        variant="primary"
+                    >
+                        Löschen
+                    </button>
+                </div>
+            </div>
+
+            <router-link
+                :to="{
+                    name: 'courseDetails',
+                    params: { courseId: course.id }
+                }"
+                class="stretched-link"
+            ></router-link>
+        </div>
     </div>
 </template>
 
