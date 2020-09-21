@@ -1,99 +1,99 @@
-import axios from "axios";
+import axios from 'axios';
 import {
-  deleteCourse,
-  getCourses,
-  getCourse,
-  createCourse,
-  updateCourse
-} from "@/services/BackendService";
+    deleteCourse,
+    getCourses,
+    getCourse,
+    createCourse,
+    updateCourse
+} from '@/services/BackendService';
 
-jest.mock("axios");
+jest.mock('axios');
 
-describe("BackendService.js", () => {
-  it("requests course data from the server", async () => {
-    axios.get.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: [
-          {
+describe('BackendService.js', () => {
+    it('requests course data from the server', async () => {
+        axios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: [
+                    {
+                        id: 1,
+                        title: 'Title1',
+                        targetAudience: 'targetAudience1'
+                    },
+                    {
+                        id: 2,
+                        title: 'Title2',
+                        targetAudience: 'targetAudience2'
+                    }
+                ]
+            })
+        );
+
+        const courses = await getCourses();
+        expect(axios.get).toHaveBeenCalledWith('courses');
+        expect(courses.data).toHaveLength(2);
+    });
+
+    it('requests specific course from the server', async () => {
+        axios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: [
+                    {
+                        id: 1,
+                        title: 'Title1',
+                        targetAudience: 'targetAudience1'
+                    }
+                ]
+            })
+        );
+
+        const courses = await getCourse(1);
+        expect(axios.get).toHaveBeenCalledWith('courses/1');
+        expect(courses.data).toHaveLength(1);
+    });
+
+    it('sends course data to the server', async () => {
+        const course = {
+            title: 'title',
+            trainer: 'trainer',
+            courseType: 'courseType',
+            link: 'link'
+        };
+
+        axios.post.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: course
+            })
+        );
+
+        const response = await createCourse(course);
+        expect(axios.post).toHaveBeenCalledWith('courses', course);
+        expect(response.data).toBe(course);
+    });
+
+    it('sends updated course data to the server', async () => {
+        const course = {
             id: 1,
-            title: "Title1",
-            targetAudience: "targetAudience1"
-          },
-          {
-            id: 2,
-            title: "Title2",
-            targetAudience: "targetAudience2"
-          }
-        ]
-      })
-    );
+            title: 'title',
+            trainer: 'trainer',
+            courseType: 'courseType',
+            link: 'link'
+        };
 
-    const courses = await getCourses();
-    expect(axios.get).toHaveBeenCalledWith("courses");
-    expect(courses.data).toHaveLength(2);
-  });
+        axios.put.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: course
+            })
+        );
 
-  it("requests specific course from the server", async () => {
-    axios.get.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: [
-          {
-            id: 1,
-            title: "Title1",
-            targetAudience: "targetAudience1"
-          }
-        ]
-      })
-    );
+        const response = await updateCourse(course);
+        expect(axios.put).toHaveBeenCalledWith('courses/1', course);
+        expect(response.data).toBe(course);
+    });
 
-    const courses = await getCourse(1);
-    expect(axios.get).toHaveBeenCalledWith("courses/1");
-    expect(courses.data).toHaveLength(1);
-  });
+    it('deletes course on the server side', async () => {
+        axios.delete.mockImplementationOnce(() => Promise.resolve({}));
 
-  it("sends course data to the server", async () => {
-    const course = {
-      title: "title",
-      trainer: "trainer",
-      courseType: "courseType",
-      link: "link"
-    };
-
-    axios.post.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: course
-      })
-    );
-
-    const response = await createCourse(course);
-    expect(axios.post).toHaveBeenCalledWith("courses", course);
-    expect(response.data).toBe(course);
-  });
-
-  it("sends updated course data to the server", async () => {
-    const course = {
-      id: 1,
-      title: "title",
-      trainer: "trainer",
-      courseType: "courseType",
-      link: "link"
-    };
-
-    axios.put.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: course
-      })
-    );
-
-    const response = await updateCourse(course);
-    expect(axios.put).toHaveBeenCalledWith("courses/1", course);
-    expect(response.data).toBe(course);
-  });
-
-  it("deletes course on the server side", async () => {
-    axios.delete.mockImplementationOnce(() => Promise.resolve({}));
-
-    await deleteCourse(1);
-    expect(axios.delete).toHaveBeenCalledWith("courses/1");
-  });
+        await deleteCourse(1);
+        expect(axios.delete).toHaveBeenCalledWith('courses/1');
+    });
 });
