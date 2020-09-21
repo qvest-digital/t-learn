@@ -13,10 +13,9 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
 Vue.use(VueRouter);
-const router = new VueRouter({ routes, mode: 'history' });
 Vue.filter('formatDate', dateFormatFilter);
 
 new Vue({
     render: h => h(App),
-    router
+    router: new VueRouter({ routes})
 }).$mount('#app');
