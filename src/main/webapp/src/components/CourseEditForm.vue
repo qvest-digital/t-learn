@@ -76,6 +76,16 @@ export default {
                 const id = this.courseId;
                 updateCourse(this.course)
                     .then(() => {
+                        this.$root.$bvToast.toast(
+                            'Veranstaltung wurde erfolgreich geändert',
+                            {
+                                variant: 'success',
+                                isStatus: true,
+                                noCloseButton: true,
+                                solid: true,
+                                autoHideDelay: 2000
+                            }
+                        );
                         this.$router.push({
                             name: 'courseDetails',
                             params: { courseId: id }

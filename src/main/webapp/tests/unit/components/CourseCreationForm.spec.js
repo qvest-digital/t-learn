@@ -14,12 +14,12 @@ describe('CourseCreationForm.vue', () => {
         createCourse.mockReset();
     });
 
-    it('sends form data on submit to server and navigates to overview', async () => {
-        createCourse.mockImplementationOnce(() =>
-            Promise.resolve({
-                data: {}
-            })
-        );
+    it('sends form data on submit to server and navigates to details view', async () => {
+        createCourse.mockImplementationOnce(course => {
+            return Promise.resolve({
+                data: { id: 1, ...course }
+            });
+        });
 
         let routerPushSpy;
         const { getByTestId, getByRole } = render(
@@ -67,7 +67,10 @@ describe('CourseCreationForm.vue', () => {
             title: 'Test',
             trainer: 'Trainer'
         });
-        expect(routerPushSpy).toHaveBeenCalledWith('/');
+        expect(routerPushSpy).toHaveBeenCalledWith({
+            name: 'courseDetails',
+            params: { courseId: 1 }
+        });
     });
 
     it('shows error message on unsuccessful form data submit to server', async () => {
