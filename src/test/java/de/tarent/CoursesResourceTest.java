@@ -2,6 +2,7 @@ package de.tarent;
 
 import de.tarent.entities.Course;
 import io.quarkus.test.junit.QuarkusTest;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -197,6 +198,68 @@ public class CoursesResourceTest {
                 .statusCode(400)
                 .body("message", equalTo("link must be a valid URL"))
                 .body("success", is(false));
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_InvalidLinkLength() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.link = "https://".concat(RandomStringUtils.random(1001 - 11)).concat(".de");
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("link length must be between 0 and 1000"))
+                .body("success", is(false));
+    }
+
+    @Test
+    public void testCreateNewCourse_CheckValidLinkLength() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.link = "https://".concat(RandomStringUtils.random(1000 - 11)).concat(".de");
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(201)
+                .body("link", hasLength(1000));
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_InvalidTargetAudienceLength() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.targetAudience = RandomStringUtils.random(2001);
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("targetAudience length must be between 0 and 2000"))
+                .body("success", is(false));
+    }
+
+    @Test
+    public void testCreateNewCourse_CheckValidTargetAudienceLength() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.targetAudience = RandomStringUtils.random(2000);
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(201)
+                .body("targetAudience", hasLength(2000));
     }
 
     @Test
