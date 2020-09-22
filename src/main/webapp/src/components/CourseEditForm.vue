@@ -3,7 +3,7 @@
         <div class="page-title">
             Editieren einer Veranstaltung
         </div>
-        <b-form @submit.prevent="update">
+        <form @submit.prevent="update">
             <div
                 v-show="hasError"
                 class="form-error-text"
@@ -35,7 +35,7 @@
                     Speichern
                 </button>
             </div>
-        </b-form>
+        </form>
     </div>
 </template>
 
