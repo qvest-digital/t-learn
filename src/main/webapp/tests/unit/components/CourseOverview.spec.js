@@ -6,7 +6,7 @@ import {
 } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-import { BootstrapVue } from 'bootstrap-vue';
+// import { BootstrapVue } from 'bootstrap-vue';
 import routes from '@/routes';
 
 jest.mock('@/services/BackendService');
@@ -113,7 +113,7 @@ describe('CourseOverview.vue', () => {
                 routes: routes
             },
             localVue => {
-                localVue.use(BootstrapVue);
+                // localVue.use(BootstrapVue);
             }
         );
     }

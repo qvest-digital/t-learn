@@ -6,7 +6,7 @@
                 <div class="course-card-title">
                     {{ course.title }}
                 </div>
-                <div class="course-image-container">
+                <div class="course-card-image-container">
                     <img
                         class="course-img"
                         :src="cardimage(course)"
@@ -57,7 +57,7 @@
 import coffeeImg from '../assets/coffee.jpg';
 import signsImg from '../assets/signs.jpg';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-import deleteCourseModal from './deleteCourseModal';
+// import deleteCourseModal from './deleteCourseModal';
 
 export default {
     name: 'CourseOverview',
@@ -77,18 +77,18 @@ export default {
             }
         },
         deleteCourse: function(course) {
-            deleteCourseModal(this, course.title, () => {
-                deleteCourse(course.id)
-                    .then(
-                        () =>
-                            (this.courses = this.courses.filter(
-                                elem => elem.id !== course.id
-                            ))
-                    )
-                    .catch(() =>
-                        console.error(`${course.id} could not be deleted)`)
-                    );
-            });
+            // deleteCourseModal(this, course.title, () => {
+            deleteCourse(course.id)
+                .then(
+                    () =>
+                        (this.courses = this.courses.filter(
+                            elem => elem.id !== course.id
+                        ))
+                )
+                .catch(() =>
+                    console.error(`${course.id} could not be deleted)`)
+                );
+            // });
         }
     },
     mounted: function() {

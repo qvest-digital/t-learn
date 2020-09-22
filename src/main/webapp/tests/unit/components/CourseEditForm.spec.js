@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
 import { getCourse, updateCourse } from '@/services/BackendService';
-import { BootstrapVue } from 'bootstrap-vue';
+// import { BootstrapVue } from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import routes from '@/routes';
 import CourseEditForm from '@/components/CourseEditForm';
@@ -39,7 +39,7 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
+                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -89,7 +89,7 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
+                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -121,7 +121,7 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
+                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -149,7 +149,7 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
+                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -188,7 +188,7 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
+                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
