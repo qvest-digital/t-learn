@@ -1,81 +1,96 @@
 <template>
     <div>
-        <div>
-            <h1>{{ course.title }}</h1>
+        <div class="page-title">
+            {{ course.title }}
         </div>
         <div>
-            <div class="detailThumbnail">
-                <b-img
-                    left
-                    thumbnail
-                    class="mb-3 mr-3"
+            <div class="course-details-image-container">
+                <img
+                    class="course-img"
                     :src="cardimage(course)"
-                ></b-img>
+                    :alt="course.title"
+                />
             </div>
-            <b-row class="mb-3" cols="1" cols-md="2">
-                <b-col v-if="course.courseType">
-                    <div class="label">Typ:</div>
-                    {{ course.courseType == 'EXTERNAL' ? 'Extern' : 'Intern' }}
-                </b-col>
-                <b-col v-if="course.location">
-                    <div class="label">Ort:</div>
-                    {{
-                        course.location == 'REMOTE'
-                            ? 'Remoteveranstaltung'
-                            : 'Präsenzveranstaltung'
-                    }}
-                </b-col>
-                <b-col v-if="course.startDate">
-                    <div class="label">Start:</div>
-                    {{ course.startDate | formatDate }}
-                </b-col>
-                <b-col v-if="course.endDate">
-                    <div class="label">Ende:</div>
-                    {{ course.endDate | formatDate }}
-                </b-col>
-                <b-col v-if="course.address">
-                    <div class="label">Adresse:</div>
-                    {{ course.address }}
-                </b-col>
-                <b-col v-if="course.organizer">
-                    <div class="label">Organisator:</div>
-                    {{ course.organizer }}
-                </b-col>
-                <b-col v-if="course.trainer">
-                    <div class="label">Trainer:</div>
-                    {{ course.trainer }}
-                </b-col>
-                <b-col v-if="course.link">
-                    <div class="label">Link:</div>
-                    <div class="abbreviation">
+
+            <div class="course-details-content-container">
+                <div class="course-details-content" v-if="course.courseType">
+                    <span class="course-details-content-label">Typ:</span>
+                    <span class="course-details-content-text">{{
+                        course.courseType == 'EXTERNAL' ? 'Extern' : 'Intern'
+                    }}</span>
+                </div>
+                <div class="course-details-content" v-if="course.location">
+                    <span class="course-details-content-label">Ort:</span>
+                    <span class="course-details-content-text">
+                        {{
+                            course.location == 'REMOTE'
+                                ? 'Remoteveranstaltung'
+                                : 'Präsenzveranstaltung'
+                        }}
+                    </span>
+                </div>
+                <div class="course-details-content" v-if="course.startDate">
+                    <span class="course-details-content-label">Start:</span>
+                    <span class="course-details-content-text"
+                        >{{ course.startDate | formatDate }}
+                    </span>
+                </div>
+                <div class="course-details-content" v-if="course.endDate">
+                    <span class="course-details-content-label">Ende:</span>
+                    <span class="course-details-content-text"
+                        >{{ course.endDate | formatDate }}
+                    </span>
+                </div>
+                <div class="course-details-content" v-if="course.address">
+                    <span class="course-details-content-label">Adresse:</span>
+                    <span class="course-details-content-text"
+                        >{{ course.address }}
+                    </span>
+                </div>
+                <div class="course-details-content" v-if="course.organizer">
+                    <span class="course-details-content-label"
+                        >Organisator:</span
+                    >
+                    <span class="course-details-content-text"
+                        >{{ course.organizer }}
+                    </span>
+                </div>
+                <div class="course-details-content" v-if="course.trainer">
+                    <span class="course-details-content-label">Trainer:</span>
+                    <span class="course-details-content-text">
+                        {{ course.trainer }}
+                    </span>
+                </div>
+                <div class="course-details-content" v-if="course.link">
+                    <span class="course-details-content-label">Link:</span>
+                    <span class="course-details-content-text">
                         <a :href="course.link">{{ course.link }}</a>
-                    </div>
-                </b-col>
-            </b-row>
-            <p>{{ course.targetAudience }}</p>
-            <b-row class="mb-3">
-                <b-col>
-                    <b-button
+                    </span>
+                </div>
+            </div>
+            <div class="course-details-description">
+                {{ course.targetAudience }}
+            </div>
+            <div class="course-details-nav">
+                <div>
+                    <button @click="$router.push('/')">
+                        Zurück
+                    </button>
+                    <button
                         @click="
                             $router.push({
                                 name: 'courseEdit',
                                 params: { courseId }
                             })
                         "
-                        type="submit"
-                        variant="primary"
                     >
                         Bearbeiten
-                    </b-button>
-                    <b-button
-                        @click="deleteCourse(courseId)"
-                        type="submit"
-                        variant="secondary"
-                    >
+                    </button>
+                    <button @click="deleteCourse(courseId)">
                         Löschen
-                    </b-button>
-                </b-col>
-            </b-row>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -84,8 +99,8 @@
 import coffeeImg from '@/assets/coffee.jpg';
 import signsImg from '@/assets/signs.jpg';
 import { deleteCourse, getCourse } from '@/services/BackendService';
-import deleteCourseModal from '@/components/deleteCourseModal';
-import handleError from '@/components/handleError';
+// import deleteCourseModal from '@/components/deleteCourseModal';
+// import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
@@ -119,16 +134,17 @@ export default {
                 .then(response => {
                     this.course = response.data;
                 })
-                .catch(error => handleError(this, error));
+                .catch(error => console.error(error));
+            // .catch(error => handleError(this, error));
         },
         deleteCourse: function(courseId) {
-            deleteCourseModal(this, this.course.title, () => {
-                deleteCourse(courseId)
-                    .then(() => this.$router.push('/'))
-                    .catch(() =>
-                        console.error(`${courseId} could not be deleted)`)
-                    );
-            });
+            // deleteCourseModal(this, this.course.title, () => {
+            deleteCourse(courseId)
+                .then(() => this.$router.push('/'))
+                .catch(() =>
+                    console.error(`${courseId} could not be deleted)`)
+                );
+            // });
         }
     },
     mounted: function() {
