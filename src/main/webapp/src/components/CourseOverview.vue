@@ -2,7 +2,15 @@
     <div>
         <div class="page-title">Übersicht über alle Veranstaltungen</div>
         <div v-for="course in courses" :key="course.id">
-            <div class="course-card">
+            <div
+                class="course-card"
+                @click="
+                    $router.push({
+                        name: 'courseDetails',
+                        params: { courseId: course.id }
+                    })
+                "
+            >
                 <div class="course-card-title">
                     {{ course.title }}
                 </div>
