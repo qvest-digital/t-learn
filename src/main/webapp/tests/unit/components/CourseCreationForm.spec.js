@@ -63,6 +63,7 @@ describe('CourseCreationForm.vue', () => {
             organizer: null,
             startDate: null,
             targetAudience: null,
+            description: null,
             title: 'Test',
             trainer: 'Trainer'
         });
@@ -106,6 +107,7 @@ describe('CourseCreationForm.vue', () => {
             organizer: null,
             startDate: null,
             targetAudience: null,
+            description: null,
             title: 'Test',
             trainer: 'Trainer'
         });
@@ -256,6 +258,28 @@ describe('CourseCreationForm.vue', () => {
         await fireEvent.update(targetAudience, 'a'.repeat(2000));
 
         expect(targetAudience.classList).not.toContain('is-invalid');
+    });
+
+    it('shows validation error when description length is > 2000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const description = getByRole('textbox', {
+            name: 'Beschreibung / Inhalt'
+        });
+        await fireEvent.update(description, 'a'.repeat(2001));
+
+        expect(description.classList).toContain('is-invalid');
+    });
+
+    it('shows no validation error when description length is 2000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const description = getByRole('textbox', {
+            name: 'Beschreibung / Inhalt'
+        });
+        await fireEvent.update(description, 'a'.repeat(2000));
+
+        expect(description.classList).not.toContain('is-invalid');
     });
 
     function setupComponent() {

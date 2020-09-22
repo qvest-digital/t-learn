@@ -142,6 +142,24 @@
                 </b-form-invalid-feedback>
             </b-col>
         </b-row>
+        <b-row class="mb-3">
+            <b-col>
+                <label for="description" class="form-label"
+                    >Beschreibung / Inhalt</label
+                >
+                <b-form-textarea
+                    v-model="$v.course.description.$model"
+                    :state="validateState('course.description')"
+                    id="description"
+                    placeholder="Beschreibung"
+                    rows="3"
+                    max-rows="6"
+                />
+                <b-form-invalid-feedback>
+                    Die maximale Länge sind 2000 Zeichen.
+                </b-form-invalid-feedback>
+            </b-col>
+        </b-row>
     </div>
 </template>
 
@@ -207,6 +225,9 @@ export default {
                 maxLength: maxLength(1000)
             },
             targetAudience: {
+                maxLength: maxLength(2000)
+            },
+            description: {
                 maxLength: maxLength(2000)
             }
         }

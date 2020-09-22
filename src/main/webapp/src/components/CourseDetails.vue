@@ -53,6 +53,7 @@
                 </b-col>
             </b-row>
             <p>{{ course.targetAudience }}</p>
+            <p>{{ course.description }}</p>
             <b-row class="mb-3">
                 <b-col>
                     <b-button

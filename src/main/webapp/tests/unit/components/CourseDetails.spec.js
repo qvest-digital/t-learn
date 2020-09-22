@@ -35,6 +35,7 @@ describe('CourseDetails.vue', () => {
                     location: 'REMOTE',
                     address: 'Daheim',
                     targetAudience: 'Alle',
+                    description: 'Beschreibung',
                     link: 'https://tarent.de'
                 }
             })
@@ -65,7 +66,8 @@ describe('CourseDetails.vue', () => {
                 'href',
                 'https://tarent.de'
             ),
-            expect(getByText('Alle')).toBeInTheDocument()
+            expect(getByText('Alle')).toBeInTheDocument(),
+            expect(getByText('Beschreibung')).toBeInTheDocument()
         ]);
 
         expect(getCourse).toHaveBeenCalledWith(1);
