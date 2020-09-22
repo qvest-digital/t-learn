@@ -214,6 +214,50 @@ describe('CourseCreationForm.vue', () => {
         expect(linkInput.classList).toContain('is-invalid');
     });
 
+    it('shows validation error when link length is > 1000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const link = getByRole('textbox', {
+            name: 'Weiterführender Link'
+        });
+        await fireEvent.update(link, `https://${'a'.repeat(1001 - 11)}.de`);
+
+        expect(link.classList).toContain('is-invalid');
+    });
+
+    it('shows no validation error when link length is 1000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const link = getByRole('textbox', {
+            name: 'Weiterführender Link'
+        });
+        await fireEvent.update(link, `https://${'a'.repeat(1000 - 11)}.de`);
+
+        expect(link.classList).not.toContain('is-invalid');
+    });
+
+    it('shows validation error when targetAudience length is > 2000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const targetAudience = getByRole('textbox', {
+            name: 'Zielgruppe'
+        });
+        await fireEvent.update(targetAudience, 'a'.repeat(2001));
+
+        expect(targetAudience.classList).toContain('is-invalid');
+    });
+
+    it('shows no validation error when targetAudience length is 2000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const targetAudience = getByRole('textbox', {
+            name: 'Zielgruppe'
+        });
+        await fireEvent.update(targetAudience, 'a'.repeat(2000));
+
+        expect(targetAudience.classList).not.toContain('is-invalid');
+    });
+
     function setupComponent() {
         return render(CourseCreationForm, {}, localVue => {
             localVue.use(BootstrapVue);

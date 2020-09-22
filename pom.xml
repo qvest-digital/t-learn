@@ -12,10 +12,10 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>1.8.0.Final</quarkus-plugin.version>
+    <quarkus-plugin.version>1.8.1.Final</quarkus-plugin.version>
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>1.8.0.Final</quarkus.platform.version>
+    <quarkus.platform.version>1.8.1.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
   </properties>
   <dependencyManagement>
@@ -58,6 +58,10 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-flyway</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jackson</artifactId>
     </dependency>
     <dependency>
@@ -83,54 +87,6 @@
               <goal>generate-code-tests</goal>
               <goal>build</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.github.eirslett</groupId>
-        <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.10.0</version>
-        <configuration>
-          <workingDirectory>${project.basedir}/src/main/webapp</workingDirectory>
-          <installDirectory>target</installDirectory>
-        </configuration>
-        <executions>
-          <execution>
-            <id>install node and npm</id>
-            <goals>
-              <goal>install-node-and-npm</goal>
-            </goals>
-            <configuration>
-              <nodeVersion>v12.18.3</nodeVersion>
-              <npmVersion>6.14.8</npmVersion>
-            </configuration>
-          </execution>
-          <execution>
-            <id>npm install</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>install</arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>npm run test</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run test:unit</arguments>
-            </configuration>
-          </execution>
-          <execution>
-            <id>npm run build</id>
-            <goals>
-              <goal>npm</goal>
-            </goals>
-            <configuration>
-              <arguments>run prod</arguments>
-            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -178,6 +134,67 @@
                 </configuration>
               </execution>
             </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <properties>
+        <quarkus.package.type>native</quarkus.package.type>
+      </properties>
+    </profile>
+    <profile>
+      <id>frontend-build</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+             <groupId>com.github.eirslett</groupId>
+             <artifactId>frontend-maven-plugin</artifactId>
+             <version>1.10.0</version>
+             <configuration>
+               <workingDirectory>${project.basedir}/src/main/webapp</workingDirectory>
+               <installDirectory>target</installDirectory>
+             </configuration>
+             <executions>
+               <execution>
+                 <id>install node and npm</id>
+                 <goals>
+                   <goal>install-node-and-npm</goal>
+                 </goals>
+                 <configuration>
+                   <nodeVersion>v12.18.3</nodeVersion>
+                   <npmVersion>6.14.8</npmVersion>
+                 </configuration>
+               </execution>
+               <execution>
+                 <id>npm install</id>
+                 <goals>
+                   <goal>npm</goal>
+                 </goals>
+                 <configuration>
+                   <arguments>install</arguments>
+                 </configuration>
+               </execution>
+               <execution>
+                 <id>npm run test</id>
+                 <goals>
+                   <goal>npm</goal>
+                 </goals>
+                 <configuration>
+                   <arguments>run test:unit</arguments>
+                 </configuration>
+               </execution>
+               <execution>
+                 <id>npm run build</id>
+                 <goals>
+                   <goal>npm</goal>
+                 </goals>
+                 <configuration>
+                   <arguments>run prod</arguments>
+                 </configuration>
+               </execution>
+             </executions>
           </plugin>
         </plugins>
       </build>
