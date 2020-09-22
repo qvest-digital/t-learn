@@ -30,6 +30,7 @@ describe('CourseInputForm.vue', () => {
             location: 'REMOTE',
             address: 'Daheim',
             targetAudience: 'Alle',
+            description: 'Beschreibung',
             link: 'https://tarent.de'
         };
         await updateProps({
@@ -64,6 +65,9 @@ describe('CourseInputForm.vue', () => {
         expect(getByRole('textbox', { name: 'Zielgruppe' })).toHaveValue(
             'Alle'
         );
+        expect(
+            getByRole('textbox', { name: 'Beschreibung / Inhalt' })
+        ).toHaveValue('Beschreibung');
     });
 
     it("calls 'ready' callback with value 'true' when touch was called with no validation errors", async () => {
@@ -80,6 +84,7 @@ describe('CourseInputForm.vue', () => {
                 location: null,
                 address: null,
                 targetAudience: null,
+                description: null,
                 link: null
             }
         });
