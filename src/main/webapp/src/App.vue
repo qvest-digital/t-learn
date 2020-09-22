@@ -1,9 +1,9 @@
 <template>
     <div>
         <Header />
-        <b-container class="pt-5">
+        <div class="app-container">
             <router-view></router-view>
-        </b-container>
+        </div>
         <Footer />
     </div>
 </template>

@@ -1,9 +1,10 @@
 <template>
-    <footer class="container-fluid bg-light text-center mt-4">
-        <span class="text-muted">
-            <a class="link-secondary" href="/privacy-policy">Privacy Policy</a>
-            | <a class="link-secondary" href="/impressum">Impressum</a>
-        </span>
+    <footer>
+        <div class="footer-container">
+            <span class="footer-text">Applikation-Version:</span>
+            <span className="footer-text-separator">•</span>
+            <span class="footer-text">Datenbank-Version:</span>
+        </div>
     </footer>
 </template>
 <script>
