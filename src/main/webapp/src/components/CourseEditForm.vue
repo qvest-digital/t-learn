@@ -1,10 +1,12 @@
 <template>
     <div>
-        <h2>Editieren einer Veranstaltung</h2>
+        <div class="page-title">
+            Editieren einer Veranstaltung
+        </div>
         <b-form @submit.prevent="update">
             <div
                 v-show="hasError"
-                style="color: darkred"
+                class="form-error-text"
                 data-testid="errorMsg"
             >
                 Ein Fehler ist aufgetreten, bitte versuchen Sie es später
@@ -17,24 +19,22 @@
                 @ready="isReady => (isValid = isReady)"
             />
 
-            <b-row class="mb-3">
-                <b-col>
-                    <b-button
-                        @click="
-                            $router.push({
-                                name: 'courseDetails',
-                                params: { courseId }
-                            })
-                        "
-                        variant="secondary"
-                    >
-                        Abbrechen
-                    </b-button>
-                    <b-button type="submit" variant="primary">
-                        Speichern
-                    </b-button>
-                </b-col>
-            </b-row>
+            <div class="form-footer">
+                <button
+                    class="form-cancel-button"
+                    @click="
+                        $router.push({
+                            name: 'courseDetails',
+                            params: { courseId }
+                        })
+                    "
+                >
+                    Abbrechen
+                </button>
+                <button class="form-submit-button">
+                    Speichern
+                </button>
+            </div>
         </b-form>
     </div>
 </template>

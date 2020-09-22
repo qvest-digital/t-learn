@@ -121,71 +121,71 @@ describe('CourseDetails.vue', () => {
         });
     });
 
-    // it("sends delete request to server and navigates to overview page when 'Löschen' button is clicked", async () => {
-    //     getCourse.mockImplementationOnce(() =>
-    //         Promise.resolve({
-    //             data: {}
-    //         })
-    //     );
+    it("sends delete request to server and navigates to overview page when 'Löschen' button is clicked", async () => {
+        getCourse.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {}
+            })
+        );
 
-    //     deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
+        deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
-    //     let routerPushSpy;
-    //     const { findByRole, getByText, getByRole } = render(
-    //         CourseDetails,
-    //         {
-    //             props: { courseId: 1 },
-    //             routes: routes
-    //         },
-    //         (localVue, store, router) => {
-    //             // localVue.use(BootstrapVue);
-    //             router.push('/details/1');
-    //             routerPushSpy = jest.spyOn(router, 'push');
-    //         }
-    //     );
+        let routerPushSpy;
+        const { findByRole, getByText, getByRole } = render(
+            CourseDetails,
+            {
+                props: { courseId: 1 },
+                routes: routes
+            },
+            (localVue, store, router) => {
+                // localVue.use(BootstrapVue);
+                router.push('/details/1');
+                routerPushSpy = jest.spyOn(router, 'push');
+            }
+        );
 
-    //     await fireEvent.click(getByRole('button', { name: 'Löschen' }));
+        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
 
-    //     const confirmButton = await findByRole('button', { name: 'Ok' });
-    //     await fireEvent.click(confirmButton);
+        const confirmButton = await findByRole('button', { name: 'Ok' });
+        await fireEvent.click(confirmButton);
 
-    //     await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
+        await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
 
-    //     await waitFor(() => [
-    //         expect(deleteCourse).toHaveBeenCalledWith(1),
-    //         expect(routerPushSpy).toBeCalledWith('/')
-    //     ]);
-    // });
+        await waitFor(() => [
+            expect(deleteCourse).toHaveBeenCalledWith(1),
+            expect(routerPushSpy).toBeCalledWith('/')
+        ]);
+    });
 
-    // it("stays on page when 'Abbrechen' button was clicked when deleting", async () => {
-    //     getCourse.mockImplementationOnce(() =>
-    //         Promise.resolve({
-    //             data: {}
-    //         })
-    //     );
+    it("stays on page when 'Abbrechen' button was clicked when deleting", async () => {
+        getCourse.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {}
+            })
+        );
 
-    //     let routerPushSpy;
-    //     const { findByRole, getByText, getByRole } = render(
-    //         CourseDetails,
-    //         {
-    //             props: { courseId: 1 },
-    //             routes: routes
-    //         },
-    //         (localVue, store, router) => {
-    //             // localVue.use(BootstrapVue);
-    //             router.push('/details/1');
-    //             routerPushSpy = jest.spyOn(router, 'push');
-    //         }
-    //     );
+        let routerPushSpy;
+        const { findByRole, getByText, getByRole } = render(
+            CourseDetails,
+            {
+                props: { courseId: 1 },
+                routes: routes
+            },
+            (localVue, store, router) => {
+                // localVue.use(BootstrapVue);
+                router.push('/details/1');
+                routerPushSpy = jest.spyOn(router, 'push');
+            }
+        );
 
-    //     await fireEvent.click(getByRole('button', { name: 'Löschen' }));
+        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
 
-    //     const cancelButton = await findByRole('button', { name: 'Abbrechen' });
-    //     await fireEvent.click(cancelButton);
+        const cancelButton = await findByRole('button', { name: 'Abbrechen' });
+        await fireEvent.click(cancelButton);
 
-    //     await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
+        await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
 
-    //     expect(deleteCourse).not.toHaveBeenCalled();
-    //     expect(routerPushSpy).not.toHaveBeenCalled();
-    // });
+        expect(deleteCourse).not.toHaveBeenCalled();
+        expect(routerPushSpy).not.toHaveBeenCalled();
+    });
 });

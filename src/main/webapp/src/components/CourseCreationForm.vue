@@ -1,10 +1,13 @@
 <template>
     <div>
-        <h2>Anlegen einer neuen Veranstaltung</h2>
-        <b-form @submit.prevent="create">
+        <div class="page-title">
+            Anlegen einer neuen Veranstaltung
+        </div>
+
+        <form @submit.prevent="create">
             <div
                 v-show="hasError"
-                style="color: darkred"
+                class="form-error-text"
                 data-testid="errorMsg"
             >
                 Ein Fehler ist aufgetreten, bitte versuchen Sie es später
@@ -17,14 +20,12 @@
                 @ready="isReady => (isValid = isReady)"
             />
 
-            <b-row class="mb-3">
-                <b-col>
-                    <b-button type="submit" variant="primary">
-                        Erstellen
-                    </b-button>
-                </b-col>
-            </b-row>
-        </b-form>
+            <div class="form-footer">
+                <button class="form-submit-button">
+                    Erstellen
+                </button>
+            </div>
+        </form>
     </div>
 </template>
 
