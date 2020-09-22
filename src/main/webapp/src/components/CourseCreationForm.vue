@@ -64,8 +64,22 @@ export default {
                 }
 
                 createCourse(this.course)
-                    .then(() => {
-                        this.$router.push('/');
+                    .then(response => {
+                        const createdCourse = response.data;
+                        this.$root.$bvToast.toast(
+                            'Veranstaltung wurde erfolgreich angelegt',
+                            {
+                                variant: 'success',
+                                isStatus: true,
+                                noCloseButton: true,
+                                solid: true,
+                                autoHideDelay: 2000
+                            }
+                        );
+                        this.$router.push({
+                            name: 'courseDetails',
+                            params: { courseId: createdCourse.id }
+                        });
                     })
                     .catch(this.handleError);
             });
