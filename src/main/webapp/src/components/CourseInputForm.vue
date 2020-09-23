@@ -199,6 +199,9 @@ export default {
             },
             targetAudience: {
                 maxLength: maxLength(2000)
+            },
+            description: {
+                maxLength: maxLength(2000)
             }
         }
     },

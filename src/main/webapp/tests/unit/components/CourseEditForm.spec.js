@@ -217,6 +217,7 @@ describe('CourseEditForm.vue', () => {
             location: null,
             address: null,
             targetAudience: null,
+            description: null,
             link: null
         };
     }

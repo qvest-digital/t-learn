@@ -35,6 +35,7 @@ describe('CourseDetails.vue', () => {
                     location: 'REMOTE',
                     address: 'Daheim',
                     targetAudience: 'Alle',
+                    description: 'Beschreibung',
                     link: 'https://tarent.de'
                 }
             })

@@ -93,6 +93,7 @@ public class CoursesResourceTest {
         course.location = REMOTE;
         course.address = "Rochusstraße 2-4, 53123 Bonn";
         course.targetAudience = "Alle";
+        course.description = "Eine Veranstaltung";
         course.link = "http://tarent.de";
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -108,6 +109,7 @@ public class CoursesResourceTest {
                 .body("location", equalTo("REMOTE"))
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
                 .body("targetAudience", equalTo("Alle"))
+                .body("description", equalTo("Eine Veranstaltung"))
                 .body("link", equalTo("http://tarent.de"))
                 .extract().path("id");
 
@@ -260,6 +262,37 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(201)
                 .body("targetAudience", hasLength(2000));
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_InvalidDescriptionLength() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.description = RandomStringUtils.random(2001);
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("description length must be between 0 and 2000"))
+                .body("success", is(false));
+    }
+
+    @Test
+    public void testCreateNewCourse_CheckValidDescriptionLength() {
+        final Course course = new Course();
+        course.title = "CreatedQuarkusCourse";
+        course.trainer = "Norbert Neutrainer";
+        course.courseType = EXTERNAL;
+        course.description = RandomStringUtils.random(2000);
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(201)
+                .body("description", hasLength(2000));
     }
 
     @Test

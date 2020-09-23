@@ -13,12 +13,12 @@ describe('CourseCreationForm.vue', () => {
         createCourse.mockReset();
     });
 
-    it('sends form data on submit to server and navigates to overview', async () => {
-        createCourse.mockImplementationOnce(() =>
-            Promise.resolve({
-                data: {}
-            })
-        );
+    it('sends form data on submit to server and navigates to details view', async () => {
+        createCourse.mockImplementationOnce(course => {
+            return Promise.resolve({
+                data: { id: 1, ...course }
+            });
+        });
 
         let routerPushSpy;
         const { getByTestId, getByRole } = render(
@@ -61,10 +61,14 @@ describe('CourseCreationForm.vue', () => {
             organizer: null,
             startDate: null,
             targetAudience: null,
+            description: null,
             title: 'Test',
             trainer: 'Trainer'
         });
-        expect(routerPushSpy).toHaveBeenCalledWith('/');
+        expect(routerPushSpy).toHaveBeenCalledWith({
+            name: 'courseDetails',
+            params: { courseId: 1 }
+        });
     });
 
     it('shows error message on unsuccessful form data submit to server', async () => {
@@ -104,6 +108,7 @@ describe('CourseCreationForm.vue', () => {
             organizer: null,
             startDate: null,
             targetAudience: null,
+            description: null,
             title: 'Test',
             trainer: 'Trainer'
         });
@@ -254,6 +259,28 @@ describe('CourseCreationForm.vue', () => {
         await fireEvent.update(targetAudience, 'a'.repeat(2000));
 
         expect(targetAudience.classList).not.toContain('is-invalid');
+    });
+
+    it('shows validation error when description length is > 2000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const description = getByRole('textbox', {
+            name: 'Beschreibung / Inhalt'
+        });
+        await fireEvent.update(description, 'a'.repeat(2001));
+
+        expect(description.classList).toContain('is-invalid');
+    });
+
+    it('shows no validation error when description length is 2000 characters', async () => {
+        const { getByRole } = setupComponent();
+
+        const description = getByRole('textbox', {
+            name: 'Beschreibung / Inhalt'
+        });
+        await fireEvent.update(description, 'a'.repeat(2000));
+
+        expect(description.classList).not.toContain('is-invalid');
     });
 
     function setupComponent() {
