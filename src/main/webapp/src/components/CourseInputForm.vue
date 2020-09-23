@@ -39,7 +39,6 @@
             v-model="$v.startDateRaw.$model"
             :class="validationStateClass('startDateRaw')"
             id="start-date"
-            class="input-start-date"
             placeholder="DD.MM.YYYY HH:MM"
         />
         <span v-if="$v.startDateRaw.$error" class="form-validation-text">
@@ -53,7 +52,6 @@
             v-model="$v.endDateRaw.$model"
             :class="validationStateClass('endDateRaw')"
             id="end-date"
-            class="input-end-date"
             placeholder="DD.MM.YYYY HH:MM"
         />
         <span v-if="$v.endDateRaw.$error" class="form-validation-text">
@@ -68,13 +66,11 @@
             v-model="$v.course.courseType.$model"
             :class="validationStateClass('course.courseType')"
             id="course-type"
-            class="input-course-type"
         >
             <option
                 v-for="courseType in courseTypes"
                 :key="courseType.text"
                 :value="courseType.value"
-                class="input-course-type-option"
             >
                 {{ courseType.text }}
             </option>
@@ -90,7 +86,6 @@
                 v-for="location in locations"
                 :key="location.text"
                 :value="location.value"
-                class="input-location-option"
             >
                 {{ location.text }}
             </option>
@@ -101,7 +96,6 @@
             type="text"
             v-model="course.address"
             id="address"
-            class="input-address"
             placeholder="postalische Adresse"
         />
 
@@ -111,7 +105,6 @@
             v-model="$v.course.link.$model"
             :class="validationStateClass('course.link')"
             id="link"
-            class="input-link"
             placeholder="https://"
         />
         <span v-if="$v.course.link.$error" class="form-validation-text">
@@ -124,13 +117,25 @@
             v-model="$v.course.targetAudience.$model"
             :class="validationStateClass('course.targetAudience')"
             id="target-audience"
-            class="input-target-audience"
-            placeholder="Veranstaltungsbeschreibung"
+            placeholder="An wen richtet sich die Veranstaltung"
         />
         <span
             v-if="$v.course.targetAudience.$error"
             class="form-validation-text"
         >
+            Die maximale Länge sind 2000 Zeichen.
+        </span>
+
+        <label for="description" class="form-label"
+            >Beschreibung / Inhalt</label
+        >
+        <textarea
+            v-model="$v.course.description.$model"
+            :class="validationStateClass('course.description')"
+            id="description"
+            placeholder="Beschreibung"
+        />
+        <span v-if="$v.course.description.$error" class="form-validation-text">
             Die maximale Länge sind 2000 Zeichen.
         </span>
     </div>

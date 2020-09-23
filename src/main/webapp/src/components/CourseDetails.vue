@@ -105,6 +105,9 @@
             <div class="course-details-target-audiance">
                 {{ course.targetAudience }}
             </div>
+            <div class="course-details-description">
+                {{ course.description }}
+            </div>
             <div class="course-details-nav">
                 <div>
                     <button @click="$router.push('/')">

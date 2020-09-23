@@ -83,6 +83,9 @@ describe('CourseDetails.vue', () => {
         expect(wrapper.find('.course-details-target-audiance').text()).toBe(
             'Alle'
         );
+        expect(wrapper.find('.course-details-description').text()).toBe(
+            'Beschreibung'
+        );
     });
 
     it('navigates to overview page when course was not found', async () => {
