@@ -10,9 +10,7 @@
             id="title"
             placeholder="Veranstaltungsbezeichnung"
         />
-        <span
-            v-if="validationStateClass('course.title') == 'is-invalid'"
-            class="form-validation-text"
+        <span v-if="$v.course.title.$error" class="form-validation-text"
             >Titel / Thema ist ein Pflichtfeld.
         </span>
 
@@ -24,10 +22,7 @@
             id="trainer"
             placeholder="Trainer"
         />
-        <span
-            v-if="validationStateClass('course.trainer') == 'is-invalid'"
-            class="form-validation-text"
-        >
+        <span v-if="$v.course.trainer.$error" class="form-validation-text">
             Trainer ist ein Pflichtfeld.
         </span>
         <label for="organizer" class="form-label">Organisator</label>
@@ -47,10 +42,7 @@
             class="input-start-date"
             placeholder="DD.MM.YYYY HH:MM"
         />
-        <span
-            v-if="validationStateClass('startDateRaw') == 'is-invalid'"
-            class="form-validation-text"
-        >
+        <span v-if="$v.startDateRaw.$error" class="form-validation-text">
             Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und vor dem
             Ende-Datum liegen.
         </span>
@@ -64,10 +56,7 @@
             class="input-end-date"
             placeholder="DD.MM.YYYY HH:MM"
         />
-        <span
-            v-if="validationStateClass('endDateRaw') == 'is-invalid'"
-            class="form-validation-text"
-        >
+        <span v-if="$v.endDateRaw.$error" class="form-validation-text">
             Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und nach dem
             Start-Datum liegen.
         </span>
@@ -90,10 +79,7 @@
                 {{ courseType.text }}
             </option>
         </select>
-        <span
-            v-if="validationStateClass('course.courseType') == 'is-invalid'"
-            class="form-validation-text"
-        >
+        <span v-if="$v.course.courseType.$error" class="form-validation-text">
             Veranstaltungsart ist ein Pflichtfeld.
         </span>
 
@@ -128,10 +114,7 @@
             class="input-link"
             placeholder="https://"
         />
-        <span
-            v-if="validationStateClass('course.link') == 'is-invalid'"
-            class="form-validation-text"
-        >
+        <span v-if="$v.course.link.$error" class="form-validation-text">
             Der Link muss ein gültiger URL sein, mit den Protokollen "http" oder
             "https" beginnen und darf nur maximal 1000 Zeichen lang sein.
         </span>
@@ -145,7 +128,7 @@
             placeholder="Veranstaltungsbeschreibung"
         />
         <span
-            v-if="validationStateClass('course.targetAudience') == 'is-invalid'"
+            v-if="$v.course.targetAudience.$error"
             class="form-validation-text"
         >
             Die maximale Länge sind 2000 Zeichen.

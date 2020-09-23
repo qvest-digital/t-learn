@@ -1,6 +1,9 @@
 <template>
     <div class="confirm-modal-overlay">
         <div class="confirm-modal-container">
+            <div class="confirm-modal-title">
+                {{ modalTitle }}
+            </div>
             <div class="confirm-modal-content">
                 {{ text }}
             </div>
@@ -27,6 +30,10 @@
 <script>
 export default {
     props: {
+        modalTitle: {
+            default: 'Bestätigung',
+            type: String
+        },
         confirmButtonTitle: {
             default: 'Ja',
             type: String

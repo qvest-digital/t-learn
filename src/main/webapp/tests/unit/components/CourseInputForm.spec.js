@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/vue';
 import { createLocalVue, mount } from '@vue/test-utils';
-// import { BootstrapVue } from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import CourseInputForm from '@/components/CourseInputForm';
 import Vue from 'vue';
@@ -15,7 +14,6 @@ describe('CourseInputForm.vue', () => {
             CourseInputForm,
             { props: { course: {} } },
             localVue => {
-                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
             }
         );
@@ -101,7 +99,6 @@ describe('CourseInputForm.vue', () => {
 
     function mountComponent() {
         const localVue = createLocalVue();
-        // localVue.use(BootstrapVue);
         localVue.use(Vuelidate);
 
         return mount(CourseInputForm, {

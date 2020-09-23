@@ -6,6 +6,7 @@
             v-if="showModal"
             confirmButtonTitle="Löschen"
             cancelButtonTitle="Abbrechen"
+            modalTitle="Veranstaltung löschen"
             :text="
                 `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
             "

@@ -8,7 +8,6 @@ import {
 } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-// import { BootstrapVue } from 'bootstrap-vue';
 import routes from '@/routes';
 
 jest.mock('@/services/BackendService');

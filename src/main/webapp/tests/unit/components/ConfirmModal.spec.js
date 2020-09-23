@@ -7,6 +7,7 @@ describe('ConfirmModal.vue', () => {
             propsData: {
                 confirmButtonTitle: 'yes',
                 cancelButtonTitle: 'no',
+                modalTitle: 'modal title',
                 text: 'Are you sure?'
             }
         });
@@ -14,6 +15,9 @@ describe('ConfirmModal.vue', () => {
     test('render ConfirmModal with text from props', () => {
         const contentText = wrapper.find('.confirm-modal-content');
         expect(contentText.text()).toContain('Are you sure?');
+
+        const modalTitleText = wrapper.find('.confirm-modal-title');
+        expect(modalTitleText.text()).toContain('modal title');
 
         const confirmButtonText = wrapper.find('.confirm-modal-confirm-button');
         expect(confirmButtonText.text()).toContain('yes');

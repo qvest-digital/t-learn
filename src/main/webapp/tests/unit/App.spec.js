@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/vue';
-// import { BootstrapVue } from 'bootstrap-vue';
 import routes from '../../src/routes';
 import App from '../../src/App';
 import Vuelidate from 'vuelidate';
@@ -33,7 +32,6 @@ describe('App.vue', () => {
                 routes: routes
             },
             localVue => {
-                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
             }
         );

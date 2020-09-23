@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
 import CourseCreationForm from '@/components/CourseCreationForm.vue';
 import { createCourse } from '@/services/BackendService';
-// import { BootstrapVue } from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import routes from '@/routes';
 
@@ -28,7 +27,6 @@ describe('CourseCreationForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                // localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/create');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -260,7 +258,6 @@ describe('CourseCreationForm.vue', () => {
 
     function setupComponent() {
         return render(CourseCreationForm, {}, localVue => {
-            // localVue.use(BootstrapVue);
             localVue.use(Vuelidate);
         });
     }
