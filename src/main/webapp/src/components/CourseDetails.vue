@@ -1,5 +1,15 @@
 <template>
     <div>
+        <ConfirmModal
+            @cancel="showModal = false"
+            @confirm="deleteCourse(course.id)"
+            v-if="showModal"
+            confirmButtonTitle="Löschen"
+            cancelButtonTitle="Abbrechen"
+            :text="
+                `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
+            "
+        />
         <div class="page-title">
             {{ course.title }}
         </div>
@@ -86,7 +96,7 @@
                     >
                         Bearbeiten
                     </button>
-                    <button @click="deleteCourse(courseId)">
+                    <button @click="showModal = true">
                         Löschen
                     </button>
                 </div>
@@ -99,14 +109,16 @@
 import coffeeImg from '@/assets/coffee.jpg';
 import signsImg from '@/assets/signs.jpg';
 import { deleteCourse, getCourse } from '@/services/BackendService';
-// import deleteCourseModal from '@/components/deleteCourseModal';
+import ConfirmModal from './ConfirmModal';
 // import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
+    components: { ConfirmModal },
     data: function() {
         return {
-            course: {}
+            course: {},
+            showModal: false
         };
     },
     props: {
@@ -138,13 +150,14 @@ export default {
             // .catch(error => handleError(this, error));
         },
         deleteCourse: function(courseId) {
-            // deleteCourseModal(this, this.course.title, () => {
             deleteCourse(courseId)
-                .then(() => this.$router.push('/'))
+                .then(() => {
+                    this.showModal = false;
+                    this.$router.push('/');
+                })
                 .catch(() =>
                     console.error(`${courseId} could not be deleted)`)
                 );
-            // });
         }
     },
     mounted: function() {

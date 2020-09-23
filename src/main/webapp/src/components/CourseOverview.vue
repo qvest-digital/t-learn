@@ -1,20 +1,31 @@
 <template>
     <div>
         <div class="page-title">Übersicht über alle Veranstaltungen</div>
+
         <div v-for="course in courses" :key="course.id">
-            <div
-                class="course-card"
-                @click="
-                    $router.push({
-                        name: 'courseDetails',
-                        params: { courseId: course.id }
-                    })
+            <ConfirmModal
+                @cancel="showModal = false"
+                @confirm="deleteCourse(course)"
+                v-if="showModal"
+                confirmButtonTitle="Löschen"
+                cancelButtonTitle="Abbrechen"
+                :text="
+                    `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
                 "
-            >
+            />
+            <div class="course-card">
                 <div class="course-card-title">
                     {{ course.title }}
                 </div>
-                <div class="course-card-image-container">
+                <div
+                    @click="
+                        $router.push({
+                            name: 'courseDetails',
+                            params: { courseId: course.id }
+                        })
+                    "
+                    class="course-card-image-container"
+                >
                     <img
                         class="course-img"
                         :src="cardimage(course)"
@@ -41,7 +52,7 @@
                 <div>
                     <button
                         class="course-card-delete-button"
-                        @click="deleteCourse(course)"
+                        @click="showModal = true"
                         type="submit"
                         variant="primary"
                     >
@@ -65,13 +76,17 @@
 import coffeeImg from '../assets/coffee.jpg';
 import signsImg from '../assets/signs.jpg';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-// import deleteCourseModal from './deleteCourseModal';
+import ConfirmModal from './ConfirmModal';
 
 export default {
     name: 'CourseOverview',
+    components: {
+        ConfirmModal
+    },
     data: function() {
         return {
-            courses: []
+            courses: [],
+            showModal: false
         };
     },
     methods: {
@@ -85,7 +100,6 @@ export default {
             }
         },
         deleteCourse: function(course) {
-            // deleteCourseModal(this, course.title, () => {
             deleteCourse(course.id)
                 .then(
                     () =>
@@ -96,7 +110,7 @@ export default {
                 .catch(() =>
                     console.error(`${course.id} could not be deleted)`)
                 );
-            // });
+            this.showModal = false;
         }
     },
     mounted: function() {
