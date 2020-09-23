@@ -2,7 +2,7 @@
     <div>
         <div class="page-title">Übersicht über alle Veranstaltungen</div>
 
-        <div v-for="course in courses" :key="course.id">
+        <div v-for="(course, index) in courses" :key="course.id">
             <ConfirmModal
                 @cancel="showModal = false"
                 @confirm="deleteCourse(course)"
@@ -51,10 +51,9 @@
 
                 <div>
                     <button
+                        :id="`course-card-${index}-delete-button`"
                         class="course-card-delete-button"
                         @click="showModal = true"
-                        type="submit"
-                        variant="primary"
                     >
                         Löschen
                     </button>

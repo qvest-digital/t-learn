@@ -25,13 +25,22 @@
             <div class="course-details-content-container">
                 <div class="course-details-content" v-if="course.courseType">
                     <span class="course-details-content-label">Typ:</span>
-                    <span class="course-details-content-text">{{
-                        course.courseType == 'EXTERNAL' ? 'Extern' : 'Intern'
-                    }}</span>
+                    <span
+                        id="course-details-text-course-type"
+                        class="course-details-content-text"
+                        >{{
+                            course.courseType == 'EXTERNAL'
+                                ? 'Extern'
+                                : 'Intern'
+                        }}</span
+                    >
                 </div>
                 <div class="course-details-content" v-if="course.location">
                     <span class="course-details-content-label">Ort:</span>
-                    <span class="course-details-content-text">
+                    <span
+                        id="course-details-text-course-location"
+                        class="course-details-content-text"
+                    >
                         {{
                             course.location == 'REMOTE'
                                 ? 'Remoteveranstaltung'
@@ -41,19 +50,25 @@
                 </div>
                 <div class="course-details-content" v-if="course.startDate">
                     <span class="course-details-content-label">Start:</span>
-                    <span class="course-details-content-text"
+                    <span
+                        id="course-details-text-course-start-date"
+                        class="course-details-content-text"
                         >{{ course.startDate | formatDate }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.endDate">
                     <span class="course-details-content-label">Ende:</span>
-                    <span class="course-details-content-text"
+                    <span
+                        id="course-details-text-course-end-date"
+                        class="course-details-content-text"
                         >{{ course.endDate | formatDate }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.address">
                     <span class="course-details-content-label">Adresse:</span>
-                    <span class="course-details-content-text"
+                    <span
+                        id="course-details-text-course-address"
+                        class="course-details-content-text"
                         >{{ course.address }}
                     </span>
                 </div>
@@ -61,24 +76,32 @@
                     <span class="course-details-content-label"
                         >Organisator:</span
                     >
-                    <span class="course-details-content-text"
+                    <span
+                        id="course-details-text-course-organizer"
+                        class="course-details-content-text"
                         >{{ course.organizer }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.trainer">
                     <span class="course-details-content-label">Trainer:</span>
-                    <span class="course-details-content-text">
+                    <span
+                        id="course-details-text-course-trainer"
+                        class="course-details-content-text"
+                    >
                         {{ course.trainer }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.link">
                     <span class="course-details-content-label">Link:</span>
-                    <span class="course-details-content-text">
+                    <span
+                        id="course-details-text-course-link"
+                        class="course-details-content-text"
+                    >
                         <a :href="course.link">{{ course.link }}</a>
                     </span>
                 </div>
             </div>
-            <div class="course-details-description">
+            <div class="course-details-target-audiance">
                 {{ course.targetAudience }}
             </div>
             <div class="course-details-nav">
@@ -96,7 +119,10 @@
                     >
                         Bearbeiten
                     </button>
-                    <button @click="showModal = true">
+                    <button
+                        data-testid="course-details-delete-button"
+                        @click="showModal = true"
+                    >
                         Löschen
                     </button>
                 </div>

@@ -6,12 +6,14 @@
             </div>
             <div class="confirm-modal-footer">
                 <button
+                    data-testid="confirm-button"
                     @click="$emit('confirm')"
                     class="confirm-modal-confirm-button"
                 >
                     {{ confirmButtonTitle }}
                 </button>
                 <button
+                    data-testid="cancel-button"
                     @click="$emit('cancel')"
                     class="confirm-modal-cancel-button"
                 >
