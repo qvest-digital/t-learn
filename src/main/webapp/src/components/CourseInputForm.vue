@@ -6,7 +6,7 @@
         <input
             type="text"
             v-model="$v.course.title.$model"
-            :state="validateState('course.title')"
+            :class="validationStateClass('course.title')"
             id="title"
             placeholder="Veranstaltungsbezeichnung"
         />
@@ -18,7 +18,7 @@
         <input
             type="text"
             v-model="$v.course.trainer.$model"
-            :state="validateState('course.trainer')"
+            :class="validationStateClass('course.trainer')"
             id="trainer"
             placeholder="Trainer"
         />
@@ -37,7 +37,7 @@
         <input
             type="text"
             v-model="$v.startDateRaw.$model"
-            :state="validateState('startDateRaw')"
+            :class="validationStateClass('startDateRaw')"
             id="start-date"
             class="input-start-date"
             placeholder="DD.MM.YYYY HH:MM"
@@ -51,7 +51,7 @@
         <input
             type="text"
             v-model="$v.endDateRaw.$model"
-            :state="validateState('endDateRaw')"
+            :class="validationStateClass('endDateRaw')"
             id="end-date"
             class="input-end-date"
             placeholder="DD.MM.YYYY HH:MM"
@@ -66,7 +66,7 @@
         >
         <select
             v-model="$v.course.courseType.$model"
-            :state="validateState('course.courseType')"
+            :class="validationStateClass('course.courseType')"
             id="course-type"
             class="input-course-type"
         >
@@ -109,7 +109,7 @@
         <input
             type="text"
             v-model="$v.course.link.$model"
-            :state="validateState('course.link')"
+            :class="validationStateClass('course.link')"
             id="link"
             class="input-link"
             placeholder="https://"
@@ -122,7 +122,7 @@
         <label for="target-audience" class="form-label">Zielgruppe</label>
         <textarea
             v-model="$v.course.targetAudience.$model"
-            :state="validateState('course.targetAudience')"
+            :class="validationStateClass('course.targetAudience')"
             id="target-audience"
             class="input-target-audience"
             placeholder="Veranstaltungsbeschreibung"
@@ -224,7 +224,7 @@ export default {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
-        validateState: function(path) {
+        validationStateClass: function(path) {
             const { $dirty, $error } = path
                 .split('.')
                 .reduce(
@@ -233,7 +233,7 @@ export default {
                     this.$v
                 );
 
-            return $dirty ? !$error : null;
+            return $dirty && $error ? 'is-invalid' : 'is-valid';
         },
         parseValidDate: function(val) {
             const date = parseDate(val);
