@@ -7,7 +7,7 @@
             <div class="confirm-modal-footer">
                 <button
                     @click="$emit('confirm')"
-                    class="confirm-modal-delete-button"
+                    class="confirm-modal-confirm-button"
                 >
                     {{ confirmButtonTitle }}
                 </button>
@@ -34,7 +34,7 @@ export default {
             type: String
         },
         text: {
-            default: ' Sind Sie sicher?',
+            default: 'Sind Sie sicher?',
             type: String
         }
     }
