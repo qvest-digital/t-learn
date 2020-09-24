@@ -51,7 +51,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" rel="stylesheet/scss">
 .confirm-modal-overlay {
     background: rgba(74, 74, 74, 0.8);
     bottom: 0;
@@ -62,7 +62,7 @@ export default {
     z-index: 9999;
 }
 .confirm-modal-container {
-    background-color: white;
+    background-color: $black;
     left: 50%;
     max-width: 433px;
     min-height: 453px;

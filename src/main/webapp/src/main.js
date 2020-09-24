@@ -3,7 +3,6 @@ import Vuelidate from 'vuelidate';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
-
 import routes from './routes';
 
 Vue.config.productionTip = false;

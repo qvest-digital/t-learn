@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+@import './colors.scss';
+
+$Ubuntu: 'Ubuntu', sans-serif;
+
+* {
+    font-family: $Ubuntu;
+    color: $tarent-red;
+}
