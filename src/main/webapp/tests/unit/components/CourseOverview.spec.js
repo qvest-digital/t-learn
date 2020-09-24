@@ -25,19 +25,21 @@ describe('CourseOverview.vue', () => {
         expect(getCourses).toHaveBeenCalled();
     });
 
-    it("deletes course on server side when 'Löschen' button is clicked", async () => {
+    it("deletes course on server side when 'LÖSCHEN' button is clicked", async () => {
         mockGetCourses();
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
         const { findAllByText, findAllByRole } = setupComponent();
 
         const deleteButtons = await findAllByRole('button', {
-            name: 'Löschen'
+            name: 'LÖSCHEN'
         });
         expect(deleteButtons).toHaveLength(2);
         await fireEvent.click(deleteButtons[0]);
 
-        const confirmButtons = await findAllByRole('button', { name: 'Ja' });
+        const confirmButtons = await findAllByRole('button', {
+            name: 'LÖSCHEN'
+        });
         await fireEvent.click(confirmButtons[0]);
 
         expect(deleteCourse).toHaveBeenCalledWith(1);
@@ -46,19 +48,19 @@ describe('CourseOverview.vue', () => {
         expect(titles).toHaveLength(1);
     });
 
-    it("does not delete anything when 'Abbrechen' button was clicked when deleting", async () => {
+    it("does not delete anything when 'ABBRECHEN' button was clicked when deleting", async () => {
         mockGetCourses();
 
         const { findAllByText, findAllByRole } = setupComponent();
 
         const deleteButtons = await findAllByRole('button', {
-            name: 'Löschen'
+            name: 'LÖSCHEN'
         });
         expect(deleteButtons).toHaveLength(2);
         await fireEvent.click(deleteButtons[0]);
 
         const cancelButtons = await findAllByRole('button', {
-            name: 'Abbrechen'
+            name: 'ABBRECHEN'
         });
         await fireEvent.click(cancelButtons[0]);
 

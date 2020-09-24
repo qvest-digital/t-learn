@@ -7,8 +7,8 @@
                 @cancel="showModal = false"
                 @confirm="deleteCourse(course)"
                 v-if="showModal"
-                confirmButtonTitle="Ja"
-                cancelButtonTitle="Abbrechen"
+                confirmButtonTitle="LÖSCHEN"
+                cancelButtonTitle="ABBRECHEN"
                 modalTitle="Veranstaltung löschen"
                 :text="
                     `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
@@ -56,7 +56,7 @@
                         class="course-card-delete-button"
                         @click="showModal = true"
                     >
-                        Löschen
+                        LÖSCHEN
                     </button>
                 </div>
             </div>

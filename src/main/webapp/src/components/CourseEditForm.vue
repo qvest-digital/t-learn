@@ -30,10 +30,10 @@
                         })
                     "
                 >
-                    Abbrechen
+                    ABBRECHEN
                 </button>
                 <button type="submit" class="form-submit-button">
-                    Speichern
+                    SPEICHERN
                 </button>
             </div>
         </form>

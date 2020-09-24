@@ -1,7 +1,6 @@
 <template>
     <div>
         <Header />
-        <p>test</p>
         <div class="app-container">
             <router-view></router-view>
         </div>
@@ -17,8 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-p {
-    color: $tarent-red;
-}
-</style>
+<style lang="scss"></style>

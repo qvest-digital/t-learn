@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import './colors.scss';
+@import './fonts.scss';
+@import './spacing.scss';
+@import './buttons.scss';
 
-$Ubuntu: 'Ubuntu', sans-serif;
-
+// global styles
 * {
-    font-family: $Ubuntu;
-    color: $tarent-red;
+    font-family: $ubuntu;
 }

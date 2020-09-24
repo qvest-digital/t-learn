@@ -1,0 +1,31 @@
+@import './colors.scss';
+@import './fonts.scss';
+
+.button {
+    font-size: $s-font;
+    font-weight: $normal;
+    height: 30px;
+    min-width: 110px;
+    width: max-content;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+
+    &.primary {
+        background: $tarent-red;
+        color: white;
+    }
+
+    &.secondary {
+        background: $tarent-light-grey;
+    }
+
+    &:disabled {
+        background: $tarent-red;
+        color: white;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}

@@ -98,7 +98,7 @@ describe('CourseDetails.vue', () => {
         ]);
     });
 
-    it("navigates to edit page when 'Bearbeiten' button was clicked", async () => {
+    it("navigates to edit page when 'BEARBEITEN' button was clicked", async () => {
         getCourse.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
         let routerPushSpy;
@@ -114,7 +114,7 @@ describe('CourseDetails.vue', () => {
             }
         );
 
-        await fireEvent.click(getByRole('button', { name: 'Bearbeiten' }));
+        await fireEvent.click(getByRole('button', { name: 'BEARBEITEN' }));
 
         expect(routerPushSpy).toBeCalledWith({
             name: 'courseEdit',
@@ -122,7 +122,7 @@ describe('CourseDetails.vue', () => {
         });
     });
 
-    it("sends delete request to server and navigates to overview page when 'Löschen' button is clicked", async () => {
+    it("sends delete request to server and navigates to overview page when 'LÖSCHEN' button is clicked", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
                 data: { id: 1 }
@@ -132,7 +132,7 @@ describe('CourseDetails.vue', () => {
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
         let routerPushSpy;
-        const { findByRole, getByRole, queryByText } = render(
+        const { getByRole, queryByText, findAllByRole } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
@@ -144,10 +144,12 @@ describe('CourseDetails.vue', () => {
             }
         );
 
-        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
+        await fireEvent.click(getByRole('button', { name: 'LÖSCHEN' }));
 
-        const confirmButton = await findByRole('button', { name: 'Ja' });
-        await fireEvent.click(confirmButton);
+        const confirmButton = await findAllByRole('button', {
+            name: 'LÖSCHEN'
+        });
+        await fireEvent.click(confirmButton[0]);
 
         expect(queryByText('Möchtest Du die Veranstaltung')).toBeNull();
 
@@ -157,7 +159,7 @@ describe('CourseDetails.vue', () => {
         ]);
     });
 
-    it("stays on page when 'Abbrechen' button was clicked when deleting", async () => {
+    it("stays on page when 'ABBRECHEN' button was clicked when deleting", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
                 data: {}
@@ -177,9 +179,9 @@ describe('CourseDetails.vue', () => {
             }
         );
 
-        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
+        await fireEvent.click(getByRole('button', { name: 'LÖSCHEN' }));
 
-        const cancelButton = await findByRole('button', { name: 'Abbrechen' });
+        const cancelButton = await findByRole('button', { name: 'ABBRECHEN' });
         await fireEvent.click(cancelButton);
 
         expect(queryByText('Möchtest Du die Veranstaltung')).toBeNull();

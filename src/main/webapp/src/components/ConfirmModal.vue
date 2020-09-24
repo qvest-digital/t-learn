@@ -11,16 +11,10 @@
                 {{ text }}
             </div>
             <div class="confirm-modal-footer">
-                <button
-                    @click="$emit('confirm')"
-                    class="confirm-modal-confirm-button"
-                >
+                <button @click="$emit('confirm')" class="button primary">
                     {{ confirmButtonTitle }}
                 </button>
-                <button
-                    @click="$emit('cancel')"
-                    class="confirm-modal-cancel-button"
-                >
+                <button @click="$emit('cancel')" class="button secondary">
                     {{ cancelButtonTitle }}
                 </button>
             </div>
@@ -36,11 +30,11 @@ export default {
             type: String
         },
         confirmButtonTitle: {
-            default: 'Ja',
+            default: 'JA',
             type: String
         },
         cancelButtonTitle: {
-            default: 'Nein',
+            default: 'NEIN',
             type: String
         },
         text: {
@@ -51,7 +45,7 @@ export default {
 };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style lang="scss">
 .confirm-modal-overlay {
     background: rgba(74, 74, 74, 0.8);
     bottom: 0;
@@ -62,7 +56,7 @@ export default {
     z-index: 9999;
 }
 .confirm-modal-container {
-    background-color: $black;
+    background-color: $white;
     left: 50%;
     max-width: 433px;
     min-height: 453px;

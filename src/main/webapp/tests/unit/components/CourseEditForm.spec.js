@@ -54,7 +54,7 @@ describe('CourseEditForm.vue', () => {
             'New Title'
         );
 
-        await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
+        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(errorMessages).not.toBeVisible();
         expect(getCourse).toHaveBeenCalledWith(1);
@@ -98,7 +98,7 @@ describe('CourseEditForm.vue', () => {
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
 
-        await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
+        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(updateCourse).toHaveBeenCalledWith(course);
         expect(routerPushSpy).not.toHaveBeenCalled();
@@ -161,14 +161,14 @@ describe('CourseEditForm.vue', () => {
 
         expect(title.classList).toContain('is-invalid');
 
-        await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
+        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(updateCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).not.toHaveBeenCalled();
         expect(errorMessages).not.toBeVisible();
     });
 
-    it("navigates back to details page if button 'Abbrechen' was clicked", async () => {
+    it("navigates back to details page if button 'ABBRECHEN' was clicked", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
                 data: createCourse()
@@ -191,7 +191,7 @@ describe('CourseEditForm.vue', () => {
 
         await waitForFormPopulation(getByRole);
 
-        await fireEvent.click(getByRole('button', { name: 'Abbrechen' }));
+        await fireEvent.click(getByRole('button', { name: 'ABBRECHEN' }));
 
         expect(updateCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).toHaveBeenCalledWith({

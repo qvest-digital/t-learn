@@ -4,8 +4,8 @@
             @cancel="showModal = false"
             @confirm="deleteCourse(course.id)"
             v-if="showModal"
-            confirmButtonTitle="Ja"
-            cancelButtonTitle="Abbrechen"
+            confirmButtonTitle="LÖSCHEN"
+            cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen"
             :text="
                 `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
@@ -125,7 +125,7 @@
             <div class="course-details-nav">
                 <div>
                     <button @click="$router.push('/')">
-                        Zurück
+                        ZURÜCK
                     </button>
                     <button
                         @click="
@@ -135,10 +135,10 @@
                             })
                         "
                     >
-                        Bearbeiten
+                        BEARBEITEN
                     </button>
                     <button @click="showModal = true">
-                        Löschen
+                        LÖSCHEN
                     </button>
                 </div>
             </div>
