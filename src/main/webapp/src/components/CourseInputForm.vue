@@ -27,13 +27,13 @@
                     v-model="$v.course.trainer.$model"
                     :class="validationStateClass('course.trainer')"
                     id="trainer"
-                    placeholder="Trainer"
+                    placeholder="Veranstalter*in"
                 />
                 <span
                     v-if="$v.course.trainer.$error"
                     class="form-validation-text"
                 >
-                    Trainer ist ein Pflichtfeld.
+                    Veranstalter*in ist ein Pflichtfeld.
                 </span>
             </div>
             <div class="column">
@@ -325,6 +325,7 @@ export default {
 }
 .is-invalid {
     border: $red 1px solid;
+    color: $red;
 }
 
 .form-validation-text {

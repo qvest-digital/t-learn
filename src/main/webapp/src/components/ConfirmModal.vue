@@ -7,15 +7,16 @@
             <div
                 data-testid="confirmModalContent"
                 class="confirm-modal-content"
+                :title="text"
             >
                 {{ text }}
             </div>
             <div class="confirm-modal-footer">
-                <button @click="$emit('confirm')" class="button primary">
-                    {{ confirmButtonTitle }}
-                </button>
                 <button @click="$emit('cancel')" class="button secondary">
                     {{ cancelButtonTitle }}
+                </button>
+                <button @click="$emit('confirm')" class="button primary">
+                    {{ confirmButtonTitle }}
                 </button>
             </div>
         </div>
@@ -56,16 +57,31 @@ export default {
     z-index: 9999;
 }
 .confirm-modal-container {
-    background-color: $white;
-    left: 50%;
-    max-width: 433px;
-    min-height: 453px;
     position: absolute;
     top: 50%;
+    left: 50%;
     transform: translate(-50.1%, -50.1%);
-    width: calc(100% - 30px);
-    padding: 16px;
+    width: 500px;
+    background-color: $white;
+    padding: $s-space;
     height: auto;
+    max-height: 500px;
+    overflow-y: auto;
     border-radius: 8px;
+}
+.confirm-modal-title {
+    font-size: $l-font;
+    font-weight: $normal;
+    margin-bottom: $s-space;
+}
+.confirm-modal-footer {
+    margin-top: $xl-space;
+    margin-right: $xs-space;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin-left: $s-space;
+    }
 }
 </style>
