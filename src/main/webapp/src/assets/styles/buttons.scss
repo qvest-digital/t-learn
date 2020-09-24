@@ -14,16 +14,16 @@
     outline: none;
 
     &.primary {
-        background: $tarent-red;
+        background: $red;
         color: white;
     }
 
     &.secondary {
-        background: $tarent-light-grey;
+        background: $light-grey;
     }
 
     &:disabled {
-        background: $tarent-red;
+        background: $red;
         color: white;
         opacity: 0.5;
         cursor: not-allowed;
