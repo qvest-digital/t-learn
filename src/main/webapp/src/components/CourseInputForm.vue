@@ -344,6 +344,9 @@ select {
     height: 34px;
     font-size: $s-font;
 }
+select {
+    cursor: pointer;
+}
 select,
 input {
     background-color: $white;
