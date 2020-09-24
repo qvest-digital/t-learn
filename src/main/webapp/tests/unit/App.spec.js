@@ -20,9 +20,7 @@ describe('App.vue', () => {
 
         await fireEvent.click(getByText('Anlegen'));
 
-        expect(
-            queryByText('Anlegen einer neuen Veranstaltung')
-        ).toBeInTheDocument();
+        expect(queryByText('Veranstaltung erstellen')).toBeInTheDocument();
     });
 
     function setupComponent() {

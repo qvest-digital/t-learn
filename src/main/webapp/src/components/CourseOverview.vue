@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import coffeeImg from '../assets/coffee.jpg';
-import signsImg from '../assets/signs.jpg';
+import coffeeImg from '../assets/images/coffee.jpg';
+import signsImg from '../assets/images/signs.jpg';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import ConfirmModal from './ConfirmModal';
 

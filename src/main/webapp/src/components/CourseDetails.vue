@@ -11,8 +11,8 @@
                 `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
             "
         />
-        <div class="page-title">
-            <h1>{{ course.title }}</h1>
+        <div data-testid="courseDetailsTitle" class="page-title">
+            {{ course.title }}
         </div>
         <div>
             <div class="course-details-image-container">
@@ -147,8 +147,8 @@
 </template>
 
 <script>
-import coffeeImg from '@/assets/coffee.jpg';
-import signsImg from '@/assets/signs.jpg';
+import coffeeImg from '@/assets/images/coffee.jpg';
+import signsImg from '@/assets/images/signs.jpg';
 import { deleteCourse, getCourse } from '@/services/BackendService';
 import ConfirmModal from './ConfirmModal';
 import handleError from '@/components/handleError';

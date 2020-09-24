@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-title">
-            Anlegen einer neuen Veranstaltung
+            Veranstaltung erstellen
         </div>
 
         <form @submit.prevent="create">
@@ -89,4 +89,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.page-title {
+    font-size: 20px;
+}
+</style>

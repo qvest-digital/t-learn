@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitFor } from '@testing-library/vue';
+import { fireEvent, getByTestId, render, waitFor } from '@testing-library/vue';
 import { deleteCourse, getCourse } from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
@@ -35,13 +35,18 @@ describe('CourseDetails.vue', () => {
             })
         );
 
-        const { getByLabelText, getByText, getByRole } = render(CourseDetails, {
-            props: { courseId: 1 },
-            routes: routes
-        });
+        const { getByLabelText, getByText, getByRole, getByTestId } = render(
+            CourseDetails,
+            {
+                props: { courseId: 1 },
+                routes: routes
+            }
+        );
 
         await waitFor(() => [
-            expect(getByRole('heading')).toHaveTextContent('Title'),
+            expect(getByTestId('courseDetailsTitle')).toHaveTextContent(
+                'Title'
+            ),
             expect(getByLabelText('Typ:')).toHaveTextContent('Extern'),
             expect(getByLabelText('Ort:')).toHaveTextContent(
                 'Remoteveranstaltung'
