@@ -104,6 +104,7 @@ export default {
 }
 .form-footer {
     margin-top: $xl-space;
+    margin-right: $xs-space;
     display: flex;
     justify-content: flex-end;
 
@@ -111,12 +112,11 @@ export default {
         margin-left: $s-space;
     }
 }
-.course-creation-form-container > div {
-    max-width: 736px;
-}
+
 .page-title {
     text-align: left;
     font-size: $l-font;
+    margin-left: $xs-space;
     margin-bottom: $l-space;
 }
 </style>

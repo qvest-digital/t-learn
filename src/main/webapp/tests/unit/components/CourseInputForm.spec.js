@@ -38,12 +38,12 @@ describe('CourseInputForm.vue', () => {
         expect(getByRole('textbox', { name: 'Titel / Thema' })).toHaveValue(
             'Title'
         );
-        expect(getByRole('textbox', { name: 'Trainer' })).toHaveValue(
+        expect(getByRole('textbox', { name: 'Veranstalter*in' })).toHaveValue(
             'Trainer'
         );
-        expect(getByRole('textbox', { name: 'Organisator' })).toHaveValue(
-            'Organizer'
-        );
+        expect(
+            getByRole('textbox', { name: 'Ansprechpartner*in' })
+        ).toHaveValue('Organizer');
         expect(getByRole('textbox', { name: 'Start' })).toHaveValue(
             dateFormatFilter(course.startDate)
         );

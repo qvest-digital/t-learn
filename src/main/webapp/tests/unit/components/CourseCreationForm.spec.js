@@ -41,7 +41,7 @@ describe('CourseCreationForm.vue', () => {
             'Test'
         );
         await fireEvent.update(
-            getByRole('textbox', { name: 'Trainer' }),
+            getByRole('textbox', { name: 'Veranstalter*in' }),
             'Trainer'
         );
         await fireEvent.update(
@@ -90,7 +90,7 @@ describe('CourseCreationForm.vue', () => {
             'Test'
         );
         await fireEvent.update(
-            getByRole('textbox', { name: 'Trainer' }),
+            getByRole('textbox', { name: 'Veranstalter*in' }),
             'Trainer'
         );
         await fireEvent.update(
@@ -130,9 +130,9 @@ describe('CourseCreationForm.vue', () => {
         expect(
             getByRole('textbox', { name: 'Titel / Thema' }).classList
         ).toContain('is-invalid');
-        expect(getByRole('textbox', { name: 'Trainer' }).classList).toContain(
-            'is-invalid'
-        );
+        expect(
+            getByRole('textbox', { name: 'Veranstalter*in' }).classList
+        ).toContain('is-invalid');
         expect(
             getByRole('combobox', { name: 'Veranstaltungsart' }).classList
         ).toContain('is-invalid');

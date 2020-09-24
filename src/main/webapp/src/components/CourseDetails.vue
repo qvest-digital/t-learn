@@ -85,7 +85,7 @@
                 </div>
                 <div class="course-details-content" v-if="course.organizer">
                     <span id="organizer" class="course-details-content-label"
-                        >Organisator:</span
+                        >Ansprechpartner*in:</span
                     >
                     <span
                         aria-labelledby="organizer"
@@ -95,7 +95,7 @@
                 </div>
                 <div class="course-details-content" v-if="course.trainer">
                     <span id="trainer" class="course-details-content-label"
-                        >Trainer:</span
+                        >Veranstalter*in:</span
                     >
                     <span
                         aria-labelledby="trainer"

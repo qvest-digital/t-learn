@@ -1,143 +1,198 @@
 <template>
-    <div>
-        <label for="title" class="form-label required-label"
-            >Titel / Thema</label
-        >
-        <input
-            type="text"
-            v-model="$v.course.title.$model"
-            :class="validationStateClass('course.title')"
-            id="title"
-            placeholder="Veranstaltungsbezeichnung"
-        />
-        <span v-if="$v.course.title.$error" class="form-validation-text"
-            >Titel / Thema ist ein Pflichtfeld.
-        </span>
+    <div class="input-form-container">
+        <div class="row">
+            <div class="column">
+                <label for="title" class="form-label required-label"
+                    >Titel / Thema</label
+                >
+                <input
+                    type="text"
+                    v-model="$v.course.title.$model"
+                    :class="validationStateClass('course.title')"
+                    id="title"
+                    placeholder="Veranstaltungsbezeichnung"
+                />
+                <span v-if="$v.course.title.$error" class="form-validation-text"
+                    >Titel / Thema ist ein Pflichtfeld.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="trainer" class="form-label required-label"
+                    >Veranstalter*in</label
+                >
+                <input
+                    type="text"
+                    v-model="$v.course.trainer.$model"
+                    :class="validationStateClass('course.trainer')"
+                    id="trainer"
+                    placeholder="Trainer"
+                />
+                <span
+                    v-if="$v.course.trainer.$error"
+                    class="form-validation-text"
+                >
+                    Trainer ist ein Pflichtfeld.
+                </span>
+            </div>
+            <div class="column">
+                <label for="organizer" class="form-label"
+                    >Ansprechpartner*in</label
+                >
+                <input
+                    type="text"
+                    v-model="course.organizer"
+                    id="organizer"
+                    placeholder="Ansprechpartner*in"
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="start-date" class="form-label">Start</label>
+                <input
+                    type="text"
+                    v-model="$v.startDateRaw.$model"
+                    :class="validationStateClass('startDateRaw')"
+                    id="start-date"
+                    placeholder="DD.MM.YYYY HH:MM"
+                />
+                <span
+                    v-if="$v.startDateRaw.$error"
+                    class="form-validation-text"
+                >
+                    Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und vor
+                    dem Ende-Datum liegen.
+                </span>
+            </div>
+            <div class="column">
+                <label for="end-date" class="form-label">Ende</label>
+                <input
+                    type="text"
+                    v-model="$v.endDateRaw.$model"
+                    :class="validationStateClass('endDateRaw')"
+                    id="end-date"
+                    placeholder="DD.MM.YYYY HH:MM"
+                />
+                <span v-if="$v.endDateRaw.$error" class="form-validation-text">
+                    Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und
+                    nach dem Start-Datum liegen.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="course-type" class="form-label required-label"
+                    >Veranstaltungsart</label
+                >
+                <select
+                    v-model="$v.course.courseType.$model"
+                    :class="validationStateClass('course.courseType')"
+                    id="course-type"
+                >
+                    <option
+                        v-for="courseType in courseTypes"
+                        :key="courseType.text"
+                        :value="courseType.value"
+                    >
+                        {{ courseType.text }}
+                    </option>
+                </select>
+                <span
+                    v-if="$v.course.courseType.$error"
+                    class="form-validation-text"
+                >
+                    Veranstaltungsart ist ein Pflichtfeld.
+                </span>
+            </div>
+            <div class="column">
+                <label for="location" class="form-label">Ort</label>
 
-        <label for="trainer" class="form-label required-label">Trainer</label>
-        <input
-            type="text"
-            v-model="$v.course.trainer.$model"
-            :class="validationStateClass('course.trainer')"
-            id="trainer"
-            placeholder="Trainer"
-        />
-        <span v-if="$v.course.trainer.$error" class="form-validation-text">
-            Trainer ist ein Pflichtfeld.
-        </span>
-        <label for="organizer" class="form-label">Organisator</label>
-        <input
-            type="text"
-            v-model="course.organizer"
-            id="organizer"
-            placeholder="Organisator"
-        />
+                <select
+                    v-model="course.location"
+                    id="location"
+                    class="input-location"
+                >
+                    <option
+                        v-for="location in locations"
+                        :key="location.text"
+                        :value="location.value"
+                    >
+                        {{ location.text }}
+                    </option>
+                </select>
+            </div>
+        </div>
 
-        <label for="start-date" class="form-label">Start</label>
-        <input
-            type="text"
-            v-model="$v.startDateRaw.$model"
-            :class="validationStateClass('startDateRaw')"
-            id="start-date"
-            placeholder="DD.MM.YYYY HH:MM"
-        />
-        <span v-if="$v.startDateRaw.$error" class="form-validation-text">
-            Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und vor dem
-            Ende-Datum liegen.
-        </span>
-
-        <label for="end-date" class="form-label">Ende</label>
-        <input
-            type="text"
-            v-model="$v.endDateRaw.$model"
-            :class="validationStateClass('endDateRaw')"
-            id="end-date"
-            placeholder="DD.MM.YYYY HH:MM"
-        />
-        <span v-if="$v.endDateRaw.$error" class="form-validation-text">
-            Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und nach dem
-            Start-Datum liegen.
-        </span>
-
-        <label for="course-type" class="form-label required-label"
-            >Veranstaltungsart</label
-        >
-        <select
-            v-model="$v.course.courseType.$model"
-            :class="validationStateClass('course.courseType')"
-            id="course-type"
-        >
-            <option
-                v-for="courseType in courseTypes"
-                :key="courseType.text"
-                :value="courseType.value"
-            >
-                {{ courseType.text }}
-            </option>
-        </select>
-        <span v-if="$v.course.courseType.$error" class="form-validation-text">
-            Veranstaltungsart ist ein Pflichtfeld.
-        </span>
-
-        <label for="location" class="form-label">Ort</label>
-
-        <select v-model="course.location" id="location" class="input-location">
-            <option
-                v-for="location in locations"
-                :key="location.text"
-                :value="location.value"
-            >
-                {{ location.text }}
-            </option>
-        </select>
-
-        <label for="address" class="form-label">Veranstaltungsadresse</label>
-        <input
-            type="text"
-            v-model="course.address"
-            id="address"
-            placeholder="postalische Adresse"
-        />
-
-        <label for="link" class="form-label">Weiterführender Link</label>
-        <input
-            type="text"
-            v-model="$v.course.link.$model"
-            :class="validationStateClass('course.link')"
-            id="link"
-            placeholder="https://"
-        />
-        <span v-if="$v.course.link.$error" class="form-validation-text">
-            Der Link muss ein gültiger URL sein, mit den Protokollen "http" oder
-            "https" beginnen und darf nur maximal 1000 Zeichen lang sein.
-        </span>
-
-        <label for="target-audience" class="form-label">Zielgruppe</label>
-        <textarea
-            v-model="$v.course.targetAudience.$model"
-            :class="validationStateClass('course.targetAudience')"
-            id="target-audience"
-            placeholder="An wen richtet sich die Veranstaltung"
-        />
-        <span
-            v-if="$v.course.targetAudience.$error"
-            class="form-validation-text"
-        >
-            Die maximale Länge sind 2000 Zeichen.
-        </span>
-
-        <label for="description" class="form-label"
-            >Beschreibung / Inhalt</label
-        >
-        <textarea
-            v-model="$v.course.description.$model"
-            :class="validationStateClass('course.description')"
-            id="description"
-            placeholder="Beschreibung"
-        />
-        <span v-if="$v.course.description.$error" class="form-validation-text">
-            Die maximale Länge sind 2000 Zeichen.
-        </span>
+        <div class="row">
+            <div class="column">
+                <label for="address" class="form-label"
+                    >Veranstaltungsadresse</label
+                >
+                <input
+                    type="text"
+                    v-model="course.address"
+                    id="address"
+                    placeholder="postalische Adresse"
+                />
+            </div>
+            <div class="column">
+                <label for="link" class="form-label"
+                    >Weiterführender Link</label
+                >
+                <input
+                    type="text"
+                    v-model="$v.course.link.$model"
+                    :class="validationStateClass('course.link')"
+                    id="link"
+                    placeholder="https://"
+                />
+                <span v-if="$v.course.link.$error" class="form-validation-text">
+                    Der Link muss ein gültiger URL sein, mit den Protokollen
+                    "http" oder "https" beginnen und darf nur maximal 1000
+                    Zeichen lang sein.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="target-audience" class="form-label"
+                    >Zielgruppe</label
+                >
+                <textarea
+                    v-model="$v.course.targetAudience.$model"
+                    :class="validationStateClass('course.targetAudience')"
+                    id="target-audience"
+                    placeholder="An wen richtet sich die Veranstaltung"
+                />
+                <span
+                    v-if="$v.course.targetAudience.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 2000 Zeichen.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="description" class="form-label"
+                    >Beschreibung / Inhalt</label
+                >
+                <textarea
+                    v-model="$v.course.description.$model"
+                    :class="validationStateClass('course.description')"
+                    id="description"
+                    placeholder="Beschreibung"
+                />
+                <span
+                    v-if="$v.course.description.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 2000 Zeichen.
+                </span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -254,20 +309,66 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// validation and label
+
+.form-label {
+    font-size: $s-font;
+    color: $grey;
+    margin: 0 $xs-space $xs-space $xs-space;
+}
 .required-label::after {
-    color: #cc0000;
-    font-weight: bold;
+    color: $red;
+    font-size: $s-font;
+    font-weight: $bold;
     content: '\00a0*';
 }
 .is-invalid {
-    border: #cc0000 1px solid;
+    border: $red 1px solid;
 }
 
 .form-validation-text {
-    color: #cc0000;
+    color: $red;
+    font-size: $s-font;
+    margin: $xs-space $xs-space 0 $xs-space;
 }
-input {
+
+//input, select and textarea
+input,
+textarea,
+select {
     outline: none;
+    margin: 0 $xs-space;
+    border-radius: 4px;
+    border: solid 1px $grey;
+    height: 34px;
+    font-size: $s-font;
+}
+select,
+input {
+    background-color: $white;
+    padding: 0 $xs-space;
+}
+
+textarea {
+    min-height: 42px;
+    resize: none;
+    padding: $xs-space;
+}
+
+// container
+.input-form-container {
+    width: 752px;
+}
+.row {
+    margin-bottom: $s-space;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 </style>

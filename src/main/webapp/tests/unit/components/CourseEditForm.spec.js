@@ -222,9 +222,9 @@ describe('CourseEditForm.vue', () => {
             expect(getByRole('textbox', { name: 'Titel / Thema' })).toHaveValue(
                 'Title'
             ),
-            expect(getByRole('textbox', { name: 'Trainer' })).toHaveValue(
-                'Trainer'
-            ),
+            expect(
+                getByRole('textbox', { name: 'Veranstalter*in' })
+            ).toHaveValue('Trainer'),
             expect(
                 getByRole('combobox', { name: 'Veranstaltungsart' })
             ).toHaveValue('EXTERNAL')

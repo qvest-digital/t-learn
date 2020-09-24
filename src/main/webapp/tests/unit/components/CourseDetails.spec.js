@@ -58,10 +58,12 @@ describe('CourseDetails.vue', () => {
                 '02.05.2020 11:00'
             ),
             expect(getByLabelText('Adresse:')).toHaveTextContent('Daheim'),
-            expect(getByLabelText('Organisator:')).toHaveTextContent(
+            expect(getByLabelText('Ansprechpartner*in:')).toHaveTextContent(
                 'Organizer'
             ),
-            expect(getByLabelText('Trainer:')).toHaveTextContent('Trainer'),
+            expect(getByLabelText('Veranstalter*in:')).toHaveTextContent(
+                'Trainer'
+            ),
             expect(getByRole('link')).toHaveTextContent('https://tarent.de'),
             expect(getByRole('link')).toHaveAttribute(
                 'href',
