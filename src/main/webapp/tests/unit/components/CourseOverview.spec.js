@@ -1,11 +1,5 @@
 import '@testing-library/jest-dom';
-import { mount, createLocalVue } from '@vue/test-utils';
-import VueRouter from 'vue-router';
-import {
-    fireEvent,
-    render,
-    waitForElementToBeRemoved
-} from '@testing-library/vue';
+import { fireEvent, render } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import routes from '@/routes';
@@ -33,34 +27,45 @@ describe('CourseOverview.vue', () => {
 
     it("deletes course on server side when 'Löschen' button is clicked", async () => {
         mockGetCourses();
-        const localVue = createLocalVue();
-        localVue.use(VueRouter);
-
-        const router = new VueRouter({
-            routes
-        });
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
-        const wrapper = mount(CourseOverview, { router, localVue });
-        await wrapper.vm.$nextTick();
-        await wrapper.find('#course-card-0-delete-button').trigger('click');
-        await wrapper.find('.confirm-modal-confirm-button').trigger('click');
+
+        const { findAllByText, findAllByRole } = setupComponent();
+
+        const deleteButtons = await findAllByRole('button', {
+            name: 'Löschen'
+        });
+        expect(deleteButtons).toHaveLength(2);
+        await fireEvent.click(deleteButtons[0]);
+
+        const confirmButtons = await findAllByRole('button', { name: 'Ja' });
+        await fireEvent.click(confirmButtons[0]);
+
         expect(deleteCourse).toHaveBeenCalledWith(1);
+
+        const titles = await findAllByText(/Title/);
+        expect(titles).toHaveLength(1);
     });
 
     it("does not delete anything when 'Abbrechen' button was clicked when deleting", async () => {
         mockGetCourses();
-        const localVue = createLocalVue();
-        localVue.use(VueRouter);
 
-        const router = new VueRouter({
-            routes
+        const { findAllByText, findAllByRole } = setupComponent();
+
+        const deleteButtons = await findAllByRole('button', {
+            name: 'Löschen'
         });
-        deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
-        const wrapper = mount(CourseOverview, { router, localVue });
-        await wrapper.vm.$nextTick();
-        await wrapper.find('#course-card-0-delete-button').trigger('click');
-        await wrapper.find('.confirm-modal-cancel-button').trigger('click');
-        expect(deleteCourse).not.toHaveBeenCalledWith(1);
+        expect(deleteButtons).toHaveLength(2);
+        await fireEvent.click(deleteButtons[0]);
+
+        const cancelButtons = await findAllByRole('button', {
+            name: 'Abbrechen'
+        });
+        await fireEvent.click(cancelButtons[0]);
+
+        expect(deleteCourse).not.toHaveBeenCalled();
+
+        const titles = await findAllByText(/Title/);
+        expect(titles).toHaveLength(2);
     });
 
     function mockGetCourses() {

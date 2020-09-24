@@ -7,7 +7,7 @@
                 @cancel="showModal = false"
                 @confirm="deleteCourse(course)"
                 v-if="showModal"
-                confirmButtonTitle="Löschen"
+                confirmButtonTitle="Ja"
                 cancelButtonTitle="Abbrechen"
                 modalTitle="Veranstaltung löschen"
                 :text="

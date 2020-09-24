@@ -1,40 +1,46 @@
-import { shallowMount } from '@vue/test-utils';
 import ConfirmModal from '@/components/ConfirmModal';
+import '@testing-library/jest-dom';
+import { fireEvent, render } from '@testing-library/vue';
+
 describe('ConfirmModal.vue', () => {
-    let wrapper;
-    beforeEach(() => {
-        wrapper = shallowMount(ConfirmModal, {
-            propsData: {
-                confirmButtonTitle: 'yes',
-                cancelButtonTitle: 'no',
-                modalTitle: 'modal title',
-                text: 'Are you sure?'
-            }
-        });
-    });
     test('render ConfirmModal with text from props', () => {
-        const contentText = wrapper.find('.confirm-modal-content');
-        expect(contentText.text()).toContain('Are you sure?');
+        const { getByRole, getByTestId } = setupComponent();
 
-        const modalTitleText = wrapper.find('.confirm-modal-title');
-        expect(modalTitleText.text()).toContain('modal title');
+        expect(getByTestId('confirmModalTitle')).toHaveTextContent(
+            'Confirmation'
+        );
+        expect(getByTestId('confirmModalContent')).toHaveTextContent(
+            'Are you sure?'
+        );
 
-        const confirmButtonText = wrapper.find('.confirm-modal-confirm-button');
-        expect(confirmButtonText.text()).toContain('yes');
-
-        const cancelButtonText = wrapper.find('.confirm-modal-cancel-button');
-        expect(cancelButtonText.text()).toContain('no');
+        getByRole('button', { name: 'yes' });
+        getByRole('button', { name: 'no' });
     });
 
     test('check if cancel event is emitted on cancel button click', async () => {
-        const cancelButton = wrapper.find('.confirm-modal-cancel-button');
-        await cancelButton.trigger('click');
-        expect(wrapper.emitted().cancel).toBeTruthy();
+        const { getByRole, emitted } = setupComponent();
+
+        await fireEvent.click(getByRole('button', { name: 'yes' }));
+        expect(emitted().confirm.length).toEqual(1);
+        expect(emitted().confirm[0]).toEqual([]);
     });
 
     test('check if confirm event is emitted on confirm button click', async () => {
-        const confirmButton = wrapper.find('.confirm-modal-confirm-button');
-        await confirmButton.trigger('click');
-        expect(wrapper.emitted().confirm).toBeTruthy();
+        const { getByRole, emitted } = setupComponent();
+
+        await fireEvent.click(getByRole('button', { name: 'no' }));
+        expect(emitted().cancel.length).toEqual(1);
+        expect(emitted().cancel[0]).toEqual([]);
     });
+
+    function setupComponent() {
+        return render(ConfirmModal, {
+            propsData: {
+                modalTitle: 'Confirmation',
+                confirmButtonTitle: 'yes',
+                cancelButtonTitle: 'no',
+                text: 'Are you sure?'
+            }
+        });
+    }
 });

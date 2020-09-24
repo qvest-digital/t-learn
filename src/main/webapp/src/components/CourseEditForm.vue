@@ -21,6 +21,7 @@
 
             <div class="form-footer">
                 <button
+                    type="button"
                     class="form-cancel-button"
                     @click="
                         $router.push({
@@ -31,7 +32,7 @@
                 >
                     Abbrechen
                 </button>
-                <button class="form-submit-button">
+                <button type="submit" class="form-submit-button">
                     Speichern
                 </button>
             </div>
@@ -42,7 +43,7 @@
 <script>
 import { getCourse, updateCourse } from '@/services/BackendService';
 import CourseInputForm from '@/components/CourseInputForm';
-// import handleError from '@/components/handleError';
+import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseEditForm',
@@ -99,8 +100,7 @@ export default {
                 .then(response => {
                     this.course = response.data;
                 })
-                .catch(error => console.error(error));
-            // .catch(error => handleError(this, error));
+                .catch(error => handleError(this, error));
         }
     },
     mounted: function() {

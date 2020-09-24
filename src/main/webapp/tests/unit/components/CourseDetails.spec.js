@@ -1,11 +1,5 @@
 import '@testing-library/jest-dom';
-import { shallowMount } from '@vue/test-utils';
-import {
-    fireEvent,
-    render,
-    waitFor,
-    waitForElementToBeRemoved
-} from '@testing-library/vue';
+import { fireEvent, render, waitFor } from '@testing-library/vue';
 import { deleteCourse, getCourse } from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
@@ -40,52 +34,39 @@ describe('CourseDetails.vue', () => {
                 }
             })
         );
-        const wrapper = shallowMount(CourseDetails, {
-            propsData: {
-                courseId: 1
-            }
+
+        const { getByLabelText, getByText, getByRole } = render(CourseDetails, {
+            props: { courseId: 1 },
+            routes: routes
         });
-        await wrapper.vm.$nextTick();
+
+        await waitFor(() => [
+            expect(getByRole('heading')).toHaveTextContent('Title'),
+            expect(getByLabelText('Typ:')).toHaveTextContent('Extern'),
+            expect(getByLabelText('Ort:')).toHaveTextContent(
+                'Remoteveranstaltung'
+            ),
+            expect(getByLabelText('Start:')).toHaveTextContent(
+                '02.05.2020 10:34'
+            ),
+            expect(getByLabelText('Ende:')).toHaveTextContent(
+                '02.05.2020 11:00'
+            ),
+            expect(getByLabelText('Adresse:')).toHaveTextContent('Daheim'),
+            expect(getByLabelText('Organisator:')).toHaveTextContent(
+                'Organizer'
+            ),
+            expect(getByLabelText('Trainer:')).toHaveTextContent('Trainer'),
+            expect(getByRole('link')).toHaveTextContent('https://tarent.de'),
+            expect(getByRole('link')).toHaveAttribute(
+                'href',
+                'https://tarent.de'
+            ),
+            expect(getByText('Alle')).toBeInTheDocument(),
+            expect(getByText('Beschreibung')).toBeInTheDocument()
+        ]);
+
         expect(getCourse).toHaveBeenCalledWith(1);
-        expect(wrapper.find('.page-title').text()).toBe('Title');
-        expect(wrapper.find('#course-details-text-course-type').text()).toBe(
-            'Extern'
-        );
-
-        expect(
-            wrapper.find('#course-details-text-course-location').text()
-        ).toBe('Remoteveranstaltung');
-
-        expect(
-            wrapper.find('#course-details-text-course-start-date').text()
-        ).toBe('02.05.2020 10:34');
-
-        expect(
-            wrapper.find('#course-details-text-course-end-date').text()
-        ).toBe('02.05.2020 11:00');
-
-        expect(wrapper.find('#course-details-text-course-address').text()).toBe(
-            'Daheim'
-        );
-
-        expect(
-            wrapper.find('#course-details-text-course-organizer').text()
-        ).toBe('Organizer');
-
-        expect(wrapper.find('#course-details-text-course-trainer').text()).toBe(
-            'Trainer'
-        );
-
-        expect(wrapper.find('#course-details-text-course-link').text()).toBe(
-            'https://tarent.de'
-        );
-
-        expect(wrapper.find('.course-details-target-audiance').text()).toBe(
-            'Alle'
-        );
-        expect(wrapper.find('.course-details-description').text()).toBe(
-            'Beschreibung'
-        );
     });
 
     it('navigates to overview page when course was not found', async () => {
@@ -107,8 +88,8 @@ describe('CourseDetails.vue', () => {
         );
 
         await waitFor(() => [
-            expect(getCourse).toBeCalledWith(1)
-            // expect(routerPushSpy).toBeCalledWith('/')
+            expect(getCourse).toBeCalledWith(1),
+            expect(routerPushSpy).toBeCalledWith('/')
         ]);
     });
 
@@ -139,14 +120,14 @@ describe('CourseDetails.vue', () => {
     it("sends delete request to server and navigates to overview page when 'Löschen' button is clicked", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
-                data: {}
+                data: { id: 1 }
             })
         );
 
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
         let routerPushSpy;
-        const { getByTestId, findByTestId } = render(
+        const { findByRole, getByRole, queryByText } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
@@ -158,13 +139,15 @@ describe('CourseDetails.vue', () => {
             }
         );
 
-        await fireEvent.click(getByTestId('course-details-delete-button'));
+        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
 
-        const confirmButton = await findByTestId('confirm-button');
+        const confirmButton = await findByRole('button', { name: 'Ja' });
         await fireEvent.click(confirmButton);
 
+        expect(queryByText('Möchtest Du die Veranstaltung')).toBeNull();
+
         await waitFor(() => [
-            expect(deleteCourse).toHaveBeenCalled(),
+            expect(deleteCourse).toHaveBeenCalledWith(1),
             expect(routerPushSpy).toBeCalledWith('/')
         ]);
     });
@@ -177,7 +160,7 @@ describe('CourseDetails.vue', () => {
         );
 
         let routerPushSpy;
-        const { findByRole, getByText, getByRole } = render(
+        const { findByRole, getByRole, queryByText } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
@@ -193,6 +176,8 @@ describe('CourseDetails.vue', () => {
 
         const cancelButton = await findByRole('button', { name: 'Abbrechen' });
         await fireEvent.click(cancelButton);
+
+        expect(queryByText('Möchtest Du die Veranstaltung')).toBeNull();
 
         expect(deleteCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).not.toHaveBeenCalled();

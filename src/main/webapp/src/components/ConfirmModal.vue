@@ -1,22 +1,23 @@
 <template>
-    <div class="confirm-modal-overlay">
+    <div data-testid="confirmModal" class="confirm-modal-overlay">
         <div class="confirm-modal-container">
-            <div class="confirm-modal-title">
+            <div data-testid="confirmModalTitle" class="confirm-modal-title">
                 {{ modalTitle }}
             </div>
-            <div class="confirm-modal-content">
+            <div
+                data-testid="confirmModalContent"
+                class="confirm-modal-content"
+            >
                 {{ text }}
             </div>
             <div class="confirm-modal-footer">
                 <button
-                    data-testid="confirm-button"
                     @click="$emit('confirm')"
                     class="confirm-modal-confirm-button"
                 >
                     {{ confirmButtonTitle }}
                 </button>
                 <button
-                    data-testid="cancel-button"
                     @click="$emit('cancel')"
                     class="confirm-modal-cancel-button"
                 >

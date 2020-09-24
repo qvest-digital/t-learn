@@ -125,8 +125,8 @@ describe('CourseEditForm.vue', () => {
         );
 
         await waitFor(() => [
-            expect(getCourse).toHaveBeenCalledWith(1)
-            // expect(routerPushSpy).toHaveBeenCalledWith('/')
+            expect(getCourse).toHaveBeenCalledWith(1),
+            expect(routerPushSpy).toHaveBeenCalledWith('/')
         ]);
     });
 
@@ -156,10 +156,10 @@ describe('CourseEditForm.vue', () => {
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
 
-        await fireEvent.update(
-            getByRole('textbox', { name: 'Titel / Thema' }),
-            ''
-        );
+        const title = getByRole('textbox', { name: 'Titel / Thema' });
+        await fireEvent.update(title, '');
+
+        expect(title.classList).toContain('is-invalid');
 
         await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
 
@@ -172,11 +172,6 @@ describe('CourseEditForm.vue', () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
                 data: createCourse()
-            })
-        );
-        updateCourse.mockImplementationOnce(() =>
-            Promise.resolve({
-                data: {}
             })
         );
 
@@ -198,7 +193,7 @@ describe('CourseEditForm.vue', () => {
 
         await fireEvent.click(getByRole('button', { name: 'Abbrechen' }));
 
-        expect(updateCourse).toHaveBeenCalled();
+        expect(updateCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).toHaveBeenCalledWith({
             name: 'courseDetails',
             params: { courseId: 1 }

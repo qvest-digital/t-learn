@@ -4,7 +4,7 @@
             @cancel="showModal = false"
             @confirm="deleteCourse(course.id)"
             v-if="showModal"
-            confirmButtonTitle="Löschen"
+            confirmButtonTitle="Ja"
             cancelButtonTitle="Abbrechen"
             modalTitle="Veranstaltung löschen"
             :text="
@@ -12,7 +12,7 @@
             "
         />
         <div class="page-title">
-            {{ course.title }}
+            <h1>{{ course.title }}</h1>
         </div>
         <div>
             <div class="course-details-image-container">
@@ -25,21 +25,25 @@
 
             <div class="course-details-content-container">
                 <div class="course-details-content" v-if="course.courseType">
-                    <span class="course-details-content-label">Typ:</span>
+                    <span id="courseType" class="course-details-content-label"
+                        >Typ:</span
+                    >
                     <span
-                        id="course-details-text-course-type"
+                        aria-labelledby="courseType"
                         class="course-details-content-text"
                         >{{
-                            course.courseType == 'EXTERNAL'
+                            course.courseType === 'EXTERNAL'
                                 ? 'Extern'
                                 : 'Intern'
                         }}</span
                     >
                 </div>
                 <div class="course-details-content" v-if="course.location">
-                    <span class="course-details-content-label">Ort:</span>
+                    <span id="location" class="course-details-content-label"
+                        >Ort:</span
+                    >
                     <span
-                        id="course-details-text-course-location"
+                        aria-labelledby="location"
                         class="course-details-content-text"
                     >
                         {{
@@ -50,52 +54,62 @@
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.startDate">
-                    <span class="course-details-content-label">Start:</span>
+                    <span id="startDate" class="course-details-content-label"
+                        >Start:</span
+                    >
                     <span
-                        id="course-details-text-course-start-date"
+                        aria-labelledby="startDate"
                         class="course-details-content-text"
                         >{{ course.startDate | formatDate }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.endDate">
-                    <span class="course-details-content-label">Ende:</span>
+                    <span id="endDate" class="course-details-content-label"
+                        >Ende:</span
+                    >
                     <span
-                        id="course-details-text-course-end-date"
+                        aria-labelledby="endDate"
                         class="course-details-content-text"
                         >{{ course.endDate | formatDate }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.address">
-                    <span class="course-details-content-label">Adresse:</span>
+                    <span id="address" class="course-details-content-label"
+                        >Adresse:</span
+                    >
                     <span
-                        id="course-details-text-course-address"
+                        aria-labelledby="address"
                         class="course-details-content-text"
                         >{{ course.address }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.organizer">
-                    <span class="course-details-content-label"
+                    <span id="organizer" class="course-details-content-label"
                         >Organisator:</span
                     >
                     <span
-                        id="course-details-text-course-organizer"
+                        aria-labelledby="organizer"
                         class="course-details-content-text"
                         >{{ course.organizer }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.trainer">
-                    <span class="course-details-content-label">Trainer:</span>
+                    <span id="trainer" class="course-details-content-label"
+                        >Trainer:</span
+                    >
                     <span
-                        id="course-details-text-course-trainer"
+                        aria-labelledby="trainer"
                         class="course-details-content-text"
                     >
                         {{ course.trainer }}
                     </span>
                 </div>
                 <div class="course-details-content" v-if="course.link">
-                    <span class="course-details-content-label">Link:</span>
+                    <span id="link" class="course-details-content-label"
+                        >Link:</span
+                    >
                     <span
-                        id="course-details-text-course-link"
+                        aria-labelledby="link"
                         class="course-details-content-text"
                     >
                         <a :href="course.link">{{ course.link }}</a>
@@ -123,10 +137,7 @@
                     >
                         Bearbeiten
                     </button>
-                    <button
-                        data-testid="course-details-delete-button"
-                        @click="showModal = true"
-                    >
+                    <button @click="showModal = true">
                         Löschen
                     </button>
                 </div>
@@ -140,7 +151,7 @@ import coffeeImg from '@/assets/coffee.jpg';
 import signsImg from '@/assets/signs.jpg';
 import { deleteCourse, getCourse } from '@/services/BackendService';
 import ConfirmModal from './ConfirmModal';
-// import handleError from '@/components/handleError';
+import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
@@ -176,8 +187,7 @@ export default {
                 .then(response => {
                     this.course = response.data;
                 })
-                .catch(error => console.error(error));
-            // .catch(error => handleError(this, error));
+                .catch(error => handleError(this, error));
         },
         deleteCourse: function(courseId) {
             deleteCourse(courseId)
