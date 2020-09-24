@@ -133,7 +133,7 @@
                     v-model="$v.course.targetAudience.$model"
                     :state="validateState('course.targetAudience')"
                     id="targetAudience"
-                    placeholder="Veranstaltungsbeschreibung"
+                    placeholder="Welche Zielgruppe soll mit der Veranstaltung angesprochen werden"
                     rows="3"
                     max-rows="6"
                 />
