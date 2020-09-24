@@ -21,7 +21,7 @@ describe('CourseCreationForm.vue', () => {
         });
 
         let routerPushSpy;
-        const { getByTestId, getByRole } = render(
+        const { getByTestId, getByRole, getAllByRole } = render(
             CourseCreationForm,
             {
                 routes: routes
@@ -49,7 +49,8 @@ describe('CourseCreationForm.vue', () => {
             'EXTERNAL'
         );
 
-        await fireEvent.submit(getByRole('button'));
+        const buttons = getAllByRole('button');
+        await fireEvent.click(buttons[1]);
 
         expect(getByTestId('errorMsg')).not.toBeVisible();
         expect(createCourse).toHaveBeenCalledWith({
@@ -78,7 +79,7 @@ describe('CourseCreationForm.vue', () => {
             })
         );
 
-        const { getByRole, getByTestId } = setupComponent();
+        const { getByRole, getByTestId, getAllByRole } = setupComponent();
 
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
@@ -97,7 +98,8 @@ describe('CourseCreationForm.vue', () => {
             'EXTERNAL'
         );
 
-        await fireEvent.submit(getByRole('button'));
+        const buttons = getAllByRole('button');
+        await fireEvent.click(buttons[1]);
 
         expect(createCourse).toHaveBeenCalledWith({
             address: null,
@@ -116,11 +118,11 @@ describe('CourseCreationForm.vue', () => {
     });
 
     it('shows validation errors when required fields are not filled', async () => {
-        const { getByRole, getByTestId } = setupComponent();
+        const { getByRole, getAllByRole, getByTestId } = setupComponent();
 
         expect(getByTestId('errorMsg')).not.toBeVisible();
-
-        await fireEvent.submit(getByRole('button'));
+        const buttons = getAllByRole('button');
+        await fireEvent.click(buttons[1]);
 
         expect(createCourse).not.toBeCalled();
 

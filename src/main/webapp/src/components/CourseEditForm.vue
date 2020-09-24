@@ -1,42 +1,45 @@
 <template>
-    <div>
-        <div class="page-title">
-            Editieren einer Veranstaltung
-        </div>
-        <form @submit.prevent="update">
-            <div
-                v-show="hasError"
-                class="form-error-text"
-                data-testid="errorMsg"
-            >
-                Ein Fehler ist aufgetreten, bitte versuchen Sie es später
-                erneut.
+    <div class="course-edit-form-container">
+        <div>
+            <div class="page-title">
+                Editieren einer Veranstaltung
             </div>
-
-            <CourseInputForm
-                ref="courseForm"
-                :course="course"
-                @ready="isReady => (isValid = isReady)"
-            />
-
-            <div class="form-footer">
-                <button
-                    type="button"
-                    class="form-cancel-button"
-                    @click="
-                        $router.push({
-                            name: 'courseDetails',
-                            params: { courseId }
-                        })
-                    "
+            <form @submit.prevent="update">
+                <div
+                    v-show="hasError"
+                    class="form-error-text"
+                    data-testid="errorMsg"
                 >
-                    ABBRECHEN
-                </button>
-                <button type="submit" class="form-submit-button">
-                    SPEICHERN
-                </button>
-            </div>
-        </form>
+                    Ein Fehler ist aufgetreten, bitte versuchen Sie es später
+                    erneut.
+                </div>
+
+                <CourseInputForm
+                    ref="courseForm"
+                    :course="course"
+                    @ready="isReady => (isValid = isReady)"
+                />
+
+                <div class="form-footer">
+                    <button
+                        type="button"
+                        c
+                        class="button secondary"
+                        @click="
+                            $router.push({
+                                name: 'courseDetails',
+                                params: { courseId }
+                            })
+                        "
+                    >
+                        ABBRECHEN
+                    </button>
+                    <button type="submit" class="button primary">
+                        SPEICHERN
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -109,4 +112,27 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.course-edit-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-footer {
+    margin-top: $xl-space;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin-left: $s-space;
+    }
+}
+.course-edit-form-container > div {
+    max-width: 736px;
+}
+.page-title {
+    text-align: left;
+    font-size: $l-font;
+    margin-bottom: $l-space;
+}
+</style>

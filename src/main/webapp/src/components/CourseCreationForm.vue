@@ -1,31 +1,38 @@
 <template>
-    <div>
-        <div class="page-title">
-            Veranstaltung erstellen
+    <div class="course-creation-form-container">
+        <div>
+            <div class="page-title">
+                Veranstaltung erstellen
+            </div>
+
+            <form @submit.prevent="create">
+                <div
+                    v-show="hasError"
+                    class="form-error-text"
+                    data-testid="errorMsg"
+                >
+                    Ein Fehler ist aufgetreten, bitte versuchen Sie es später
+                    erneut.
+                </div>
+                <CourseInputForm
+                    ref="courseForm"
+                    :course="course"
+                    @ready="isReady => (isValid = isReady)"
+                />
+
+                <div class="form-footer">
+                    <button
+                        @click.stop="$router.push('/')"
+                        class="button secondary"
+                    >
+                        ABBRECHEN
+                    </button>
+                    <button class="button primary">
+                        ERSTELLEN
+                    </button>
+                </div>
+            </form>
         </div>
-
-        <form @submit.prevent="create">
-            <div
-                v-show="hasError"
-                class="form-error-text"
-                data-testid="errorMsg"
-            >
-                Ein Fehler ist aufgetreten, bitte versuchen Sie es später
-                erneut.
-            </div>
-
-            <CourseInputForm
-                ref="courseForm"
-                :course="course"
-                @ready="isReady => (isValid = isReady)"
-            />
-
-            <div class="form-footer">
-                <button class="form-submit-button">
-                    ERSTELLEN
-                </button>
-            </div>
-        </form>
     </div>
 </template>
 
@@ -89,8 +96,27 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.course-creation-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-footer {
+    margin-top: $xl-space;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin-left: $s-space;
+    }
+}
+.course-creation-form-container > div {
+    max-width: 736px;
+}
 .page-title {
-    font-size: 20px;
+    text-align: left;
+    font-size: $l-font;
+    margin-bottom: $l-space;
 }
 </style>
