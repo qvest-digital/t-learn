@@ -181,6 +181,7 @@ export default {
 .course-card-title {
     font-size: $m-font;
     font-weight: $bold;
+    line-height: 1.5;
     margin-bottom: $xs-space;
     overflow: hidden;
     text-overflow: ellipsis;
