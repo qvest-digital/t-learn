@@ -3,6 +3,10 @@ import { fireEvent, render } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import routes from '@/routes';
+import Vue from 'vue';
+import { dateFormatFilter } from '@/filter/dateformatFilter';
+
+Vue.filter('formatDate', dateFormatFilter);
 
 jest.mock('@/services/BackendService');
 
@@ -19,8 +23,6 @@ describe('CourseOverview.vue', () => {
 
         const titles = await findAllByText(/Title/);
         expect(titles).toHaveLength(2);
-        const targetAudiences = await findAllByText(/TestTestTest/);
-        expect(targetAudiences).toHaveLength(2);
 
         expect(getCourses).toHaveBeenCalled();
     });

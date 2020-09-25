@@ -6,7 +6,7 @@ import Vuelidate from 'vuelidate';
 
 describe('App.vue', () => {
     it('test navigation to overview', async () => {
-        const { getByText, queryByText } = setupComponent();
+        const { getByText, queryByText, queryByTestId } = setupComponent();
 
         await fireEvent.click(getByText('t-learn'));
 
