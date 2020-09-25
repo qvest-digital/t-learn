@@ -30,11 +30,13 @@
                             class="course-img"
                             :src="cardimage(course)"
                             :alt="course.title"
+                            title="Veranstaltung Details"
                         />
                         <img
                             @click.stop="showModal = true"
                             class="delete-course-icon"
                             data-testid="deleteCourseIcon"
+                            title="Veranstaltung löschen"
                             src="../assets/images/trash-white-bg.svg"
                         />
                         <img
@@ -46,13 +48,14 @@
                             "
                             data-testid="editCourseIcon"
                             class="edit-course-icon"
+                            title="Veranstaltung editieren"
                             src="../assets/images/edit-white-bg.svg"
                         />
                     </div>
                     <div class="course-card-date">
                         {{ course.startDate | formatDate }}
                     </div>
-                    <div class="course-card-title">
+                    <div :title="course.title" class="course-card-title">
                         {{ course.title }}
                     </div>
 
