@@ -57,6 +57,7 @@
                 <div
                     data-testid="courseDetailsTitle"
                     class="course-details-content-title"
+                    :title="course.title"
                 >
                     {{ course.title }}
                 </div>
@@ -91,6 +92,7 @@
                 <div
                     data-testid="trainer"
                     class="course-details-summary-text"
+                    :title="course.trainer"
                     v-if="course.trainer"
                 >
                     {{ course.trainer }}
@@ -105,6 +107,7 @@
                 </div>
                 <div
                     v-if="course.address"
+                    :title="course.address"
                     data-testid="address"
                     class="course-details-summary-text"
                 >
@@ -120,6 +123,7 @@
                 </div>
                 <div
                     v-if="course.organizer"
+                    :title="course.organizer"
                     data-testid="organizer"
                     class="course-details-summary-text"
                 >
@@ -135,6 +139,7 @@
                 </div>
                 <div
                     v-if="course.link"
+                    :title="course.link"
                     data-testid="link"
                     class="course-details-summary-text"
                 >
@@ -299,7 +304,13 @@ export default {
     font-size: $xl-font;
     font-weight: $normal;
     margin-bottom: $l-space;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
+
 .course-details-content-subtitle {
     font-size: $l-font;
     font-weight: $normal;
@@ -314,7 +325,7 @@ export default {
     padding: $m-space;
     text-align: left;
     width: 320px;
-    max-height: 340px;
+    max-height: 370px;
 }
 
 .course-details-summary-title {
@@ -331,6 +342,11 @@ export default {
     font-size: $s-font;
     font-weight: initial;
     margin-bottom: $xs-space;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .course-details-summary-icon-text {
     font-size: $s-font;
