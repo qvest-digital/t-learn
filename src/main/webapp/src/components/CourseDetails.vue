@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="course-details-container">
         <ConfirmModal
             @cancel="showModal = false"
             @confirm="deleteCourse(course.id)"
@@ -10,6 +10,34 @@
             :extraTitle="course.title"
             text="Möchtest Du die Veranstaltung wirklich löschen?"
         />
+        <div class="course-details-nav">
+            <div class="nav-item">
+                <button class="button with-icon" @click="$router.push('/')">
+                    <img class="button-icon" src="../assets/images/back.svg" />
+                    ZURÜCK
+                </button>
+            </div>
+            <div class="nav-item">
+                <button
+                    class="button with-icon"
+                    @click="
+                        $router.push({
+                            name: 'courseEdit',
+                            params: { courseId }
+                        })
+                    "
+                >
+                    <img class="button-icon" src="../assets/images/edit.svg" />
+                    BEARBEITEN
+                </button>
+                <button class="button with-icon" @click="showModal = true">
+                    <img
+                        class="button-icon"
+                        src="../assets/images/trash.svg"
+                    />LÖSCHEN
+                </button>
+            </div>
+        </div>
         <div data-testid="courseDetailsTitle" class="page-title">
             {{ course.title }}
         </div>
@@ -121,26 +149,6 @@
             <div class="course-details-description">
                 {{ course.description }}
             </div>
-            <div class="course-details-nav">
-                <div>
-                    <button @click="$router.push('/')">
-                        ZURÜCK
-                    </button>
-                    <button
-                        @click="
-                            $router.push({
-                                name: 'courseEdit',
-                                params: { courseId }
-                            })
-                        "
-                    >
-                        BEARBEITEN
-                    </button>
-                    <button @click="showModal = true">
-                        LÖSCHEN
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -206,20 +214,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.label {
-    width: 7rem;
-    font-weight: 700 !important;
-    float: left !important;
+.course-details-container {
+    margin: auto;
+    max-width: 1200px;
 }
-
-.detailThumbnail {
-    max-width: 20rem;
+.course-details-nav {
+    margin-bottom: $xxl-space;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-.abbreviation {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: calc(100% - 7rem);
+.nav-item > button:first-child {
+    margin-right: $s-space;
+}
+.button-icon {
+    padding-right: $xs-space;
 }
 </style>
