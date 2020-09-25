@@ -317,6 +317,8 @@ export default {
     margin-bottom: $m-space;
 }
 .course-details-content-text {
+    font-size: $s-font;
+    line-height: 1.57;
     margin-bottom: $m-space;
 }
 // course summary
