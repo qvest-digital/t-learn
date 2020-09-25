@@ -18,7 +18,7 @@ describe('App.vue', () => {
     it('test navigation to create new course', async () => {
         const { getByText, queryByText } = setupComponent();
 
-        await fireEvent.click(getByText('Anlegen'));
+        await fireEvent.click(getByText('Erstellen'));
 
         expect(queryByText('Veranstaltung erstellen')).toBeInTheDocument();
     });

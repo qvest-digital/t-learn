@@ -1,19 +1,30 @@
 <template>
-    <div class="navbar-container">
-        <div class="logo-container">
-            <img src="../assets/images/tarent-logo-white.svg" />
-        </div>
-        <router-link tag="span" class="nav-link" to="/">
-            t-learn
-        </router-link>
+    <div class="header-container">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img src="../assets/images/tarent-logo-white.svg" />
+            </div>
+            <router-link
+                title="Veranstaltung Übersicht"
+                tag="div"
+                class="nav-link"
+                to="/"
+            >
+                <img class="navbar-icon" src="../assets/images/t-learn.svg" />
+                t-learn
+            </router-link>
 
-        <router-link
-            tag="span"
-            class="nav-link"
-            :to="{ name: 'courseCreation' }"
-        >
-            Anlegen
-        </router-link>
+            <router-link
+                tag="div"
+                class="nav-link"
+                title="Veranstaltung erstellen"
+                :to="{ name: 'courseCreation' }"
+            >
+                <img class="navbar-icon" src="../assets/images/create.svg" />
+
+                Erstellen
+            </router-link>
+        </div>
         <input type="search" class="search" placeholder="Suche" />
     </div>
 </template>
@@ -23,34 +34,42 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-.navbar-container {
+.header-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin: 0 0 $xxxl-space 0;
     padding: 0 $s-space;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.21);
+}
+.navbar-container {
+    display: flex;
+    align-items: center;
     height: 58px;
+}
+
+.navbar-icon {
+    padding-right: $s-space;
 }
 
 .nav-link {
     color: $black;
-    margin-left: $m-space;
-    font-size: $l-font;
+    padding: 0 $s-space;
+    font-size: $m-font;
     font-weight: $normal;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     cursor: pointer;
     &.router-link-exact-active {
-        font-weight: $bold;
-        padding-top: $s-space;
-        padding-bottom: $s-space;
-        border-bottom: 2px solid $dark-red;
+        border-bottom: solid $dark-red;
     }
 }
 .search {
-    margin-left: $l-space;
-    flex-grow: 1;
-    max-width: 964px;
-    height: 30px;
+    width: 400px;
+    height: 40px;
     font-size: $m-font;
     background-color: $light-grey;
     border-radius: 20px;
@@ -61,5 +80,8 @@ export default {};
     background-repeat: no-repeat;
     background-position: $s-space center;
     outline: 0;
+}
+.logo-container {
+    margin-right: $m-space;
 }
 </style>
