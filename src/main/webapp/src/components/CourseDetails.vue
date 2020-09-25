@@ -343,6 +343,7 @@ export default {
 .course-details-summary-text {
     font-size: $s-font;
     font-weight: initial;
+    line-height: 1.57;
     margin-bottom: $xs-space;
     overflow: hidden;
     text-overflow: ellipsis;
