@@ -313,13 +313,13 @@ export default {
 // validation and label
 
 .form-label {
-    font-size: $s-font;
+    font-size: $xs-font;
     color: $grey;
     margin: 0 $xs-space $xs-space $xs-space;
 }
 .required-label::after {
     color: $red;
-    font-size: $s-font;
+    font-size: $xs-font;
     font-weight: $bold;
     content: '\00a0*';
 }
@@ -330,7 +330,7 @@ export default {
 
 .form-validation-text {
     color: $red;
-    font-size: $s-font;
+    font-size: $xs-font;
     margin: $xs-space $xs-space 0 $xs-space;
 }
 
@@ -343,7 +343,7 @@ select {
     border-radius: 4px;
     border: solid 1px $grey;
     height: 34px;
-    font-size: $s-font;
+    font-size: $xs-font;
 }
 select {
     cursor: pointer;

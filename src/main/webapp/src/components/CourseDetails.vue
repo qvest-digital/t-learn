@@ -6,10 +6,9 @@
             v-if="showModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
-            modalTitle="Veranstaltung löschen"
-            :text="
-                `Möchtest Du die Veranstaltung &quot;${course.title}&quot; wirklich löschen?`
-            "
+            modalTitle="Veranstaltung löschen - "
+            :extraTitle="course.title"
+            text="Möchtest Du die Veranstaltung wirklich löschen?"
         />
         <div data-testid="courseDetailsTitle" class="page-title">
             {{ course.title }}
@@ -206,7 +205,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .label {
     width: 7rem;
     font-weight: 700 !important;
