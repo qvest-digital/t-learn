@@ -347,6 +347,8 @@ select {
 }
 select {
     cursor: pointer;
+    appearance: none;
+    background: url('../assets/images/down.png') no-repeat right #fff;
 }
 select,
 input {
