@@ -16,10 +16,16 @@
     &.primary {
         background: $red;
         color: white;
+        &:hover {
+            background: $medium-red;
+        }
     }
 
     &.secondary {
         background: $light-grey;
+        &:hover {
+            background: $medium-grey;
+        }
     }
 
     &:disabled {
