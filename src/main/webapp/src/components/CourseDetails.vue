@@ -38,40 +38,143 @@
                 </button>
             </div>
         </div>
-        <div data-testid="courseDetailsTitle" class="page-title">
-            {{ course.title }}
-        </div>
-        <div>
-            <div class="course-details-image-container">
-                <img
-                    class="course-img"
-                    :src="cardimage(course)"
-                    :alt="course.title"
-                />
-            </div>
-
+        <div class="course-details-holder">
             <div class="course-details-content-container">
-                <div class="course-details-content" v-if="course.courseType">
-                    <span id="courseType" class="course-details-content-label"
-                        >Typ:</span
+                <div class="course-details-image-container">
+                    <img
+                        class="course-img"
+                        :src="cardimage(course)"
+                        :alt="course.title"
+                    />
+                </div>
+                <div class="course-details-content" v-if="course.startDate">
+                    <span id="startDate" class="course-details-content-label"
+                        >Start:</span
                     >
                     <span
-                        aria-labelledby="courseType"
+                        data-testid="startDateContent"
                         class="course-details-content-text"
+                        >{{ course.startDate | formatDate }}
+                    </span>
+                </div>
+                <div
+                    data-testid="courseDetailsTitle"
+                    class="course-details-title"
+                >
+                    {{ course.title }}
+                </div>
+                <div class="course-details-target-audiance">
+                    {{ course.targetAudience }}
+                </div>
+                <div class="course-details-description">
+                    {{ course.description }}
+                </div>
+            </div>
+
+            <div class="course-details-summary-container">
+                <div class="course-details-summary-title">
+                    Steckbrief
+                </div>
+                <div
+                    id="trainer"
+                    v-if="course.trainer"
+                    class="course-details-summary-label"
+                >
+                    Veranstalter*in:
+                </div>
+                <div
+                    data-testid="trainer"
+                    class="course-details-summary-text"
+                    v-if="course.trainer"
+                >
+                    {{ course.trainer }}
+                </div>
+
+                <div
+                    v-if="course.address"
+                    id="address"
+                    class="course-details-summary-label"
+                >
+                    Veranstaltungsadresse:
+                </div>
+                <div
+                    v-if="course.address"
+                    data-testid="address"
+                    class="course-details-summary-text"
+                >
+                    {{ course.address }}
+                </div>
+
+                <div
+                    v-if="course.organizer"
+                    id="organizer"
+                    class="course-details-summary-label"
+                >
+                    Ansprechpartner*in:
+                </div>
+                <div
+                    v-if="course.organizer"
+                    data-testid="organizer"
+                    class="course-details-summary-text"
+                >
+                    {{ course.organizer }}
+                </div>
+
+                <div
+                    v-if="course.link"
+                    id="link"
+                    class="course-details-summary-label"
+                >
+                    Link:
+                </div>
+                <div
+                    v-if="course.link"
+                    data-testid="link"
+                    class="course-details-summary-text"
+                >
+                    <a :href="course.link">{{ course.link }}</a>
+                </div>
+
+                <div class="course-details-summary-with-icon">
+                    <img
+                        class="course-details-summary-icon"
+                        src="../assets/images/clock.svg"
+                    />
+                    <span
+                        v-if="course.startDate"
+                        data-testid="startDateSummary"
+                        class="course-details-summary-text"
+                        >{{ course.startDate | formatDate }}
+                    </span>
+                    <span v-if="course.endDate">-</span>
+                    <span
+                        v-if="course.endDate"
+                        data-testid="endDate"
+                        class="course-details-summary-text"
+                        >{{ course.endDate | formatDate }}
+                    </span>
+                </div>
+
+                <div class="course-details-summary-with-icon">
+                    <img
+                        class="course-details-summary-icon"
+                        src="../assets/images/event-art.svg"
+                    />
+                    <span
+                        v-if="course.courseType"
+                        data-testid="courseType"
+                        class="course-details-summary-text"
                         >{{
                             course.courseType === 'EXTERNAL'
                                 ? 'Extern'
                                 : 'Intern'
                         }}</span
                     >
-                </div>
-                <div class="course-details-content" v-if="course.location">
-                    <span id="location" class="course-details-content-label"
-                        >Ort:</span
-                    >
+                    <span v-if="course.location">, </span>
                     <span
-                        aria-labelledby="location"
-                        class="course-details-content-text"
+                        v-if="course.location"
+                        data-testid="location"
+                        class="course-details-summary-text"
                     >
                         {{
                             course.location == 'REMOTE'
@@ -80,74 +183,6 @@
                         }}
                     </span>
                 </div>
-                <div class="course-details-content" v-if="course.startDate">
-                    <span id="startDate" class="course-details-content-label"
-                        >Start:</span
-                    >
-                    <span
-                        aria-labelledby="startDate"
-                        class="course-details-content-text"
-                        >{{ course.startDate | formatDate }}
-                    </span>
-                </div>
-                <div class="course-details-content" v-if="course.endDate">
-                    <span id="endDate" class="course-details-content-label"
-                        >Ende:</span
-                    >
-                    <span
-                        aria-labelledby="endDate"
-                        class="course-details-content-text"
-                        >{{ course.endDate | formatDate }}
-                    </span>
-                </div>
-                <div class="course-details-content" v-if="course.address">
-                    <span id="address" class="course-details-content-label"
-                        >Adresse:</span
-                    >
-                    <span
-                        aria-labelledby="address"
-                        class="course-details-content-text"
-                        >{{ course.address }}
-                    </span>
-                </div>
-                <div class="course-details-content" v-if="course.organizer">
-                    <span id="organizer" class="course-details-content-label"
-                        >Ansprechpartner*in:</span
-                    >
-                    <span
-                        aria-labelledby="organizer"
-                        class="course-details-content-text"
-                        >{{ course.organizer }}
-                    </span>
-                </div>
-                <div class="course-details-content" v-if="course.trainer">
-                    <span id="trainer" class="course-details-content-label"
-                        >Veranstalter*in:</span
-                    >
-                    <span
-                        aria-labelledby="trainer"
-                        class="course-details-content-text"
-                    >
-                        {{ course.trainer }}
-                    </span>
-                </div>
-                <div class="course-details-content" v-if="course.link">
-                    <span id="link" class="course-details-content-label"
-                        >Link:</span
-                    >
-                    <span
-                        aria-labelledby="link"
-                        class="course-details-content-text"
-                    >
-                        <a :href="course.link">{{ course.link }}</a>
-                    </span>
-                </div>
-            </div>
-            <div class="course-details-target-audiance">
-                {{ course.targetAudience }}
-            </div>
-            <div class="course-details-description">
-                {{ course.description }}
             </div>
         </div>
     </div>
@@ -214,10 +249,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// page container
 .course-details-container {
     margin: auto;
     max-width: 1200px;
 }
+.course-details-holder {
+    display: flex;
+    justify-content: space-between;
+}
+// buttons container
 .course-details-nav {
     margin-bottom: $xxl-space;
     display: flex;
@@ -229,5 +270,41 @@ export default {
 }
 .button-icon {
     padding-right: $xs-space;
+}
+// course content
+
+// course summary
+.course-details-summary-container {
+    background: $light-grey;
+    padding: $m-space;
+    text-align: left;
+    width: 320px;
+}
+
+.course-details-summary-title {
+    font-size: $l-font;
+    font-weight: $normal;
+    margin-bottom: $m-space;
+}
+.course-details-summary-label {
+    font-size: $m-font;
+    font-weight: $normal;
+    margin-bottom: $xs-space;
+}
+.course-details-summary-text {
+    font-size: $s-font;
+    font-weight: initial;
+    margin-bottom: $xs-space;
+}
+.course-details-summary-icon {
+    margin-right: $s-space;
+}
+.course-details-summary-with-icon {
+    display: flex;
+}
+//style only first element with class course-details-summary-with-icon
+div[class*='course-details-summary-with-icon']:not(:last-of-type) {
+    margin-top: $m-space;
+    margin-bottom: $s-space;
 }
 </style>

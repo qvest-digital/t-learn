@@ -47,30 +47,32 @@ describe('CourseDetails.vue', () => {
             expect(getByTestId('courseDetailsTitle')).toHaveTextContent(
                 'Title'
             ),
-            expect(getByLabelText('Typ:')).toHaveTextContent('Extern'),
-            expect(getByLabelText('Ort:')).toHaveTextContent(
+            expect(getByTestId('courseType')).toHaveTextContent('Extern'),
+            expect(getByTestId('location')).toHaveTextContent(
                 'Remoteveranstaltung'
             ),
-            expect(getByLabelText('Start:')).toHaveTextContent(
+            expect(getByTestId('startDateContent')).toHaveTextContent(
                 '02.05.2020 10:34'
             ),
-            expect(getByLabelText('Ende:')).toHaveTextContent(
+            expect(getByTestId('startDateSummary')).toHaveTextContent(
+                '02.05.2020 10:34'
+            ),
+            expect(getByTestId('endDate')).toHaveTextContent(
                 '02.05.2020 11:00'
             ),
-            expect(getByLabelText('Adresse:')).toHaveTextContent('Daheim'),
-            expect(getByLabelText('Ansprechpartner*in:')).toHaveTextContent(
-                'Organizer'
-            ),
-            expect(getByLabelText('Veranstalter*in:')).toHaveTextContent(
-                'Trainer'
-            ),
+            expect(getByTestId('address')).toHaveTextContent('Daheim'),
+
+            expect(getByTestId('organizer')).toHaveTextContent('Organizer'),
+            expect(getByTestId('trainer')).toHaveTextContent('Trainer'),
+
             expect(getByRole('link')).toHaveTextContent('https://tarent.de'),
+            expect(getByText('Beschreibung')).toBeInTheDocument(),
+
             expect(getByRole('link')).toHaveAttribute(
                 'href',
                 'https://tarent.de'
             ),
-            expect(getByText('Alle')).toBeInTheDocument(),
-            expect(getByText('Beschreibung')).toBeInTheDocument()
+            expect(getByText('Alle')).toBeInTheDocument()
         ]);
 
         expect(getCourse).toHaveBeenCalledWith(1);
