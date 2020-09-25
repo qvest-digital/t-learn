@@ -35,7 +35,7 @@ describe('CourseDetails.vue', () => {
             })
         );
 
-        const { getByLabelText, getByText, getByRole, getByTestId } = render(
+        const { findAllByText, getByText, getByRole, getByTestId } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
@@ -66,7 +66,9 @@ describe('CourseDetails.vue', () => {
             expect(getByTestId('trainer')).toHaveTextContent('Trainer'),
 
             expect(getByRole('link')).toHaveTextContent('https://tarent.de'),
-            expect(getByText('Beschreibung')).toBeInTheDocument(),
+            expect(getByTestId('beschreibung')).toHaveTextContent(
+                'Beschreibung'
+            ),
 
             expect(getByRole('link')).toHaveAttribute(
                 'href',

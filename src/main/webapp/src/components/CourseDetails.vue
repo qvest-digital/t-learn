@@ -38,7 +38,7 @@
                 </button>
             </div>
         </div>
-        <div class="course-details-holder">
+        <div class="course-details-main-container">
             <div class="course-details-content-container">
                 <div class="course-details-image-container">
                     <img
@@ -47,15 +47,12 @@
                         :alt="course.title"
                     />
                 </div>
-                <div class="course-details-content" v-if="course.startDate">
-                    <span id="startDate" class="course-details-content-label"
-                        >Start:</span
-                    >
-                    <span
-                        data-testid="startDateContent"
-                        class="course-details-content-text"
-                        >{{ course.startDate | formatDate }}
-                    </span>
+                <div
+                    data-testid="startDateContent"
+                    class="course-details-content-date"
+                    v-if="course.startDate"
+                >
+                    {{ course.startDate | formatDate }}
                 </div>
                 <div
                     data-testid="courseDetailsTitle"
@@ -63,12 +60,21 @@
                 >
                     {{ course.title }}
                 </div>
-                <div class="course-details-target-audiance">
+                <div class="course-details-content-title">
+                    Zielgruppe
+                </div>
+                <p class="course-details-content-text">
                     {{ course.targetAudience }}
+                </p>
+                <div
+                    data-testid="beschreibung"
+                    class="course-details-content-title"
+                >
+                    Beschreibung
                 </div>
-                <div class="course-details-description">
+                <p class="course-details-content-text">
                     {{ course.description }}
-                </div>
+                </p>
             </div>
 
             <div class="course-details-summary-container">
@@ -143,14 +149,14 @@
                     <span
                         v-if="course.startDate"
                         data-testid="startDateSummary"
-                        class="course-details-summary-text"
+                        class="course-details-summary-icon-text"
                         >{{ course.startDate | formatDate }}
                     </span>
                     <span v-if="course.endDate">-</span>
                     <span
                         v-if="course.endDate"
                         data-testid="endDate"
-                        class="course-details-summary-text"
+                        class="course-details-summary-icon-text"
                         >{{ course.endDate | formatDate }}
                     </span>
                 </div>
@@ -163,7 +169,7 @@
                     <span
                         v-if="course.courseType"
                         data-testid="courseType"
-                        class="course-details-summary-text"
+                        class="course-details-summary-icon-text"
                         >{{
                             course.courseType === 'EXTERNAL'
                                 ? 'Extern'
@@ -174,7 +180,7 @@
                     <span
                         v-if="course.location"
                         data-testid="location"
-                        class="course-details-summary-text"
+                        class="course-details-summary-icon-text"
                     >
                         {{
                             course.location == 'REMOTE'
@@ -254,7 +260,7 @@ export default {
     margin: auto;
     max-width: 1200px;
 }
-.course-details-holder {
+.course-details-main-container {
     display: flex;
     justify-content: space-between;
 }
@@ -272,7 +278,16 @@ export default {
     padding-right: $xs-space;
 }
 // course content
-
+.course-details-content-container {
+    max-width: 640px;
+}
+.course-details-content-title {
+    font-size: $l-font;
+    margin-bottom: $m-space;
+}
+.course-details-content-text {
+    margin-bottom: $m-space;
+}
 // course summary
 .course-details-summary-container {
     background: $light-grey;
@@ -296,11 +311,16 @@ export default {
     font-weight: initial;
     margin-bottom: $xs-space;
 }
+.course-details-summary-icon-text {
+    font-size: $s-font;
+    font-weight: initial;
+}
 .course-details-summary-icon {
     margin-right: $s-space;
 }
 .course-details-summary-with-icon {
     display: flex;
+    align-items: center;
 }
 //style only first element with class course-details-summary-with-icon
 div[class*='course-details-summary-with-icon']:not(:last-of-type) {
