@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/vue';
+import { findAllByTestId, fireEvent, render } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import routes from '@/routes';
@@ -31,11 +31,13 @@ describe('CourseOverview.vue', () => {
         mockGetCourses();
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
-        const { findAllByText, findAllByRole } = setupComponent();
+        const {
+            findAllByText,
+            findAllByRole,
+            findAllByTestId
+        } = setupComponent();
 
-        const deleteButtons = await findAllByRole('button', {
-            name: 'LÖSCHEN'
-        });
+        const deleteButtons = await findAllByTestId('deleteCourseIcon');
         expect(deleteButtons).toHaveLength(2);
         await fireEvent.click(deleteButtons[0]);
 
@@ -53,11 +55,13 @@ describe('CourseOverview.vue', () => {
     it("does not delete anything when 'ABBRECHEN' button was clicked when deleting", async () => {
         mockGetCourses();
 
-        const { findAllByText, findAllByRole } = setupComponent();
+        const {
+            findAllByText,
+            findAllByRole,
+            findAllByTestId
+        } = setupComponent();
 
-        const deleteButtons = await findAllByRole('button', {
-            name: 'LÖSCHEN'
-        });
+        const deleteButtons = await findAllByTestId('deleteCourseIcon');
         expect(deleteButtons).toHaveLength(2);
         await fireEvent.click(deleteButtons[0]);
 
