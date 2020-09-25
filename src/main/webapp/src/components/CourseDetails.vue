@@ -56,11 +56,11 @@
                 </div>
                 <div
                     data-testid="courseDetailsTitle"
-                    class="course-details-title"
+                    class="course-details-content-title"
                 >
                     {{ course.title }}
                 </div>
-                <div class="course-details-content-title">
+                <div class="course-details-content-subtitle">
                     Zielgruppe
                 </div>
                 <p class="course-details-content-text">
@@ -68,7 +68,7 @@
                 </p>
                 <div
                     data-testid="beschreibung"
-                    class="course-details-content-title"
+                    class="course-details-content-subtitle"
                 >
                     Beschreibung
                 </div>
@@ -281,8 +281,28 @@ export default {
 .course-details-content-container {
     max-width: 640px;
 }
+.course-details-image-container {
+    margin-bottom: $l-space;
+    width: 640px;
+    min-height: 120px;
+    max-height: auto;
+    padding: 3px;
+}
+.course-img {
+    max-width: 100%;
+    height: auto;
+}
+.course-details-content-date {
+    margin-bottom: $xs-space;
+}
 .course-details-content-title {
+    font-size: $xl-font;
+    font-weight: $normal;
+    margin-bottom: $l-space;
+}
+.course-details-content-subtitle {
     font-size: $l-font;
+    font-weight: $normal;
     margin-bottom: $m-space;
 }
 .course-details-content-text {
@@ -294,6 +314,7 @@ export default {
     padding: $m-space;
     text-align: left;
     width: 320px;
+    max-height: 340px;
 }
 
 .course-details-summary-title {
