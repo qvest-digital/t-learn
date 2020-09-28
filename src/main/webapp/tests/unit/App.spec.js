@@ -3,6 +3,7 @@ import { fireEvent, render } from '@testing-library/vue';
 import routes from '../../src/routes';
 import App from '../../src/App';
 import Vuelidate from 'vuelidate';
+import vSelect from 'vue-select';
 
 describe('App.vue', () => {
     it('test navigation to overview', async () => {
@@ -31,6 +32,7 @@ describe('App.vue', () => {
             },
             localVue => {
                 localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
             }
         );
     }
