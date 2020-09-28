@@ -373,6 +373,8 @@ select {
 }
 select {
     cursor: pointer;
+    appearance: none;
+    background: url('../assets/images/down.svg') no-repeat right $white;
 }
 select,
 input {
@@ -399,18 +401,24 @@ textarea {
         .vs__selected-options {
             .vs__selected {
                 background-color: $light-grey;
-                padding: 0 $xs-space;
+                padding: 0 0 0 $xs-space;
                 border-radius: 4px;
                 height: 24px;
-                button {
-                    margin-left: $xs-space;
-                }
             }
             .vs__search {
                 margin: 0; //overrides defaults
             }
         }
     }
+}
+
+.select-category .vs__actions {
+    padding: $s-space;
+    background: url('../assets/images/down.svg') no-repeat right #fff;
+}
+.select-category .vs__deselect {
+    padding: $xs-space $m-space $xs-space 0;
+    background: url('../assets/images/close.svg') no-repeat right $light-grey;
 }
 .select-category .vs__dropdown-option--highlight {
     background: $medium-grey;
