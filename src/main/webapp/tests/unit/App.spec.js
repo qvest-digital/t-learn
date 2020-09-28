@@ -11,7 +11,7 @@ describe('App.vue', () => {
         await fireEvent.click(getByText('t-learn'));
 
         expect(
-            queryByText('Übersicht über alle Veranstaltungen')
+            queryByText('Übersicht aller Verstanstaltungen')
         ).toBeInTheDocument();
     });
 

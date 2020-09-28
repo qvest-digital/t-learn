@@ -5,7 +5,7 @@
                 <img src="../assets/images/tarent-logo-white.svg" />
             </div>
             <router-link
-                title="Übersicht über alle Veranstaltungen"
+                title="Übersicht aller Verstanstaltungen"
                 tag="div"
                 class="nav-link"
                 to="/"

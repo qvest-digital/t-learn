@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="course-overview-title">
-            Übersicht über alle Veranstaltungen
+            Übersicht aller Verstanstaltungen
         </div>
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
