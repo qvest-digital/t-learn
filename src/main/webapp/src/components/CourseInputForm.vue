@@ -373,6 +373,6 @@ textarea {
 .column {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex: 1;
 }
 </style>
