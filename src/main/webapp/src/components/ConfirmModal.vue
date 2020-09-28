@@ -10,7 +10,6 @@
             <div
                 data-testid="confirmModalContent"
                 class="confirm-modal-content"
-                :title="text"
             >
                 {{ text }}
             </div>
