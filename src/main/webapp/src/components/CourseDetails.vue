@@ -48,20 +48,16 @@
                     />
                 </div>
                 <div
-                    data-testid="startDateContent"
-                    class="course-details-content-date"
-                    v-if="course.startDate"
-                >
-                    {{ course.startDate | formatDate }}
-                </div>
-                <div
                     data-testid="courseDetailsTitle"
                     class="course-details-content-title"
                     :title="course.title"
                 >
                     {{ course.title }}
                 </div>
-                <div class="course-details-content-subtitle">
+                <div
+                    v-if="course.targetAudience"
+                    class="course-details-content-subtitle"
+                >
                     Zielgruppe
                 </div>
                 <p class="course-details-content-text">
@@ -70,6 +66,7 @@
                 <div
                     data-testid="beschreibung"
                     class="course-details-content-subtitle"
+                    v-if="course.description"
                 >
                     Beschreibung
                 </div>
@@ -157,7 +154,7 @@
                         class="course-details-summary-icon-text"
                         >{{ course.startDate | formatDate }}
                     </span>
-                    <span v-if="course.endDate">-</span>
+                    <span class="hyphen" v-if="course.endDate">-</span>
                     <span
                         v-if="course.endDate"
                         data-testid="endDate"
@@ -181,17 +178,13 @@
                                 : 'Intern'
                         }}</span
                     >
-                    <span v-if="course.location">, </span>
+                    <span class="comma" v-if="course.location">,</span>
                     <span
                         v-if="course.location"
                         data-testid="location"
                         class="course-details-summary-icon-text"
                     >
-                        {{
-                            course.location == 'REMOTE'
-                                ? 'Remoteveranstaltung'
-                                : 'Präsenzveranstaltung'
-                        }}
+                        {{ course.location == 'REMOTE' ? 'Remote' : 'Präsenz' }}
                     </span>
                 </div>
             </div>
@@ -307,7 +300,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }
 
@@ -327,7 +320,7 @@ export default {
     padding: $m-space;
     text-align: left;
     width: 320px;
-    max-height: 370px;
+    align-self: start;
 }
 
 .course-details-summary-title {
@@ -361,6 +354,12 @@ export default {
 .course-details-summary-with-icon {
     display: flex;
     align-items: center;
+    .comma {
+        margin-right: $xs-space;
+    }
+    .hyphen {
+        margin: 0 $xs-space;
+    }
 }
 //style only first element with class course-details-summary-with-icon
 div[class*='course-details-summary-with-icon']:not(:last-of-type) {

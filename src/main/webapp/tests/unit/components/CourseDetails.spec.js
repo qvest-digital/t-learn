@@ -48,12 +48,8 @@ describe('CourseDetails.vue', () => {
                 'Title'
             ),
             expect(getByTestId('courseType')).toHaveTextContent('Extern'),
-            expect(getByTestId('location')).toHaveTextContent(
-                'Remoteveranstaltung'
-            ),
-            expect(getByTestId('startDateContent')).toHaveTextContent(
-                '02.05.2020 10:34'
-            ),
+            expect(getByTestId('location')).toHaveTextContent('Remote'),
+
             expect(getByTestId('startDateSummary')).toHaveTextContent(
                 '02.05.2020 10:34'
             ),
