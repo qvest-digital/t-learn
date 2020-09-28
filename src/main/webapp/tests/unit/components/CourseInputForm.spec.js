@@ -5,8 +5,10 @@ import Vuelidate from 'vuelidate';
 import CourseInputForm from '@/components/CourseInputForm';
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
+import vSelect from 'vue-select';
 
 Vue.filter('formatDate', dateFormatFilter);
+Vue.component('v-select', vSelect);
 
 describe('CourseInputForm.vue', () => {
     it('maps input fields correctly to the UI', async () => {
@@ -15,6 +17,7 @@ describe('CourseInputForm.vue', () => {
             { props: { course: {} } },
             localVue => {
                 localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
             }
         );
 
