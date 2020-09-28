@@ -157,6 +157,20 @@
         </div>
         <div class="row">
             <div class="column">
+                <label for="category" class="form-label">Kategorie </label>
+                <v-select
+                    class="select-category"
+                    id="category"
+                    placeholder="Bitte wählen"
+                    multiple
+                    v-model="selectedCategories"
+                    :options="categories"
+                    @input="onCategorySelect"
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
                 <label for="target-audience" class="form-label"
                     >Zielgruppe</label
                 >
@@ -220,6 +234,7 @@ export default {
         return {
             startDateRaw: null,
             endDateRaw: null,
+            selectedCategories: null,
             courseTypes: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'EXTERNAL', text: 'Extern' },
@@ -229,6 +244,14 @@ export default {
                 { value: null, text: 'Bitte wählen' },
                 { value: 'REMOTE', text: 'Remote' },
                 { value: 'ONSITE', text: 'Präsenz' }
+            ],
+            categories: [
+                'fontend',
+                'backend',
+                'css',
+                'javascript',
+                'vue',
+                'java'
             ]
         };
     },
@@ -304,12 +327,15 @@ export default {
         parseValidDate: function(val) {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;
+        },
+        onCategorySelect() {
+            console.log(this.selectedCategories);
         }
     }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // validation and label
 
 .form-label {
@@ -347,6 +373,8 @@ select {
 }
 select {
     cursor: pointer;
+    appearance: none;
+    background: url('../assets/images/down.svg') no-repeat right $white;
 }
 select,
 input {
@@ -358,6 +386,43 @@ textarea {
     min-height: 42px;
     resize: none;
     padding: $xs-space;
+}
+
+// v-select style
+.select-category {
+    font-size: $s-font;
+    border-radius: 4px;
+    margin: 0 $xs-space;
+    height: 36px;
+    .vs__dropdown-toggle {
+        border: solid 1px $grey;
+        height: 36px;
+        padding: 0; //overrides defaults
+        .vs__selected-options {
+            .vs__selected {
+                background-color: $light-grey;
+                padding: 0 0 0 $xs-space;
+                border-radius: 4px;
+                height: 24px;
+            }
+            .vs__search {
+                margin: 0; //overrides defaults
+            }
+        }
+    }
+}
+
+.select-category .vs__actions {
+    padding: $s-space;
+    background: url('../assets/images/down.svg') no-repeat right #fff;
+}
+.select-category .vs__deselect {
+    padding: $xs-space $m-space $xs-space 0;
+    background: url('../assets/images/close.svg') no-repeat right $light-grey;
+}
+.select-category .vs__dropdown-option--highlight {
+    background: $medium-grey;
+    color: $black;
 }
 
 // container
@@ -373,6 +438,6 @@ textarea {
 .column {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex: 1;
 }
 </style>

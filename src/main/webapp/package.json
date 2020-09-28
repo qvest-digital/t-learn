@@ -19,6 +19,7 @@
         "date-fns-tz": "^1.0.10",
         "vue": "^2.6.12",
         "vue-router": "^3.4.3",
+        "vue-select": "^3.10.8",
         "vuelidate": "^0.7.5"
     },
     "devDependencies": {
