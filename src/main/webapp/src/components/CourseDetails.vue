@@ -108,7 +108,9 @@
                     data-testid="address"
                     class="course-details-summary-text"
                 >
-                    {{ course.address }}
+                    <address>
+                        {{ course.address }}
+                    </address>
                 </div>
 
                 <div
@@ -358,5 +360,8 @@ export default {
 .course-details-summary-with-icon:not(:last-of-type) {
     margin-top: $m-space;
     margin-bottom: $s-space;
+}
+address {
+    font-style: normal;
 }
 </style>
