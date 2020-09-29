@@ -187,11 +187,7 @@ export default {
     font-weight: $bold;
     line-height: 1.5;
     margin-bottom: $xs-space;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    word-break: break-word;
 }
 .course-card-text {
     margin-bottom: $m-space;
