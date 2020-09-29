@@ -298,11 +298,7 @@ export default {
     font-size: $xl-font;
     font-weight: $normal;
     margin-bottom: $l-space;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
+    word-break: break-word;
 }
 
 .course-details-content-subtitle {
@@ -339,11 +335,7 @@ export default {
     font-weight: initial;
     line-height: 1.57;
     margin-bottom: $xs-space;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    word-break: break-word;
 }
 .course-details-summary-icon-text {
     font-size: $s-font;
