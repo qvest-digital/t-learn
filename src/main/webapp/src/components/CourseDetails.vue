@@ -261,7 +261,7 @@ export default {
 // page container
 .course-details-container {
     margin: auto;
-    max-width: 1200px;
+    max-width: $container-xl;
 }
 .course-details-main-container {
     display: flex;
@@ -280,11 +280,11 @@ export default {
 
 // course content
 .course-details-content-container {
-    max-width: 640px;
+    max-width: $container-m;
 }
 .course-details-image-container {
     margin-bottom: $l-space;
-    width: 640px;
+    width: $container-m;
     min-height: 120px;
     max-height: auto;
     padding: 3px;
@@ -318,7 +318,7 @@ export default {
     background: $light-grey;
     padding: $m-space;
     text-align: left;
-    width: 320px;
+    width: $container-xs;
     align-self: start;
 }
 
