@@ -143,7 +143,10 @@
                     <a :href="course.link">{{ course.link }}</a>
                 </div>
 
-                <div class="course-details-summary-with-icon">
+                <div
+                    v-if="course.startDate || course.endDate"
+                    class="course-details-summary-with-icon"
+                >
                     <img
                         class="course-details-summary-icon"
                         src="../assets/images/clock.svg"
