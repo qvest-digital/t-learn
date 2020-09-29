@@ -74,7 +74,6 @@ export default {};
     background-color: $light-grey;
     border-radius: 20px;
     padding: $s-space $xxl-space;
-    outline: none;
     border: 1px solid $light-grey;
     background-image: url('../assets/images/search.svg');
     background-repeat: no-repeat;

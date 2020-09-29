@@ -1,7 +1,7 @@
 @import './colors.scss';
 @import './fonts.scss';
 
-.button {
+button.button {
     font-size: $xs-font;
     font-weight: $normal;
     height: 30px;
@@ -12,6 +12,7 @@
     text-align: center;
     cursor: pointer;
     outline: none;
+    overflow: hidden;
 
     &.primary {
         background: $red;

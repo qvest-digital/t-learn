@@ -390,12 +390,15 @@ export default {
 input,
 textarea,
 select {
-    outline: none;
     margin: 0 $xs-space;
     border-radius: 4px;
     border: solid 1px $grey;
     height: 34px;
     font-size: $xs-font;
+    &:focus {
+        outline-width: 1px;
+        outline-color: $dark-grey;
+    }
 }
 select {
     cursor: pointer;
