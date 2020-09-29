@@ -272,9 +272,7 @@ export default {
 .nav-item > button:first-child {
     margin-right: $s-space;
 }
-.button-icon {
-    padding-right: $xs-space;
-}
+
 // course content
 .course-details-content-container {
     max-width: 640px;
