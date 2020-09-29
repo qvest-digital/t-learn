@@ -13,7 +13,8 @@
                     placeholder="Veranstaltungsbezeichnung"
                 />
                 <span v-if="$v.course.title.$error" class="form-validation-text"
-                    >Titel / Thema ist ein Pflichtfeld.
+                    >Titel / Thema ist ein Pflichtfeld und die maximale Länge
+                    sind 255 Zeichen.
                 </span>
             </div>
         </div>
@@ -33,7 +34,8 @@
                     v-if="$v.course.trainer.$error"
                     class="form-validation-text"
                 >
-                    Veranstalter*in ist ein Pflichtfeld.
+                    Veranstalter*in ist ein Pflichtfeld und die maximale Länge
+                    sind 255 Zeichen.
                 </span>
             </div>
             <div class="column">
@@ -42,10 +44,17 @@
                 >
                 <input
                     type="text"
-                    v-model="course.organizer"
+                    v-model="$v.course.organizer.$model"
                     id="organizer"
+                    :class="validationStateClass('course.organizer')"
                     placeholder="Ansprechpartner*in"
                 />
+                <span
+                    v-if="$v.course.organizer.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 255 Zeichen.
+                </span>
             </div>
         </div>
         <div class="row">
@@ -103,7 +112,8 @@
                     v-if="$v.course.courseType.$error"
                     class="form-validation-text"
                 >
-                    Veranstaltungsart ist ein Pflichtfeld.
+                    Veranstaltungsart ist ein Pflichtfeld und die maximale Länge
+                    sind 255 Zeichen.
                 </span>
             </div>
             <div class="column">
@@ -132,10 +142,17 @@
                 >
                 <input
                     type="text"
-                    v-model="course.address"
+                    v-model="$v.course.address.$model"
                     id="address"
+                    :class="validationStateClass('course.address')"
                     placeholder="postalische Adresse"
                 />
+                <span
+                    v-if="$v.course.address.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 255 Zeichen.
+                </span>
             </div>
             <div class="column">
                 <label for="link" class="form-label"
@@ -267,13 +284,16 @@ export default {
         },
         course: {
             title: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             trainer: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             courseType: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             link: {
                 url,
@@ -285,6 +305,12 @@ export default {
             },
             description: {
                 maxLength: maxLength(2000)
+            },
+            address: {
+                maxLength: maxLength(255)
+            },
+            organizer: {
+                maxLength: maxLength(255)
             }
         }
     },
