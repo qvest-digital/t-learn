@@ -3,19 +3,18 @@
         <div class="course-overview-title">
             Übersicht aller Verstanstaltungen
         </div>
+        <ConfirmModal
+            @cancel="showModal = false"
+            @confirm="deleteCourse(selectedCourse)"
+            v-if="showModal"
+            confirmButtonTitle="LÖSCHEN"
+            cancelButtonTitle="ABBRECHEN"
+            modalTitle="Veranstaltung löschen - "
+            :extraTitle="selectedCourse.title"
+            text="Möchtest Du die Veranstaltung wirklich löschen?"
+        />
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
-                <ConfirmModal
-                    @cancel="showModal = false"
-                    @confirm="deleteCourse(course)"
-                    v-if="showModal"
-                    confirmButtonTitle="LÖSCHEN"
-                    cancelButtonTitle="ABBRECHEN"
-                    modalTitle="Veranstaltung löschen - "
-                    :extraTitle="course.title"
-                    text="Möchtest Du die Veranstaltung wirklich löschen?"
-                />
-
                 <div
                     class="course-card"
                     @click="
@@ -33,7 +32,7 @@
                             title="Veranstaltung Details"
                         />
                         <img
-                            @click.stop="showModal = true"
+                            @click.stop="onDeleteCourse(course)"
                             class="delete-course-icon"
                             data-testid="deleteCourseIcon"
                             title="Veranstaltung löschen"
@@ -91,6 +90,7 @@ export default {
     data: function() {
         return {
             courses: [],
+            selectedCourse: {},
             showModal: false
         };
     },
@@ -104,16 +104,20 @@ export default {
                     return coffeeImg;
             }
         },
-        deleteCourse: function(course) {
-            deleteCourse(course.id)
+        onDeleteCourse: function(course) {
+            this.showModal = true;
+            this.selectedCourse = course;
+        },
+        deleteCourse: function(selectedCourse) {
+            deleteCourse(selectedCourse.id)
                 .then(
                     () =>
                         (this.courses = this.courses.filter(
-                            elem => elem.id !== course.id
+                            course => course.id !== selectedCourse.id
                         ))
                 )
                 .catch(() =>
-                    console.error(`${course.id} could not be deleted)`)
+                    console.error(`${selectedCourse.id} could not be deleted)`)
                 );
             this.showModal = false;
         }
