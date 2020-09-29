@@ -354,8 +354,8 @@ export default {
         margin: 0 $xs-space;
     }
 }
-//style only first element with class course-details-summary-with-icon
-div[class*='course-details-summary-with-icon']:not(:last-of-type) {
+//style not the last element with class course-details-summary-with-icon
+.course-details-summary-with-icon:not(:last-of-type) {
     margin-top: $m-space;
     margin-bottom: $s-space;
 }
