@@ -367,7 +367,7 @@ export default {
 .form-label {
     font-size: $xs-font;
     color: $grey;
-    margin: 0 $xs-space $xs-space $xs-space;
+    margin: 0 $space-xs $space-xs $space-xs;
 }
 .required-label::after {
     color: $red;
@@ -383,14 +383,14 @@ export default {
 .form-validation-text {
     color: $red;
     font-size: $xs-font;
-    margin: $xs-space $xs-space 0 $xs-space;
+    margin: $space-xs $space-xs 0 $space-xs;
 }
 
 //input, select and textarea
 input,
 textarea,
 select {
-    margin: 0 $xs-space;
+    margin: 0 $space-xs;
     border-radius: 4px;
     border: solid 1px $grey;
     height: 34px;
@@ -408,20 +408,20 @@ select {
 select,
 input {
     background-color: $white;
-    padding: 0 $xs-space;
+    padding: 0 $space-xs;
 }
 
 textarea {
     min-height: 42px;
     resize: none;
-    padding: $xs-space;
+    padding: $space-xs;
 }
 
 // v-select style
 .select-category {
     font-size: $s-font;
     border-radius: 4px;
-    margin: 0 $xs-space;
+    margin: 0 $space-xs;
     height: 36px;
     .vs__dropdown-toggle {
         border: solid 1px $grey;
@@ -430,7 +430,7 @@ textarea {
         .vs__selected-options {
             .vs__selected {
                 background-color: $light-grey;
-                padding: 0 0 0 $xs-space;
+                padding: 0 0 0 $space-xs;
                 border-radius: 4px;
                 height: 24px;
             }
@@ -442,11 +442,11 @@ textarea {
 }
 
 .select-category .vs__actions {
-    padding: $s-space;
+    padding: $space-s;
     background: url('../assets/images/down.svg') no-repeat right #fff;
 }
 .select-category .vs__deselect {
-    padding: $xs-space $m-space $xs-space 0;
+    padding: $space-xs $space-m $space-xs 0;
     background: url('../assets/images/close.svg') no-repeat right $light-grey;
 }
 .select-category .vs__dropdown-option--highlight {
@@ -459,7 +459,7 @@ textarea {
     width: $l-container;
 }
 .row {
-    margin-bottom: $s-space;
+    margin-bottom: $space-s;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;

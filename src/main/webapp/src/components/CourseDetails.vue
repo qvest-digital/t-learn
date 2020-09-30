@@ -269,13 +269,13 @@ export default {
 }
 // buttons container
 .course-details-nav {
-    margin-bottom: $xxl-space;
+    margin-bottom: $space-xxl;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 .nav-item > button:first-child {
-    margin-right: $s-space;
+    margin-right: $space-s;
 }
 
 // course content
@@ -283,7 +283,7 @@ export default {
     max-width: $m-container;
 }
 .course-details-image-container {
-    margin-bottom: $l-space;
+    margin-bottom: $space-l;
     width: $m-container;
     min-height: 120px;
     max-height: auto;
@@ -294,29 +294,29 @@ export default {
     height: auto;
 }
 .course-details-content-date {
-    margin-bottom: $xs-space;
+    margin-bottom: $space-xs;
 }
 .course-details-content-title {
     font-size: $xl-font;
     font-weight: $normal;
-    margin-bottom: $l-space;
+    margin-bottom: $space-l;
     word-break: break-word;
 }
 
 .course-details-content-subtitle {
     font-size: $l-font;
     font-weight: $normal;
-    margin-bottom: $m-space;
+    margin-bottom: $space-m;
 }
 .course-details-content-text {
     font-size: $s-font;
     line-height: 1.57;
-    margin-bottom: $m-space;
+    margin-bottom: $space-m;
 }
 // course summary
 .course-details-summary-container {
     background: $light-grey;
-    padding: $m-space;
+    padding: $space-m;
     text-align: left;
     width: $xs-container;
     align-self: start;
@@ -325,18 +325,18 @@ export default {
 .course-details-summary-title {
     font-size: $l-font;
     font-weight: $normal;
-    margin-bottom: $m-space;
+    margin-bottom: $space-m;
 }
 .course-details-summary-label {
     font-size: $m-font;
     font-weight: $normal;
-    margin-bottom: $xs-space;
+    margin-bottom: $space-xs;
 }
 .course-details-summary-text {
     font-size: $s-font;
     font-weight: initial;
     line-height: 1.57;
-    margin-bottom: $xs-space;
+    margin-bottom: $space-xs;
     word-break: break-word;
 }
 .course-details-summary-icon-text {
@@ -344,22 +344,22 @@ export default {
     font-weight: initial;
 }
 .course-details-summary-icon {
-    margin-right: $s-space;
+    margin-right: $space-s;
 }
 .course-details-summary-with-icon {
     display: flex;
     align-items: center;
     .comma {
-        margin-right: $xs-space;
+        margin-right: $space-xs;
     }
     .hyphen {
-        margin: 0 $xs-space;
+        margin: 0 $space-xs;
     }
 }
 //style not the last element with class course-details-summary-with-icon
 .course-details-summary-with-icon:not(:last-of-type) {
-    margin-top: $m-space;
-    margin-bottom: $s-space;
+    margin-top: $space-m;
+    margin-bottom: $space-s;
 }
 address {
     font-style: normal;

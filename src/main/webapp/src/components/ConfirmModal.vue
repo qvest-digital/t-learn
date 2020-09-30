@@ -69,7 +69,7 @@ export default {
     transform: translate(-50.1%, -50.1%);
     width: $s-container;
     background-color: $white;
-    padding: $s-space;
+    padding: $space-s;
     height: auto;
     max-height: 500px;
     overflow-y: auto;
@@ -79,7 +79,7 @@ export default {
 .confirm-modal-title {
     font-size: $l-font;
     font-weight: $normal;
-    margin-bottom: $s-space;
+    margin-bottom: $space-s;
     max-width: 490px;
     overflow: hidden;
     white-space: nowrap;
@@ -89,13 +89,13 @@ export default {
     font-weight: $bold;
 }
 .confirm-modal-footer {
-    margin-top: $xl-space;
-    margin-right: $xs-space;
+    margin-top: $space-xl;
+    margin-right: $space-xs;
     display: flex;
     justify-content: flex-end;
 
     button {
-        margin-left: $s-space;
+        margin-left: $space-s;
     }
 }
 </style>

@@ -103,13 +103,13 @@ export default {
     align-items: center;
 }
 .form-footer {
-    margin-top: $xl-space;
-    margin-right: $xs-space;
+    margin-top: $space-xl;
+    margin-right: $space-xs;
     display: flex;
     justify-content: flex-end;
 
     button {
-        margin-left: $s-space;
+        margin-left: $space-s;
     }
 }
 
@@ -117,7 +117,7 @@ export default {
     text-align: left;
     font-size: $l-font;
     font-weight: $normal;
-    margin-left: $xs-space;
-    margin-bottom: $l-space;
+    margin-left: $space-xs;
+    margin-bottom: $space-l;
 }
 </style>

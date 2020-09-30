@@ -135,17 +135,17 @@ export default {
     display: block;
     font-size: $l-font;
     font-weight: $normal;
-    margin-bottom: $l-space;
-    margin-left: $xl-space + $l-space;
+    margin-bottom: $space-l;
+    margin-left: $space-xl + $space-l;
 }
 .course-overview-container {
     display: flex;
-    padding: 0 $xxl-space;
+    padding: 0 $space-xxl;
     flex-wrap: wrap;
 }
 .course-card {
     width: 260px;
-    padding: $m-space;
+    padding: $space-m;
     &:hover {
         .edit-course-icon,
         .delete-course-icon {
@@ -155,7 +155,7 @@ export default {
 }
 .course-card-image-container {
     position: relative;
-    margin-bottom: $s-space;
+    margin-bottom: $space-s;
     width: 260px;
     min-height: 120px;
     max-height: auto;
@@ -167,29 +167,29 @@ export default {
 .edit-course-icon,
 .delete-course-icon {
     position: absolute;
-    top: $xs-space;
+    top: $space-xs;
     display: none;
     cursor: pointer;
 }
 .edit-course-icon {
-    right: $xs-space;
+    right: $space-xs;
 }
 .delete-course-icon {
-    right: $xxl-space;
+    right: $space-xxl;
 }
 .course-card-date {
     font-size: $s-font;
     color: $dark-grey;
-    margin-bottom: $xs-space;
+    margin-bottom: $space-xs;
 }
 .course-card-title {
     font-size: $m-font;
     font-weight: $bold;
     line-height: 1.5;
-    margin-bottom: $xs-space;
+    margin-bottom: $space-xs;
     word-break: break-word;
 }
 .course-card-text {
-    margin-bottom: $m-space;
+    margin-bottom: $space-m;
 }
 </style>

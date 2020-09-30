@@ -38,8 +38,8 @@ export default {};
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: $xxxl-space;
-    padding: 0 $s-space;
+    margin-bottom: $space-xxxl;
+    padding: 0 $space-s;
     box-shadow: $component-shadow;
 }
 .navbar-container {
@@ -49,12 +49,12 @@ export default {};
 }
 
 .navbar-icon {
-    padding-right: $s-space;
+    padding-right: $space-s;
 }
 
 .nav-link {
     color: $black;
-    padding: 0 $s-space;
+    padding: 0 $space-s;
     font-size: $m-font;
     font-weight: $normal;
     height: 100%;
@@ -73,14 +73,14 @@ export default {};
     font-size: $m-font;
     background-color: $light-grey;
     border-radius: 20px;
-    padding: $s-space $xxl-space;
+    padding: $space-s $space-xxl;
     border: 1px solid $light-grey;
     background-image: url('../assets/images/search.svg');
     background-repeat: no-repeat;
-    background-position: $s-space center;
+    background-position: $space-s center;
     outline: 0;
 }
 .logo-container {
-    margin-right: $m-space;
+    margin-right: $space-m;
 }
 </style>
