@@ -40,7 +40,7 @@ export default {};
     justify-content: space-between;
     margin-bottom: $xxxl-space;
     padding: 0 $s-space;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.21);
+    box-shadow: $component-shadow;
 }
 .navbar-container {
     display: flex;
