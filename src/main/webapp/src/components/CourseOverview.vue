@@ -1,72 +1,77 @@
 <template>
     <div>
-        <div class="page-title">Übersicht über alle Veranstaltungen</div>
-
-        <div v-for="(course, index) in courses" :key="course.id">
-            <ConfirmModal
-                @cancel="showModal = false"
-                @confirm="deleteCourse(course)"
-                v-if="showModal"
-                confirmButtonTitle="LÖSCHEN"
-                cancelButtonTitle="ABBRECHEN"
-                modalTitle="Veranstaltung löschen - "
-                :extraTitle="course.title"
-                text="Möchtest Du die Veranstaltung wirklich löschen?"
-            />
-            <div class="course-card">
-                <div class="course-card-title">
-                    {{ course.title }}
-                </div>
+        <div class="course-overview-title">
+            Übersicht aller Verstanstaltungen
+        </div>
+        <ConfirmModal
+            @cancel="showModal = false"
+            @confirm="deleteCourse(selectedCourse)"
+            v-if="showModal"
+            confirmButtonTitle="LÖSCHEN"
+            cancelButtonTitle="ABBRECHEN"
+            modalTitle="Veranstaltung löschen - "
+            :extraTitle="selectedCourse.title"
+            text="Möchtest Du die Veranstaltung wirklich löschen?"
+        />
+        <div class="course-overview-container">
+            <div v-for="course in courses" :key="course.id">
                 <div
+                    class="course-card"
                     @click="
                         $router.push({
                             name: 'courseDetails',
                             params: { courseId: course.id }
                         })
                     "
-                    class="course-card-image-container"
                 >
-                    <img
-                        class="course-img"
-                        :src="cardimage(course)"
-                        :alt="course.title"
-                    />
-                </div>
+                    <div class="course-card-image-container">
+                        <img
+                            class="course-img"
+                            :src="cardimage(course)"
+                            :alt="course.title"
+                            title="Veranstaltung Details"
+                        />
+                        <img
+                            @click.stop="onDeleteCourse(course)"
+                            class="delete-course-icon"
+                            data-testid="deleteCourseIcon"
+                            title="Veranstaltung löschen"
+                            src="../assets/images/trash-white-bg.svg"
+                        />
+                        <img
+                            @click.stop="
+                                $router.push({
+                                    name: 'courseEdit',
+                                    params: { courseId: course.id }
+                                })
+                            "
+                            data-testid="editCourseIcon"
+                            class="edit-course-icon"
+                            title="Veranstaltung editieren"
+                            src="../assets/images/edit-white-bg.svg"
+                        />
+                    </div>
+                    <div class="course-card-date">
+                        {{ course.startDate | formatDate }}
+                    </div>
+                    <div :title="course.title" class="course-card-title">
+                        {{ course.title }}
+                    </div>
 
-                <span
-                    class="course-card-text"
-                    v-if="course.location === 'ONSITE'"
-                >
-                    Präsenz
-                </span>
-                <span
-                    class="course-card-text"
-                    v-if="course.location === 'REMOTE'"
-                >
-                    Remote
-                </span>
-                <span class="course-card-description">{{
-                    course.targetAudience
-                }}</span>
-
-                <div>
-                    <button
-                        :id="`course-card-${index}-delete-button`"
-                        class="course-card-delete-button"
-                        @click="showModal = true"
+                    <div
+                        class="course-card-text"
+                        v-if="course.location === 'ONSITE'"
                     >
-                        LÖSCHEN
-                    </button>
+                        Präsenz
+                    </div>
+                    <div
+                        class="course-card-text"
+                        v-if="course.location === 'REMOTE'"
+                    >
+                        Remote
+                    </div>
                 </div>
             </div>
-
-            <router-link
-                :to="{
-                    name: 'courseDetails',
-                    params: { courseId: course.id }
-                }"
-                class="stretched-link"
-            ></router-link>
         </div>
     </div>
 </template>
@@ -85,6 +90,7 @@ export default {
     data: function() {
         return {
             courses: [],
+            selectedCourse: {},
             showModal: false
         };
     },
@@ -98,16 +104,20 @@ export default {
                     return coffeeImg;
             }
         },
-        deleteCourse: function(course) {
-            deleteCourse(course.id)
+        onDeleteCourse: function(course) {
+            this.showModal = true;
+            this.selectedCourse = course;
+        },
+        deleteCourse: function(selectedCourse) {
+            deleteCourse(selectedCourse.id)
                 .then(
                     () =>
                         (this.courses = this.courses.filter(
-                            elem => elem.id !== course.id
+                            course => course.id !== selectedCourse.id
                         ))
                 )
                 .catch(() =>
-                    console.error(`${course.id} could not be deleted)`)
+                    console.error(`${selectedCourse.id} could not be deleted)`)
                 );
             this.showModal = false;
         }
@@ -120,9 +130,66 @@ export default {
 };
 </script>
 
-<style scoped>
-.card .btn {
-    z-index: 2;
+<style lang="scss" scoped>
+.course-overview-title {
+    display: block;
+    font-size: $l-font;
+    font-weight: $normal;
+    margin-bottom: $l-space;
+    margin-left: $xl-space + $l-space;
+}
+.course-overview-container {
+    display: flex;
+    padding: 0 $xxl-space;
+    flex-wrap: wrap;
+}
+.course-card {
+    width: 260px;
+    padding: $m-space;
+    &:hover {
+        .edit-course-icon,
+        .delete-course-icon {
+            display: block;
+        }
+    }
+}
+.course-card-image-container {
     position: relative;
+    margin-bottom: $s-space;
+    width: 260px;
+    min-height: 120px;
+    max-height: auto;
+}
+.course-img {
+    max-width: 100%;
+    height: auto;
+}
+.edit-course-icon,
+.delete-course-icon {
+    position: absolute;
+    top: $xs-space;
+    display: none;
+    cursor: pointer;
+}
+.edit-course-icon {
+    right: $xs-space;
+}
+.delete-course-icon {
+    right: $xxl-space;
+}
+.course-card-date {
+    font-size: $s-font;
+    color: $dark-grey;
+    margin-bottom: $xs-space;
+}
+.course-card-title {
+    font-size: $m-font;
+    font-weight: $bold;
+    line-height: 1.5;
+    margin-bottom: $xs-space;
+    word-break: break-word;
+}
+.course-card-text {
+    margin-bottom: $m-space;
 }
 </style>

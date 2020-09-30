@@ -116,6 +116,7 @@ export default {
 .page-title {
     text-align: left;
     font-size: $l-font;
+    font-weight: $normal;
     margin-left: $xs-space;
     margin-bottom: $l-space;
 }

@@ -1,8 +1,12 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/vue';
+import { findAllByTestId, fireEvent, render } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import routes from '@/routes';
+import Vue from 'vue';
+import { dateFormatFilter } from '@/filter/dateformatFilter';
+
+Vue.filter('formatDate', dateFormatFilter);
 
 jest.mock('@/services/BackendService');
 
@@ -19,8 +23,6 @@ describe('CourseOverview.vue', () => {
 
         const titles = await findAllByText(/Title/);
         expect(titles).toHaveLength(2);
-        const targetAudiences = await findAllByText(/TestTestTest/);
-        expect(targetAudiences).toHaveLength(2);
 
         expect(getCourses).toHaveBeenCalled();
     });
@@ -29,11 +31,13 @@ describe('CourseOverview.vue', () => {
         mockGetCourses();
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
-        const { findAllByText, findAllByRole } = setupComponent();
+        const {
+            findAllByText,
+            findAllByRole,
+            findAllByTestId
+        } = setupComponent();
 
-        const deleteButtons = await findAllByRole('button', {
-            name: 'LÖSCHEN'
-        });
+        const deleteButtons = await findAllByTestId('deleteCourseIcon');
         expect(deleteButtons).toHaveLength(2);
         await fireEvent.click(deleteButtons[0]);
 
@@ -51,11 +55,13 @@ describe('CourseOverview.vue', () => {
     it("does not delete anything when 'ABBRECHEN' button was clicked when deleting", async () => {
         mockGetCourses();
 
-        const { findAllByText, findAllByRole } = setupComponent();
+        const {
+            findAllByText,
+            findAllByRole,
+            findAllByTestId
+        } = setupComponent();
 
-        const deleteButtons = await findAllByRole('button', {
-            name: 'LÖSCHEN'
-        });
+        const deleteButtons = await findAllByTestId('deleteCourseIcon');
         expect(deleteButtons).toHaveLength(2);
         await fireEvent.click(deleteButtons[0]);
 

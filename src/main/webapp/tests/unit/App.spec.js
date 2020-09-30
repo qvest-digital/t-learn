@@ -7,12 +7,12 @@ import vSelect from 'vue-select';
 
 describe('App.vue', () => {
     it('test navigation to overview', async () => {
-        const { getByText, queryByText } = setupComponent();
+        const { getByText, queryByText, queryByTestId } = setupComponent();
 
         await fireEvent.click(getByText('t-learn'));
 
         expect(
-            queryByText('Übersicht über alle Veranstaltungen')
+            queryByText('Übersicht aller Verstanstaltungen')
         ).toBeInTheDocument();
     });
 
