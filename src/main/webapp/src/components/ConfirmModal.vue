@@ -2,7 +2,7 @@
     <div data-testid="confirmModal" class="confirm-modal-overlay">
         <div class="confirm-modal-container">
             <div data-testid="confirmModalTitle" class="confirm-modal-title">
-                <span>{{ modalTitle }}</span>
+                {{ modalTitle }}
                 <span :title="extraTitle" class="bold-title">
                     {{ extraTitle }}
                 </span>
