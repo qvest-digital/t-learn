@@ -456,7 +456,7 @@ textarea {
 
 // container
 .input-form-container {
-    width: $container-l;
+    width: $l-container;
 }
 .row {
     margin-bottom: $s-space;
