@@ -1,0 +1,4 @@
+.gradle
+*.log
+.DS_Store
+out

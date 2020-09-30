@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class GeneralTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class GeneralTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/default-package.html">default-package</a> &gt; GeneralTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">5</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">1</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">2</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">27.365s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox failures" id="successRate">
+<div class="percent">66%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Failed tests</a>
+</li>
+<li>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="event is displayed on details page after creation"></a>
+<h3 class="failures">event is displayed on details page after creation</h3>
+<span class="code">
+<pre>org.openqa.selenium.NoSuchWindowException: Browsing context has been discarded
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'tx27js', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.19.0-10-amd64', java.version: '11.0.8'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 68.12.0, javascriptEnabled: true, moz:accessibilityChecks: false, moz:buildID: 20200817150009, moz:geckodriverVersion: 0.26.0, moz:headless: false, moz:processID: 26385, moz:profile: /tmp/rust_mozprofilegrzPdS, moz:shutdownTimeout: 60000, moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, platformVersion: 4.19.0-10-amd64, rotatable: false, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: f6a5b8f1-061b-46e1-9d38-bfd9f95f4d39
+*** Element info: {Using=css selector, value=#courseType &gt; option:nth-child(2)}
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:548)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:349)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementsByCssSelector(RemoteWebDriver.java:420)
+	at org.openqa.selenium.By$ByCssSelector.findElements(By.java:441)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:310)
+	at geb.navigator.SearchContextBasedBasicLocator.elementsSupplier_closure8$_closure12(SearchContextBasedBasicLocator.groovy:199)
+	at groovy.lang.Closure.call(Closure.java:405)
+	at groovy.lang.Closure.call(Closure.java:421)
+	at geb.navigator.SearchContextBasedBasicLocator.elementsSupplier_closure8(SearchContextBasedBasicLocator.groovy:199)
+	at groovy.lang.Closure.call(Closure.java:405)
+	at geb.navigator.SearchContextBasedBasicLocator.toNavigator(SearchContextBasedBasicLocator.groovy:223)
+	at geb.navigator.SearchContextBasedBasicLocator.find(SearchContextBasedBasicLocator.groovy:186)
+	at geb.navigator.SearchContextBasedBasicLocator.find(SearchContextBasedBasicLocator.groovy:55)
+	at geb.navigator.DefaultLocator.find(DefaultLocator.groovy:22)
+	at geb.navigator.DefaultLocator.find(DefaultLocator.groovy:31)
+	at geb.content.NavigableSupport.$(NavigableSupport.groovy:65)
+	at geb.content.PageContentTemplateFactoryDelegate.$(PageContentTemplateFactoryDelegate.groovy:27)
+	at TLearnCreatePage._clinit__closure2$_closure15(TLearnCreatePage.groovy:20)
+	at TLearnCreatePage._clinit__closure2$_closure15(TLearnCreatePage.groovy)
+	at geb.content.PageContentTemplate.invokeFactory(PageContentTemplate.groovy:102)
+	at geb.content.PageContentTemplate.create_closure1(PageContentTemplate.groovy:59)
+	at geb.content.PageContentTemplate.create_closure1(PageContentTemplate.groovy)
+	at geb.content.PageContentTemplate.create(PageContentTemplate.groovy:87)
+	at geb.content.PageContentTemplate.get(PageContentTemplate.groovy:54)
+	at geb.content.DefaultPageContentSupport.getContent(DefaultPageContentSupport.groovy:42)
+	at geb.content.PageContentSupport.propertyMissing(PageContentSupport.groovy:41)
+	at geb.Page.propertyMissing(Page.groovy:110)
+	at geb.Browser.propertyMissing(Browser.groovy:261)
+	at geb.spock.GebSpec.propertyMissing(GebSpec.groovy:64)
+	at GeneralTests.event is displayed on details page after creation(GeneralTests.groovy:53)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="skipped">created event is displayed on overview page</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="skipped">delete event on overview page after creation</td>
+<td class="skipped">-</td>
+<td class="skipped">ignored</td>
+</tr>
+<tr>
+<td class="success">empty mandatory fields are marked with error message</td>
+<td class="success">15.772s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="failures">event is displayed on details page after creation</td>
+<td class="failures">3.892s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="success">headline text is t-learn</td>
+<td class="success">7.701s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>1601293060881	mozrunner::runner	INFO	Running command: &quot;/usr/bin/firefox&quot; &quot;-marionette&quot; &quot;--width=1920&quot; &quot;--height=1080&quot; &quot;-foreground&quot; &quot;-no-remote&quot; &quot;-profile&quot; &quot;/tmp/rust_mozprofilegrzPdS&quot;
+1601293061399	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1601293061400	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1601293061400	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1601293061400	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: undefined, line 14: Error: An unexpected error occurred
+JavaScript error: moz-extension://f65169e9-cf1f-4e54-8bfb-514f7f9de92c/lib/picture_in_picture_overrides.js, line 15: Error: Incorrect argument types for pictureInPictureParent.setOverrides.
+JavaScript error: resource:///modules/sessionstore/SessionStore.jsm, line 1325: uncaught exception: 2147746065
+1601293062844	Marionette	INFO	Listening on port 41769
+1601293062895	Marionette	WARN	TLS certificate errors will be ignored for this session
+Sep 28, 2020 1:37:42 PM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+1601293087207	Marionette	INFO	Stopped listening on port 41769
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 6.6.1</a> at Sep 28, 2020, 1:38:07 PM</p>
+</div>
+</div>
+</body>
+</html>

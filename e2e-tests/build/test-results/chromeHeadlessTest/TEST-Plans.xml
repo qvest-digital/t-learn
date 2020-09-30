@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Plans" tests="55" skipped="0" failures="0" errors="0" timestamp="2020-09-10T09:46:54" hostname="tx27js" time="670.702">
+  <properties/>
+  <testcase name="clone first plan as admin" classname="Plans" time="11.394"/>
+  <testcase name="clone first plan as Writeuser" classname="Plans" time="7.237"/>
+  <testcase name="delete plan as admin" classname="Plans" time="7.502"/>
+  <testcase name="rename plan as admin" classname="Plans" time="9.587"/>
+  <testcase name="cancel cloning Masterplan as admin" classname="Plans" time="5.374"/>
+  <testcase name="cancel renaming plan as admin" classname="Plans" time="7.476"/>
+  <testcase name="clone first plan as writeUser" classname="Plans" time="7.419"/>
+  <testcase name="clone first plan as writeUser and rename it as admin" classname="Plans" time="11.913"/>
+  <testcase name="create a team as admin" classname="Plans" time="9.774"/>
+  <testcase name="delete a team as admin" classname="Plans" time="9.655"/>
+  <testcase name="rename a team as admin" classname="Plans" time="9.824"/>
+  <testcase name="cancel renaming a team as admin" classname="Plans" time="9.859"/>
+  <testcase name="readuser cannot see non public plan that is not released for him" classname="Plans" time="9.509"/>
+  <testcase name="readuser can see public plan that is released for him for reading" classname="Plans" time="13.174"/>
+  <testcase name="readuser can see public plan that is released for him for writing" classname="Plans" time="12.953"/>
+  <testcase name="writeuser cannot see non public plan that is not released for him" classname="Plans" time="9.823"/>
+  <testcase name="writeuser can see non public plan that is released for him for reading" classname="Plans" time="12.743"/>
+  <testcase name="writeuser can see non public plan that is released for him for writing" classname="Plans" time="12.386"/>
+  <testcase name="writeuser can see public plan that is released for him for reading" classname="Plans" time="13.42"/>
+  <testcase name="writeuser can see public plan that is released for him for writing" classname="Plans" time="13.222"/>
+  <testcase name="writeuser can see public plan that is not released for him" classname="Plans" time="12.419"/>
+  <testcase name="readuser can see public plan that is not released for him" classname="Plans" time="12.475"/>
+  <testcase name="readuser can see public plan that is released for him for reading" classname="Plans" time="13.04"/>
+  <testcase name="admin can see non public plan that is not released for him and was created by writeUser" classname="Plans" time="9.552"/>
+  <testcase name="writeuser cannot rename public plan that is not released for him" classname="Plans" time="13.24"/>
+  <testcase name="writeuser cannot rename public plan that is released for him for for reading" classname="Plans" time="12.52"/>
+  <testcase name="writeuser cannot delete public plan that is not released for him" classname="Plans" time="12.36"/>
+  <testcase name="writeuser cannot delete public plan that is released for him for reading" classname="Plans" time="13.257"/>
+  <testcase name="writeuser cannot release public plan that is not released for him" classname="Plans" time="12.179"/>
+  <testcase name="writeuser cannot set public plan that is not released for him as new Mainplan" classname="Plans" time="12.319"/>
+  <testcase name="writeuser cannot set public plan that is released for him for writing as new Mainplan" classname="Plans" time="13.364"/>
+  <testcase name="writeuser cannot set public plan that is released for him for reading as new Mainplan" classname="Plans" time="13.349"/>
+  <testcase name="writeuser cannot release public plan that is released for him for writing" classname="Plans" time="13.173"/>
+  <testcase name="writeuser cannot release public plan that is released for him for reading" classname="Plans" time="13.006"/>
+  <testcase name="writeuser can open public plan that is released for him for writing in new tab" classname="Plans" time="13.171"/>
+  <testcase name="readuser can open public plan that is released for him for writing in new tab" classname="Plans" time="13.095"/>
+  <testcase name="readuser can open non public plan that is released for him for writing in new tab" classname="Plans" time="12.624"/>
+  <testcase name="writeuser can remane public plan that is released for him for writing" classname="Plans" time="13.198"/>
+  <testcase name="readuser can remane public plan that is released for him for writing" classname="Plans" time="13.206"/>
+  <testcase name="readuser can remane non public plan that is released for him for writing" classname="Plans" time="12.703"/>
+  <testcase name="writeuser can copy public plan that is released for him for writing" classname="Plans" time="13.008"/>
+  <testcase name="writeuser can delete public plan that is released for him for writing" classname="Plans" time="13.087"/>
+  <testcase name="readuser can delete public plan that is released for him for writing" classname="Plans" time="13.192"/>
+  <testcase name="readuser can delete non public plan that is released for him for writing" classname="Plans" time="12.651"/>
+  <testcase name="swimlanes button label" classname="Plans" time="7.072"/>
+  <testcase name="toggle swimlanes button changes label on click" classname="Plans" time="7.081"/>
+  <testcase name="toggle swimlanes button changes label on opening a swimlane" classname="Plans" time="7.159"/>
+  <testcase name="toggle swimlanes closes swimlanes on click" classname="Plans" time="7.257"/>
+  <testcase name="close other swimlanes closes other swimlanes" classname="Plans" time="7.08"/>
+  <testcase name="toggling a single swimlane toggles button" classname="Plans" time="7.083"/>
+  <testcase name="opening a single swimlane toggles button" classname="Plans" time="7.19"/>
+  <testcase name="search an employee as admin" classname="Plans" time="7.323"/>
+  <testcase name="add a member to a team as admin" classname="Plans" time="29.528"/>
+  <testcase name="remove a member from a team as admin" classname="Plans" time="36.78"/>
+  <testcase name="cancel removing a member from a team as admin" classname="Plans" time="36.717"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Starting ChromeDriver 85.0.4183.38 (9047dbc2c693f044042bbec5c91401c708c7c26a-refs/branch-heads/4183@{#779}) on port 20344
+Only local connections are allowed.
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.
+ChromeDriver was started successfully.
+Sep 10, 2020 11:46:56 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+]]></system-err>
+</testsuite>

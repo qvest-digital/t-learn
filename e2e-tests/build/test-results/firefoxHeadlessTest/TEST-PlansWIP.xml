@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PlansWIP" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-09-10T09:18:59" hostname="tx27js" time="115.437">
+  <properties/>
+  <testcase name="clone first plan as admin" classname="PlansWIP" time="12.467"/>
+  <testcase name="add a member to a team as admin" classname="PlansWIP" time="29.691"/>
+  <testcase name="remove a member from a team as admin" classname="PlansWIP" time="36.652"/>
+  <testcase name="cancel removing a member from a team as admin" classname="PlansWIP" time="36.627"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[1599729542166	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "--width=1920" "--height=1080" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilegfzobX"
+*** You are running in headless mode.
+1599729542577	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1599729542577	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1599729542577	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1599729542577	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: undefined, line 14: Error: An unexpected error occurred
+JavaScript error: moz-extension://905dbf80-cf17-419f-9145-bc330065a5c5/lib/picture_in_picture_overrides.js, line 15: Error: Incorrect argument types for pictureInPictureParent.setOverrides.
+JavaScript error: resource:///modules/sessionstore/SessionStore.jsm, line 1325: uncaught exception: 2147746065
+1599729544116	Marionette	INFO	Listening on port 40005
+1599729544175	Marionette	WARN	TLS certificate errors will be ignored for this session
+Sep 10, 2020 11:19:04 AM org.openqa.selenium.remote.ProtocolHandshake createSession
+INFO: Detected dialect: W3C
+]]></system-err>
+</testsuite>
