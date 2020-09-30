@@ -175,13 +175,9 @@
         <div class="row">
             <div class="column">
                 <label for="category" class="form-label">Kategorie </label>
-                <v-select
-                    class="select-category"
-                    id="category"
-                    placeholder="Bitte wählen"
-                    multiple
-                    v-model="selectedCategories"
-                    :options="categories"
+                <MultipleSelect
+                    :selectedCategories="selectedCategories"
+                    :categories="categories"
                     @input="onCategorySelect"
                 />
             </div>
@@ -230,6 +226,7 @@
 <script>
 import { isValid, parse } from 'date-fns';
 import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
+import MultipleSelect from './MultipleSelect';
 
 const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -247,11 +244,12 @@ const startBeforeEnd = (val, model) => {
 
 export default {
     name: 'CourseInputForm',
+    components: { MultipleSelect },
     data: function() {
         return {
             startDateRaw: null,
             endDateRaw: null,
-            selectedCategories: null,
+            selectedCategories: [],
             courseTypes: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'EXTERNAL', text: 'Extern' },
@@ -354,8 +352,8 @@ export default {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;
         },
-        onCategorySelect() {
-            console.log(this.selectedCategories);
+        onCategorySelect(updatedCategories) {
+            this.selectedCategories = updatedCategories;
         }
     }
 };
@@ -415,43 +413,6 @@ textarea {
     min-height: 42px;
     resize: none;
     padding: $space-xs;
-}
-
-// v-select style
-.select-category {
-    font-size: $font-s;
-    border-radius: $border-radius-xs;
-    margin: 0 $space-xs;
-    height: 36px;
-    .vs__dropdown-toggle {
-        border: solid 1px $grey;
-        height: 36px;
-        padding: 0; //overrides defaults
-        .vs__selected-options {
-            .vs__selected {
-                background-color: $light-grey;
-                padding: 0 0 0 $space-xs;
-                border-radius: $border-radius-xs;
-                height: 24px;
-            }
-            .vs__search {
-                margin: 0; //overrides defaults
-            }
-        }
-    }
-}
-
-.select-category .vs__actions {
-    padding: $space-s;
-    background: url('../assets/images/down.svg') no-repeat right #fff;
-}
-.select-category .vs__deselect {
-    padding: $space-xs $space-m $space-xs 0;
-    background: url('../assets/images/close.svg') no-repeat right $light-grey;
-}
-.select-category .vs__dropdown-option--highlight {
-    background: $medium-grey;
-    color: $black;
 }
 
 // container
