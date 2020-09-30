@@ -13,7 +13,10 @@
         <div class="course-details-nav">
             <div class="nav-item">
                 <button class="button with-icon" @click="$router.push('/')">
-                    <img class="button-icon" src="../assets/images/back.svg" />
+                    <img
+                        class="button-icon"
+                        src="../assets/images/arrow-left.svg"
+                    />
                     ZURÜCK
                 </button>
             </div>
@@ -27,7 +30,10 @@
                         })
                     "
                 >
-                    <img class="button-icon" src="../assets/images/edit.svg" />
+                    <img
+                        class="button-icon"
+                        src="../assets/images/pencil.svg"
+                    />
                     BEARBEITEN
                 </button>
                 <button class="button with-icon" @click="showModal = true">
@@ -171,7 +177,7 @@
                 <div class="course-details-summary-with-icon">
                     <img
                         class="course-details-summary-icon"
-                        src="../assets/images/event-art.svg"
+                        src="../assets/images/camera-video.svg"
                     />
                     <span
                         v-if="course.courseType"

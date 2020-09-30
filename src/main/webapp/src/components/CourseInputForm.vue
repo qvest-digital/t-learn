@@ -401,7 +401,7 @@ select {
 select {
     cursor: pointer;
     appearance: none;
-    background: url('../assets/images/down.svg') no-repeat right $white;
+    background: url('../assets/images/chevron-down.svg') no-repeat right $white;
 }
 select,
 input {

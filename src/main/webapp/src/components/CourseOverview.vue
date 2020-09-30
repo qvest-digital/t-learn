@@ -31,25 +31,30 @@
                             :alt="course.title"
                             title="Veranstaltung Details"
                         />
-                        <img
-                            @click.stop="onDeleteCourse(course)"
-                            class="delete-course-icon"
-                            data-testid="deleteCourseIcon"
-                            title="Veranstaltung löschen"
-                            src="../assets/images/trash-white-bg.svg"
-                        />
-                        <img
-                            @click.stop="
-                                $router.push({
-                                    name: 'courseEdit',
-                                    params: { courseId: course.id }
-                                })
-                            "
-                            data-testid="editCourseIcon"
-                            class="edit-course-icon"
-                            title="Veranstaltung editieren"
-                            src="../assets/images/edit-white-bg.svg"
-                        />
+
+                        <div class="icon-container delete-course-icon">
+                            <img
+                                @click.stop="onDeleteCourse(course)"
+                                class="course-icon"
+                                data-testid="deleteCourseIcon"
+                                title="Veranstaltung löschen"
+                                src="../assets/images/trash.svg"
+                            />
+                        </div>
+                        <div class="icon-container edit-course-icon">
+                            <img
+                                @click.stop="
+                                    $router.push({
+                                        name: 'courseEdit',
+                                        params: { courseId: course.id }
+                                    })
+                                "
+                                data-testid="editCourseIcon"
+                                class="course-icon"
+                                title="Veranstaltung editieren"
+                                src="../assets/images/pencil.svg"
+                            />
+                        </div>
                     </div>
                     <div class="course-card-date">
                         {{ course.startDate | formatDate }}
@@ -147,35 +152,10 @@ export default {
     width: 260px;
     padding: $space-m;
     &:hover {
-        .edit-course-icon,
-        .delete-course-icon {
+        .icon-container {
             display: block;
         }
     }
-}
-.course-card-image-container {
-    position: relative;
-    margin-bottom: $space-s;
-    width: 260px;
-    min-height: 120px;
-    max-height: auto;
-}
-.course-img {
-    max-width: 100%;
-    height: auto;
-}
-.edit-course-icon,
-.delete-course-icon {
-    position: absolute;
-    top: $space-xs;
-    display: none;
-    cursor: pointer;
-}
-.edit-course-icon {
-    right: $space-xs;
-}
-.delete-course-icon {
-    right: $space-xxl;
 }
 .course-card-date {
     font-size: $font-s;
@@ -191,5 +171,43 @@ export default {
 }
 .course-card-text {
     margin-bottom: $space-m;
+}
+
+// card images
+.course-card-image-container {
+    position: relative;
+    margin-bottom: $space-s;
+    width: 260px;
+    min-height: 120px;
+    max-height: auto;
+}
+.course-img {
+    max-width: 100%;
+    height: auto;
+}
+.icon-container {
+    border-radius: $border-radius-l;
+    width: 32px;
+    height: 32px;
+    background: $white;
+    position: absolute;
+    display: none;
+    top: $space-xs;
+    cursor: pointer;
+
+    .course-icon {
+        width: 20px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.edit-course-icon {
+    right: $space-xs;
+}
+.delete-course-icon {
+    right: $space-xxl;
 }
 </style>

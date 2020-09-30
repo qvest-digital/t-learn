@@ -10,7 +10,7 @@
                 class="nav-link"
                 to="/"
             >
-                <img class="navbar-icon" src="../assets/images/t-learn.svg" />
+                <img class="navbar-icon" src="../assets/images/trophy.svg" />
                 t-learn
             </router-link>
 
@@ -20,7 +20,7 @@
                 title="Veranstaltung erstellen"
                 :to="{ name: 'courseCreation' }"
             >
-                <img class="navbar-icon" src="../assets/images/create.svg" />
+                <img class="navbar-icon" src="../assets/images/easel.svg" />
 
                 Erstellen
             </router-link>
