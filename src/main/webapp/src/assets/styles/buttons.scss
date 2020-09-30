@@ -16,7 +16,7 @@ button.button {
 
     &.primary {
         background: $red;
-        color: white;
+        color: $white;
         &:hover {
             background: $medium-red;
         }
@@ -29,8 +29,26 @@ button.button {
         }
     }
 
+    &.with-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 $s-space;
+        font-weight: $normal;
+        background: $white;
+        color: $grey;
+        border: 1px solid $grey;
+        &:hover {
+            background: $medium-grey;
+        }
+    }
+
     &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
     }
+}
+.button-icon {
+    padding-right: $xs-space;
 }
