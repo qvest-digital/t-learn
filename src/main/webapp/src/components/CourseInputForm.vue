@@ -361,7 +361,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 // validation and label
 
 .form-label {
