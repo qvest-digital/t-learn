@@ -3,7 +3,7 @@
         <div class="confirm-modal-container">
             <div data-testid="confirmModalTitle" class="confirm-modal-title">
                 {{ modalTitle }}
-                <span :title="extraTitle" class="bold-title">
+                <span :title="extraTitle" class="title-bold">
                     {{ extraTitle }}
                 </span>
             </div>
@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .confirm-modal-overlay {
     background: $overlay-background;
     bottom: 0;
@@ -85,7 +85,7 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.bold-title {
+.title-bold {
     font-weight: $bold;
 }
 .confirm-modal-footer {
