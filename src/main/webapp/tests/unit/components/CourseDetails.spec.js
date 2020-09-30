@@ -1,12 +1,6 @@
 import '@testing-library/jest-dom';
-import {
-    fireEvent,
-    render,
-    waitFor,
-    waitForElementToBeRemoved
-} from '@testing-library/vue';
+import { fireEvent, getByTestId, render, waitFor } from '@testing-library/vue';
 import { deleteCourse, getCourse } from '@/services/BackendService';
-import { BootstrapVue } from 'bootstrap-vue';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
 import Vue from 'vue';
@@ -41,33 +35,42 @@ describe('CourseDetails.vue', () => {
             })
         );
 
-        const { getByText, getByRole } = render(
+        const { findAllByText, getByText, getByRole, getByTestId } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
                 routes: routes
-            },
-            localVue => {
-                localVue.use(BootstrapVue);
             }
         );
 
         await waitFor(() => [
-            expect(getByRole('heading')).toHaveTextContent('Title'),
-            expect(getByText('Extern')).toHaveTextContent('Typ:'),
-            expect(getByText('Remoteveranstaltung')).toHaveTextContent('Ort:'),
-            expect(getByText('02.05.2020 10:34')).toHaveTextContent('Start:'),
-            expect(getByText('02.05.2020 11:00')).toHaveTextContent('Ende:'),
-            expect(getByText('Daheim')).toHaveTextContent('Adresse:'),
-            expect(getByText('Organizer')).toHaveTextContent('Organisator:'),
-            expect(getByText('Trainer')).toHaveTextContent('Trainer:'),
+            expect(getByTestId('courseDetailsTitle')).toHaveTextContent(
+                'Title'
+            ),
+            expect(getByTestId('courseType')).toHaveTextContent('Extern'),
+            expect(getByTestId('location')).toHaveTextContent('Remote'),
+
+            expect(getByTestId('startDateSummary')).toHaveTextContent(
+                '02.05.2020 10:34'
+            ),
+            expect(getByTestId('endDate')).toHaveTextContent(
+                '02.05.2020 11:00'
+            ),
+            expect(getByTestId('address')).toHaveTextContent('Daheim'),
+
+            expect(getByTestId('organizer')).toHaveTextContent('Organizer'),
+            expect(getByTestId('trainer')).toHaveTextContent('Trainer'),
+
             expect(getByRole('link')).toHaveTextContent('https://tarent.de'),
+            expect(getByTestId('beschreibung')).toHaveTextContent(
+                'Beschreibung'
+            ),
+
             expect(getByRole('link')).toHaveAttribute(
                 'href',
                 'https://tarent.de'
             ),
-            expect(getByText('Alle')).toBeInTheDocument(),
-            expect(getByText('Beschreibung')).toBeInTheDocument()
+            expect(getByText('Alle')).toBeInTheDocument()
         ]);
 
         expect(getCourse).toHaveBeenCalledWith(1);
@@ -86,7 +89,6 @@ describe('CourseDetails.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 router.push('/details/1');
                 routerPushSpy = jest.spyOn(router, 'push');
             }
@@ -98,7 +100,7 @@ describe('CourseDetails.vue', () => {
         ]);
     });
 
-    it("navigates to edit page when 'Bearbeiten' button was clicked", async () => {
+    it("navigates to edit page when 'BEARBEITEN' button was clicked", async () => {
         getCourse.mockImplementationOnce(() => Promise.resolve({ data: {} }));
 
         let routerPushSpy;
@@ -109,13 +111,12 @@ describe('CourseDetails.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 router.push('/details/1');
                 routerPushSpy = jest.spyOn(router, 'push');
             }
         );
 
-        await fireEvent.click(getByRole('button', { name: 'Bearbeiten' }));
+        await fireEvent.click(getByRole('button', { name: 'BEARBEITEN' }));
 
         expect(routerPushSpy).toBeCalledWith({
             name: 'courseEdit',
@@ -123,35 +124,36 @@ describe('CourseDetails.vue', () => {
         });
     });
 
-    it("sends delete request to server and navigates to overview page when 'Löschen' button is clicked", async () => {
+    it("sends delete request to server and navigates to overview page when 'LÖSCHEN' button is clicked", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
-                data: {}
+                data: { id: 1 }
             })
         );
 
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
         let routerPushSpy;
-        const { findByRole, getByText, getByRole } = render(
+        const { getByRole, queryByText, findAllByRole } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 router.push('/details/1');
                 routerPushSpy = jest.spyOn(router, 'push');
             }
         );
 
-        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
+        await fireEvent.click(getByRole('button', { name: 'LÖSCHEN' }));
 
-        const confirmButton = await findByRole('button', { name: 'Ok' });
-        await fireEvent.click(confirmButton);
+        const confirmButton = await findAllByRole('button', {
+            name: 'LÖSCHEN'
+        });
+        await fireEvent.click(confirmButton[0]);
 
-        await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
+        expect(queryByText('Möchtest Du die Veranstaltung')).toBeNull();
 
         await waitFor(() => [
             expect(deleteCourse).toHaveBeenCalledWith(1),
@@ -159,7 +161,7 @@ describe('CourseDetails.vue', () => {
         ]);
     });
 
-    it("stays on page when 'Abbrechen' button was clicked when deleting", async () => {
+    it("stays on page when 'ABBRECHEN' button was clicked when deleting", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
                 data: {}
@@ -167,25 +169,24 @@ describe('CourseDetails.vue', () => {
         );
 
         let routerPushSpy;
-        const { findByRole, getByText, getByRole } = render(
+        const { findByRole, getByRole, queryByText } = render(
             CourseDetails,
             {
                 props: { courseId: 1 },
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 router.push('/details/1');
                 routerPushSpy = jest.spyOn(router, 'push');
             }
         );
 
-        await fireEvent.click(getByRole('button', { name: 'Löschen' }));
+        await fireEvent.click(getByRole('button', { name: 'LÖSCHEN' }));
 
-        const cancelButton = await findByRole('button', { name: 'Abbrechen' });
+        const cancelButton = await findByRole('button', { name: 'ABBRECHEN' });
         await fireEvent.click(cancelButton);
 
-        await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
+        expect(queryByText('Möchtest Du die Veranstaltung')).toBeNull();
 
         expect(deleteCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).not.toHaveBeenCalled();

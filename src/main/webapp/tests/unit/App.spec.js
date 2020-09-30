@@ -1,29 +1,27 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/vue';
-import { BootstrapVue } from 'bootstrap-vue';
 import routes from '../../src/routes';
 import App from '../../src/App';
 import Vuelidate from 'vuelidate';
+import vSelect from 'vue-select';
 
 describe('App.vue', () => {
     it('test navigation to overview', async () => {
-        const { getByText, queryByText } = setupComponent();
+        const { getByText, queryByText, queryByTestId } = setupComponent();
 
-        await fireEvent.click(getByText('Übersicht'));
+        await fireEvent.click(getByText('t-learn'));
 
         expect(
-            queryByText('Übersicht über alle Veranstaltungen')
+            queryByText('Übersicht aller Verstanstaltungen')
         ).toBeInTheDocument();
     });
 
     it('test navigation to create new course', async () => {
         const { getByText, queryByText } = setupComponent();
 
-        await fireEvent.click(getByText('Anlegen'));
+        await fireEvent.click(getByText('Erstellen'));
 
-        expect(
-            queryByText('Anlegen einer neuen Veranstaltung')
-        ).toBeInTheDocument();
+        expect(queryByText('Veranstaltung erstellen')).toBeInTheDocument();
     });
 
     function setupComponent() {
@@ -33,8 +31,8 @@ describe('App.vue', () => {
                 routes: routes
             },
             localVue => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
             }
         );
     }

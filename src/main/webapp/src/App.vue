@@ -1,21 +1,19 @@
 <template>
     <div>
         <Header />
-        <b-container class="pt-5">
+        <div class="app-container">
             <router-view></router-view>
-        </b-container>
-        <Footer />
+        </div>
     </div>
 </template>
 
 <script>
 import Header from './components/Header';
-import Footer from './components/Footer';
 
 export default {
     name: 'App',
-    components: { Header, Footer }
+    components: { Header }
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

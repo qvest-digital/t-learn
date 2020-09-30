@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
 import { getCourse, updateCourse } from '@/services/BackendService';
-import { BootstrapVue } from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import routes from '@/routes';
 import CourseEditForm from '@/components/CourseEditForm';
@@ -39,7 +38,6 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -56,7 +54,7 @@ describe('CourseEditForm.vue', () => {
             'New Title'
         );
 
-        await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
+        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(errorMessages).not.toBeVisible();
         expect(getCourse).toHaveBeenCalledWith(1);
@@ -89,7 +87,6 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -101,7 +98,7 @@ describe('CourseEditForm.vue', () => {
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
 
-        await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
+        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(updateCourse).toHaveBeenCalledWith(course);
         expect(routerPushSpy).not.toHaveBeenCalled();
@@ -121,7 +118,6 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -149,7 +145,6 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -161,19 +156,19 @@ describe('CourseEditForm.vue', () => {
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
 
-        await fireEvent.update(
-            getByRole('textbox', { name: 'Titel / Thema' }),
-            ''
-        );
+        const title = getByRole('textbox', { name: 'Titel / Thema' });
+        await fireEvent.update(title, '');
 
-        await fireEvent.submit(getByRole('button', { name: 'Speichern' }));
+        expect(title.classList).toContain('is-invalid');
+
+        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(updateCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).not.toHaveBeenCalled();
         expect(errorMessages).not.toBeVisible();
     });
 
-    it("navigates back to details page if button 'Abbrechen' was clicked", async () => {
+    it("navigates back to details page if button 'ABBRECHEN' was clicked", async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
                 data: createCourse()
@@ -188,7 +183,6 @@ describe('CourseEditForm.vue', () => {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/edit/1');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -197,7 +191,7 @@ describe('CourseEditForm.vue', () => {
 
         await waitForFormPopulation(getByRole);
 
-        await fireEvent.click(getByRole('button', { name: 'Abbrechen' }));
+        await fireEvent.click(getByRole('button', { name: 'ABBRECHEN' }));
 
         expect(updateCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).toHaveBeenCalledWith({
@@ -228,9 +222,9 @@ describe('CourseEditForm.vue', () => {
             expect(getByRole('textbox', { name: 'Titel / Thema' })).toHaveValue(
                 'Title'
             ),
-            expect(getByRole('textbox', { name: 'Trainer' })).toHaveValue(
-                'Trainer'
-            ),
+            expect(
+                getByRole('textbox', { name: 'Veranstalter*in' })
+            ).toHaveValue('Trainer'),
             expect(
                 getByRole('combobox', { name: 'Veranstaltungsart' })
             ).toHaveValue('EXTERNAL')

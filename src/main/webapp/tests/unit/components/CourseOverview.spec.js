@@ -1,13 +1,12 @@
 import '@testing-library/jest-dom';
-import {
-    fireEvent,
-    render,
-    waitForElementToBeRemoved
-} from '@testing-library/vue';
+import { findAllByTestId, fireEvent, render } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-import { BootstrapVue } from 'bootstrap-vue';
 import routes from '@/routes';
+import Vue from 'vue';
+import { dateFormatFilter } from '@/filter/dateformatFilter';
+
+Vue.filter('formatDate', dateFormatFilter);
 
 jest.mock('@/services/BackendService');
 
@@ -24,34 +23,28 @@ describe('CourseOverview.vue', () => {
 
         const titles = await findAllByText(/Title/);
         expect(titles).toHaveLength(2);
-        const targetAudiences = await findAllByText(/TestTestTest/);
-        expect(targetAudiences).toHaveLength(2);
 
         expect(getCourses).toHaveBeenCalled();
     });
 
-    it("deletes course on server side when 'Löschen' button is clicked", async () => {
+    it("deletes course on server side when 'LÖSCHEN' button is clicked", async () => {
         mockGetCourses();
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
         const {
             findAllByText,
             findAllByRole,
-            findByRole,
-            getByText
+            findAllByTestId
         } = setupComponent();
 
-        const deleteButtons = await findAllByRole('button', {
-            name: 'Löschen'
-        });
+        const deleteButtons = await findAllByTestId('deleteCourseIcon');
         expect(deleteButtons).toHaveLength(2);
-
         await fireEvent.click(deleteButtons[0]);
 
-        const confirmButton = await findByRole('button', { name: 'Ok' });
-        await fireEvent.click(confirmButton);
-
-        await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
+        const confirmButtons = await findAllByRole('button', {
+            name: 'LÖSCHEN'
+        });
+        await fireEvent.click(confirmButtons[0]);
 
         expect(deleteCourse).toHaveBeenCalledWith(1);
 
@@ -59,27 +52,23 @@ describe('CourseOverview.vue', () => {
         expect(titles).toHaveLength(1);
     });
 
-    it("does not delete anything when 'Abbrechen' button was clicked when deleting", async () => {
+    it("does not delete anything when 'ABBRECHEN' button was clicked when deleting", async () => {
         mockGetCourses();
 
         const {
             findAllByText,
             findAllByRole,
-            findByRole,
-            getByText
+            findAllByTestId
         } = setupComponent();
 
-        const deleteButtons = await findAllByRole('button', {
-            name: 'Löschen'
-        });
+        const deleteButtons = await findAllByTestId('deleteCourseIcon');
         expect(deleteButtons).toHaveLength(2);
-
         await fireEvent.click(deleteButtons[0]);
 
-        const cancelButton = await findByRole('button', { name: 'Abbrechen' });
-        await fireEvent.click(cancelButton);
-
-        await waitForElementToBeRemoved(getByText('Löschen bestätigen'));
+        const cancelButtons = await findAllByRole('button', {
+            name: 'ABBRECHEN'
+        });
+        await fireEvent.click(cancelButtons[0]);
 
         expect(deleteCourse).not.toHaveBeenCalled();
 
@@ -107,14 +96,8 @@ describe('CourseOverview.vue', () => {
     }
 
     function setupComponent() {
-        return render(
-            CourseOverview,
-            {
-                routes: routes
-            },
-            localVue => {
-                localVue.use(BootstrapVue);
-            }
-        );
+        return render(CourseOverview, {
+            routes: routes
+        });
     }
 });

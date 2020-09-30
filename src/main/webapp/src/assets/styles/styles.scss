@@ -1,0 +1,16 @@
+@import 'vue-select/src/scss/vue-select.scss';
+
+@import './colors.scss';
+@import './fonts.scss';
+@import './spacing.scss';
+@import './buttons.scss';
+@import './containers.scss';
+@import './borders.scss';
+@import './shadows.scss';
+
+// global styles
+* {
+    font-family: $ubuntu;
+    margin: 0;
+    padding: 0;
+}

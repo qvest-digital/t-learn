@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
 import CourseCreationForm from '@/components/CourseCreationForm.vue';
 import { createCourse } from '@/services/BackendService';
-import { BootstrapVue } from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import routes from '@/routes';
 
@@ -22,13 +21,12 @@ describe('CourseCreationForm.vue', () => {
         });
 
         let routerPushSpy;
-        const { getByTestId, getByRole } = render(
+        const { getByTestId, getByRole, getAllByRole } = render(
             CourseCreationForm,
             {
                 routes: routes
             },
             (localVue, store, router) => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
                 router.push('/create');
                 routerPushSpy = jest.spyOn(router, 'push');
@@ -43,7 +41,7 @@ describe('CourseCreationForm.vue', () => {
             'Test'
         );
         await fireEvent.update(
-            getByRole('textbox', { name: 'Trainer' }),
+            getByRole('textbox', { name: 'Veranstalter*in' }),
             'Trainer'
         );
         await fireEvent.update(
@@ -51,7 +49,8 @@ describe('CourseCreationForm.vue', () => {
             'EXTERNAL'
         );
 
-        await fireEvent.submit(getByRole('button'));
+        const buttons = getAllByRole('button');
+        await fireEvent.click(buttons[1]);
 
         expect(getByTestId('errorMsg')).not.toBeVisible();
         expect(createCourse).toHaveBeenCalledWith({
@@ -80,7 +79,7 @@ describe('CourseCreationForm.vue', () => {
             })
         );
 
-        const { getByRole, getByTestId } = setupComponent();
+        const { getByRole, getByTestId, getAllByRole } = setupComponent();
 
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
@@ -91,7 +90,7 @@ describe('CourseCreationForm.vue', () => {
             'Test'
         );
         await fireEvent.update(
-            getByRole('textbox', { name: 'Trainer' }),
+            getByRole('textbox', { name: 'Veranstalter*in' }),
             'Trainer'
         );
         await fireEvent.update(
@@ -99,7 +98,8 @@ describe('CourseCreationForm.vue', () => {
             'EXTERNAL'
         );
 
-        await fireEvent.submit(getByRole('button'));
+        const buttons = getAllByRole('button');
+        await fireEvent.click(buttons[1]);
 
         expect(createCourse).toHaveBeenCalledWith({
             address: null,
@@ -118,11 +118,11 @@ describe('CourseCreationForm.vue', () => {
     });
 
     it('shows validation errors when required fields are not filled', async () => {
-        const { getByRole, getByTestId } = setupComponent();
+        const { getByRole, getAllByRole, getByTestId } = setupComponent();
 
         expect(getByTestId('errorMsg')).not.toBeVisible();
-
-        await fireEvent.submit(getByRole('button'));
+        const buttons = getAllByRole('button');
+        await fireEvent.click(buttons[1]);
 
         expect(createCourse).not.toBeCalled();
 
@@ -130,9 +130,9 @@ describe('CourseCreationForm.vue', () => {
         expect(
             getByRole('textbox', { name: 'Titel / Thema' }).classList
         ).toContain('is-invalid');
-        expect(getByRole('textbox', { name: 'Trainer' }).classList).toContain(
-            'is-invalid'
-        );
+        expect(
+            getByRole('textbox', { name: 'Veranstalter*in' }).classList
+        ).toContain('is-invalid');
         expect(
             getByRole('combobox', { name: 'Veranstaltungsart' }).classList
         ).toContain('is-invalid');
@@ -287,7 +287,6 @@ describe('CourseCreationForm.vue', () => {
 
     function setupComponent() {
         return render(CourseCreationForm, {}, localVue => {
-            localVue.use(BootstrapVue);
             localVue.use(Vuelidate);
         });
     }

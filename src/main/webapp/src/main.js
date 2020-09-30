@@ -2,15 +2,21 @@ import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import { BootstrapVue } from 'bootstrap-vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
 import routes from './routes';
+import vSelect from 'vue-select';
 
 Vue.config.productionTip = false;
+vSelect.props.components.default = () => ({
+    Deselect: {
+        render: createElement => createElement('span', '')
+    },
+    OpenIndicator: {
+        render: createElement => createElement('span', '')
+    }
+});
+Vue.component('v-select', vSelect);
 
-Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
 Vue.use(VueRouter);
 Vue.filter('formatDate', dateFormatFilter);

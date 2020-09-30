@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
     pages: {
         index: {
@@ -26,6 +27,13 @@ module.exports = {
 
                 return options;
             });
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                additionalData: `@import "@/assets/styles/styles.scss";`
+            }
+        }
     },
     publicPath: './',
     devServer: {

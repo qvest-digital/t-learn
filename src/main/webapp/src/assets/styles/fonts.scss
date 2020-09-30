@@ -1,0 +1,30 @@
+// import Ubuntu
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+// font family
+$font-family-sans-serif:
+  // Safari for macOS and iOS (San Francisco) -apple-system,
+    // Chrome < 56 for macOS (San Francisco) BlinkMacSystemFont,
+    // Windows 'Segoe UI',
+    // Android Roboto,
+    // Basic web fallback 'Helvetica Neue', Arial,
+    // Linux
+        'Noto Sans',
+    // Sans serif fallback
+        sans-serif,
+    // Emoji fonts
+        'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !default;
+
+$ubuntu: 'Ubuntu', $font-family-sans-serif;
+
+// font size
+$font-xl: 28px;
+$font-l: 20px;
+$font-m: 16px;
+$font-s: 14px;
+$font-xs: 12px;
+
+//font-weight:
+$bold: 700;
+$normal: 500;

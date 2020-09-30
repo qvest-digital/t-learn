@@ -1,30 +1,38 @@
 <template>
-    <div>
-        <h2>Anlegen einer neuen Veranstaltung</h2>
-        <b-form @submit.prevent="create">
-            <div
-                v-show="hasError"
-                style="color: darkred"
-                data-testid="errorMsg"
-            >
-                Ein Fehler ist aufgetreten, bitte versuchen Sie es später
-                erneut.
+    <div class="course-creation-form-container">
+        <div>
+            <div class="page-title">
+                Veranstaltung erstellen
             </div>
 
-            <CourseInputForm
-                ref="courseForm"
-                :course="course"
-                @ready="isReady => (isValid = isReady)"
-            />
+            <form @submit.prevent="create">
+                <div
+                    v-show="hasError"
+                    class="form-error-text"
+                    data-testid="errorMsg"
+                >
+                    Ein Fehler ist aufgetreten, bitte versuchen Sie es später
+                    erneut.
+                </div>
+                <CourseInputForm
+                    ref="courseForm"
+                    :course="course"
+                    @ready="isReady => (isValid = isReady)"
+                />
 
-            <b-row class="mb-3">
-                <b-col>
-                    <b-button type="submit" variant="primary">
-                        Erstellen
-                    </b-button>
-                </b-col>
-            </b-row>
-        </b-form>
+                <div class="form-footer">
+                    <button
+                        @click.stop="$router.push('/')"
+                        class="button secondary"
+                    >
+                        ABBRECHEN
+                    </button>
+                    <button class="button primary">
+                        ERSTELLEN
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -66,16 +74,6 @@ export default {
                 createCourse(this.course)
                     .then(response => {
                         const createdCourse = response.data;
-                        this.$root.$bvToast.toast(
-                            'Veranstaltung wurde erfolgreich angelegt',
-                            {
-                                variant: 'success',
-                                isStatus: true,
-                                noCloseButton: true,
-                                solid: true,
-                                autoHideDelay: 2000
-                            }
-                        );
                         this.$router.push({
                             name: 'courseDetails',
                             params: { courseId: createdCourse.id }
@@ -98,4 +96,27 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.course-creation-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-footer {
+    margin-top: $space-xl;
+    margin-right: $space-xs;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin-left: $space-s;
+    }
+}
+
+.page-title {
+    font-size: $font-l;
+    font-weight: $normal;
+    margin-left: $space-xs;
+    margin-bottom: $space-l;
+}
+</style>

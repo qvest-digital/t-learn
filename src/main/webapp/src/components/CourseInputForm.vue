@@ -1,171 +1,232 @@
 <template>
-    <div>
-        <div class="mb-3">
-            <label for="title" class="form-label required-label"
-                >Titel / Thema</label
-            >
-            <b-form-input
-                v-model="$v.course.title.$model"
-                :state="validateState('course.title')"
-                id="title"
-                size="lg"
-                placeholder="Veranstaltungsbezeichnung"
-            />
-            <b-form-invalid-feedback
-                >Titel / Thema ist ein Pflichtfeld.
-            </b-form-invalid-feedback>
-        </div>
-
-        <b-row class="mb-3">
-            <b-col>
-                <label for="trainer" class="form-label required-label"
-                    >Trainer</label
+    <div class="input-form-container">
+        <div class="row">
+            <div class="column">
+                <label for="title" class="form-label required-label"
+                    >Titel / Thema</label
                 >
-                <b-form-input
+                <input
+                    type="text"
+                    v-model="$v.course.title.$model"
+                    :class="validationStateClass('course.title')"
+                    id="title"
+                    placeholder="Veranstaltungsbezeichnung"
+                />
+                <span v-if="$v.course.title.$error" class="form-validation-text"
+                    >Titel / Thema ist ein Pflichtfeld und die maximale Länge
+                    sind 255 Zeichen.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="trainer" class="form-label required-label"
+                    >Veranstalter*in</label
+                >
+                <input
+                    type="text"
                     v-model="$v.course.trainer.$model"
-                    :state="validateState('course.trainer')"
+                    :class="validationStateClass('course.trainer')"
                     id="trainer"
-                    placeholder="Trainer"
+                    placeholder="Veranstalter*in"
                 />
-                <b-form-invalid-feedback
-                    >Trainer ist ein Pflichtfeld.
-                </b-form-invalid-feedback>
-            </b-col>
-            <b-col>
-                <label for="organizer" class="form-label">Organisator</label>
-                <b-form-input
-                    v-model="course.organizer"
+                <span
+                    v-if="$v.course.trainer.$error"
+                    class="form-validation-text"
+                >
+                    Veranstalter*in ist ein Pflichtfeld und die maximale Länge
+                    sind 255 Zeichen.
+                </span>
+            </div>
+            <div class="column">
+                <label for="organizer" class="form-label"
+                    >Ansprechpartner*in</label
+                >
+                <input
+                    type="text"
+                    v-model="$v.course.organizer.$model"
                     id="organizer"
-                    placeholder="Organisator"
+                    :class="validationStateClass('course.organizer')"
+                    placeholder="Ansprechpartner*in"
                 />
-            </b-col>
-        </b-row>
-
-        <b-row class="mb-3">
-            <b-col>
-                <label for="startDate" class="form-label">Start</label>
-                <b-form-input
+                <span
+                    v-if="$v.course.organizer.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 255 Zeichen.
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="start-date" class="form-label">Start</label>
+                <input
+                    type="text"
                     v-model="$v.startDateRaw.$model"
-                    :state="validateState('startDateRaw')"
-                    id="startDate"
+                    :class="validationStateClass('startDateRaw')"
+                    id="start-date"
                     placeholder="DD.MM.YYYY HH:MM"
                 />
-                <b-form-invalid-feedback>
+                <span
+                    v-if="$v.startDateRaw.$error"
+                    class="form-validation-text"
+                >
                     Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und vor
                     dem Ende-Datum liegen.
-                </b-form-invalid-feedback>
-            </b-col>
-            <b-col>
-                <label for="endDate" class="form-label">Ende</label>
-                <b-form-input
+                </span>
+            </div>
+            <div class="column">
+                <label for="end-date" class="form-label">Ende</label>
+                <input
+                    type="text"
                     v-model="$v.endDateRaw.$model"
-                    :state="validateState('endDateRaw')"
-                    id="endDate"
+                    :class="validationStateClass('endDateRaw')"
+                    id="end-date"
                     placeholder="DD.MM.YYYY HH:MM"
                 />
-                <b-form-invalid-feedback>
+                <span v-if="$v.endDateRaw.$error" class="form-validation-text">
                     Datum muss dem Muster "DD.MM.YYYY HH:MM" entsprechen und
                     nach dem Start-Datum liegen.
-                </b-form-invalid-feedback>
-            </b-col>
-        </b-row>
-
-        <b-row class="mb-3">
-            <b-col>
-                <label for="courseType" class="form-label required-label"
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="course-type" class="form-label required-label"
                     >Veranstaltungsart</label
                 >
-                <b-form-select
+                <select
                     v-model="$v.course.courseType.$model"
-                    :state="validateState('course.courseType')"
-                    :options="courseTypes"
-                    id="courseType"
-                />
-                <b-form-invalid-feedback
-                    >Veranstaltungsart ist ein Pflichtfeld.
-                </b-form-invalid-feedback>
-            </b-col>
-            <b-col>
+                    :class="validationStateClass('course.courseType')"
+                    id="course-type"
+                >
+                    <option
+                        v-for="courseType in courseTypes"
+                        :key="courseType.text"
+                        :value="courseType.value"
+                    >
+                        {{ courseType.text }}
+                    </option>
+                </select>
+                <span
+                    v-if="$v.course.courseType.$error"
+                    class="form-validation-text"
+                >
+                    Veranstaltungsart ist ein Pflichtfeld und die maximale Länge
+                    sind 255 Zeichen.
+                </span>
+            </div>
+            <div class="column">
                 <label for="location" class="form-label">Ort</label>
-                <b-form-select
-                    v-model="course.location"
-                    :options="locations"
-                    id="location"
-                />
-            </b-col>
-        </b-row>
 
-        <b-row class="mb-3">
-            <b-col>
+                <select
+                    v-model="course.location"
+                    id="location"
+                    class="input-location"
+                >
+                    <option
+                        v-for="location in locations"
+                        :key="location.text"
+                        :value="location.value"
+                    >
+                        {{ location.text }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
                 <label for="address" class="form-label"
                     >Veranstaltungsadresse</label
                 >
-                <b-form-input
-                    v-model="course.address"
+                <input
+                    type="text"
+                    v-model="$v.course.address.$model"
                     id="address"
+                    :class="validationStateClass('course.address')"
                     placeholder="postalische Adresse"
                 />
-            </b-col>
-            <b-col>
+                <span
+                    v-if="$v.course.address.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 255 Zeichen.
+                </span>
+            </div>
+            <div class="column">
                 <label for="link" class="form-label"
                     >Weiterführender Link</label
                 >
-                <b-form-input
+                <input
+                    type="text"
                     v-model="$v.course.link.$model"
-                    :state="validateState('course.link')"
+                    :class="validationStateClass('course.link')"
                     id="link"
                     placeholder="https://"
                 />
-                <b-form-invalid-feedback>
+                <span v-if="$v.course.link.$error" class="form-validation-text">
                     Der Link muss ein gültiger URL sein, mit den Protokollen
                     "http" oder "https" beginnen und darf nur maximal 1000
                     Zeichen lang sein.
-                </b-form-invalid-feedback>
-            </b-col>
-        </b-row>
-
-        <b-row class="mb-3">
-            <b-col>
-                <label for="targetAudience" class="form-label"
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="category" class="form-label">Kategorie </label>
+                <MultipleSelect
+                    :selectedCategories="selectedCategories"
+                    :categories="categories"
+                    @input="onCategorySelect"
+                />
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="target-audience" class="form-label"
                     >Zielgruppe</label
                 >
-                <b-form-textarea
+                <textarea
                     v-model="$v.course.targetAudience.$model"
-                    :state="validateState('course.targetAudience')"
-                    id="targetAudience"
-                    placeholder="Welche Zielgruppe soll mit der Veranstaltung angesprochen werden"
-                    rows="3"
-                    max-rows="6"
+                    :class="validationStateClass('course.targetAudience')"
+                    id="target-audience"
+                    placeholder="An wen richtet sich die Veranstaltung"
                 />
-                <b-form-invalid-feedback>
+                <span
+                    v-if="$v.course.targetAudience.$error"
+                    class="form-validation-text"
+                >
                     Die maximale Länge sind 2000 Zeichen.
-                </b-form-invalid-feedback>
-            </b-col>
-        </b-row>
-        <b-row class="mb-3">
-            <b-col>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
                 <label for="description" class="form-label"
                     >Beschreibung / Inhalt</label
                 >
-                <b-form-textarea
+                <textarea
                     v-model="$v.course.description.$model"
-                    :state="validateState('course.description')"
+                    :class="validationStateClass('course.description')"
                     id="description"
                     placeholder="Beschreibung"
-                    rows="3"
-                    max-rows="6"
                 />
-                <b-form-invalid-feedback>
+                <span
+                    v-if="$v.course.description.$error"
+                    class="form-validation-text"
+                >
                     Die maximale Länge sind 2000 Zeichen.
-                </b-form-invalid-feedback>
-            </b-col>
-        </b-row>
+                </span>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import { isValid, parse } from 'date-fns';
 import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
+import MultipleSelect from './MultipleSelect';
 
 const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -183,10 +244,12 @@ const startBeforeEnd = (val, model) => {
 
 export default {
     name: 'CourseInputForm',
+    components: { MultipleSelect },
     data: function() {
         return {
             startDateRaw: null,
             endDateRaw: null,
+            selectedCategories: [],
             courseTypes: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'EXTERNAL', text: 'Extern' },
@@ -196,6 +259,14 @@ export default {
                 { value: null, text: 'Bitte wählen' },
                 { value: 'REMOTE', text: 'Remote' },
                 { value: 'ONSITE', text: 'Präsenz' }
+            ],
+            categories: [
+                'fontend',
+                'backend',
+                'css',
+                'javascript',
+                'vue',
+                'java'
             ]
         };
     },
@@ -211,13 +282,16 @@ export default {
         },
         course: {
             title: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             trainer: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             courseType: {
-                required
+                required,
+                maxLength: maxLength(255)
             },
             link: {
                 url,
@@ -229,6 +303,12 @@ export default {
             },
             description: {
                 maxLength: maxLength(2000)
+            },
+            address: {
+                maxLength: maxLength(255)
+            },
+            organizer: {
+                maxLength: maxLength(255)
             }
         }
     },
@@ -257,7 +337,7 @@ export default {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
-        validateState: function(path) {
+        validationStateClass: function(path) {
             const { $dirty, $error } = path
                 .split('.')
                 .reduce(
@@ -266,20 +346,88 @@ export default {
                     this.$v
                 );
 
-            return $dirty ? !$error : null;
+            return $dirty && $error ? 'is-invalid' : 'is-valid';
         },
         parseValidDate: function(val) {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;
+        },
+        onCategorySelect(updatedCategories) {
+            this.selectedCategories = updatedCategories;
         }
     }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+// validation and label
+
+.form-label {
+    font-size: $font-xs;
+    color: $grey;
+    margin: 0 $space-xs $space-xs $space-xs;
+}
 .required-label::after {
-    color: red;
-    font-weight: bold;
+    color: $red;
+    font-size: $font-xs;
+    font-weight: $bold;
     content: '\00a0*';
+}
+.is-invalid {
+    border: $red 1px solid;
+    color: $red;
+}
+
+.form-validation-text {
+    color: $red;
+    font-size: $font-xs;
+    margin: $space-xs $space-xs 0 $space-xs;
+}
+
+//input, select and textarea
+input,
+textarea,
+select {
+    margin: 0 $space-xs;
+    border-radius: $border-radius-xs;
+    border: solid 1px $grey;
+    height: 34px;
+    font-size: $font-xs;
+    &:focus {
+        outline-width: 1px;
+        outline-color: $dark-grey;
+    }
+}
+select {
+    cursor: pointer;
+    appearance: none;
+    background: url('../assets/images/chevron-down.svg') no-repeat right $white;
+}
+select,
+input {
+    background-color: $white;
+    padding: 0 $space-xs;
+}
+
+textarea {
+    min-height: 42px;
+    resize: none;
+    padding: $space-xs;
+}
+
+// container
+.input-form-container {
+    width: $container-l;
+}
+.row {
+    margin-bottom: $space-s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 </style>

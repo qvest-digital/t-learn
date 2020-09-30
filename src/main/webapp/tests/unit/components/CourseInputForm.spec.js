@@ -1,13 +1,14 @@
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/vue';
 import { createLocalVue, mount } from '@vue/test-utils';
-import { BootstrapVue } from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import CourseInputForm from '@/components/CourseInputForm';
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
+import vSelect from 'vue-select';
 
 Vue.filter('formatDate', dateFormatFilter);
+Vue.component('v-select', vSelect);
 
 describe('CourseInputForm.vue', () => {
     it('maps input fields correctly to the UI', async () => {
@@ -15,8 +16,8 @@ describe('CourseInputForm.vue', () => {
             CourseInputForm,
             { props: { course: {} } },
             localVue => {
-                localVue.use(BootstrapVue);
                 localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
             }
         );
 
@@ -40,12 +41,12 @@ describe('CourseInputForm.vue', () => {
         expect(getByRole('textbox', { name: 'Titel / Thema' })).toHaveValue(
             'Title'
         );
-        expect(getByRole('textbox', { name: 'Trainer' })).toHaveValue(
+        expect(getByRole('textbox', { name: 'Veranstalter*in' })).toHaveValue(
             'Trainer'
         );
-        expect(getByRole('textbox', { name: 'Organisator' })).toHaveValue(
-            'Organizer'
-        );
+        expect(
+            getByRole('textbox', { name: 'Ansprechpartner*in' })
+        ).toHaveValue('Organizer');
         expect(getByRole('textbox', { name: 'Start' })).toHaveValue(
             dateFormatFilter(course.startDate)
         );
@@ -106,7 +107,6 @@ describe('CourseInputForm.vue', () => {
 
     function mountComponent() {
         const localVue = createLocalVue();
-        localVue.use(BootstrapVue);
         localVue.use(Vuelidate);
 
         return mount(CourseInputForm, {
