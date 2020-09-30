@@ -67,7 +67,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50.1%, -50.1%);
-    width: $s-container;
+    width: $container-s;
     background-color: $white;
     padding: $space-s;
     height: auto;
