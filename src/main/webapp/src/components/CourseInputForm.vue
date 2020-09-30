@@ -365,13 +365,13 @@ export default {
 // validation and label
 
 .form-label {
-    font-size: $xs-font;
+    font-size: $font-xs;
     color: $grey;
     margin: 0 $space-xs $space-xs $space-xs;
 }
 .required-label::after {
     color: $red;
-    font-size: $xs-font;
+    font-size: $font-xs;
     font-weight: $bold;
     content: '\00a0*';
 }
@@ -382,7 +382,7 @@ export default {
 
 .form-validation-text {
     color: $red;
-    font-size: $xs-font;
+    font-size: $font-xs;
     margin: $space-xs $space-xs 0 $space-xs;
 }
 
@@ -394,7 +394,7 @@ select {
     border-radius: 4px;
     border: solid 1px $grey;
     height: 34px;
-    font-size: $xs-font;
+    font-size: $font-xs;
     &:focus {
         outline-width: 1px;
         outline-color: $dark-grey;
@@ -419,7 +419,7 @@ textarea {
 
 // v-select style
 .select-category {
-    font-size: $s-font;
+    font-size: $font-s;
     border-radius: 4px;
     margin: 0 $space-xs;
     height: 36px;

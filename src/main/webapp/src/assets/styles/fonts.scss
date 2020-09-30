@@ -4,15 +4,10 @@
 // font family
 $font-family-sans-serif:
   // Safari for macOS and iOS (San Francisco) -apple-system,
-    // Chrome < 56 for macOS (San Francisco)
-        BlinkMacSystemFont,
-    // Windows
-        'Segoe UI',
-    // Android
-        Roboto,
-    // Basic web fallback
-        'Helvetica Neue',
-    Arial,
+    // Chrome < 56 for macOS (San Francisco) BlinkMacSystemFont,
+    // Windows 'Segoe UI',
+    // Android Roboto,
+    // Basic web fallback 'Helvetica Neue', Arial,
     // Linux
         'Noto Sans',
     // Sans serif fallback
@@ -24,11 +19,11 @@ $font-family-sans-serif:
 $ubuntu: 'Ubuntu', $font-family-sans-serif;
 
 // font size
-$xl-font: 28px;
-$l-font: 20px;
-$m-font: 16px;
-$s-font: 14px;
-$xs-font: 12px;
+$font-xl: 28px;
+$font-l: 20px;
+$font-m: 16px;
+$font-s: 14px;
+$font-xs: 12px;
 
 //font-weight:
 $bold: 700;

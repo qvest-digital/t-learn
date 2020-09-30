@@ -77,7 +77,7 @@ export default {
     line-height: 1.6;
 }
 .confirm-modal-title {
-    font-size: $l-font;
+    font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-s;
     max-width: 490px;

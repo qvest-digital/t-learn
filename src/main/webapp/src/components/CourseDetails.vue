@@ -297,19 +297,19 @@ export default {
     margin-bottom: $space-xs;
 }
 .course-details-content-title {
-    font-size: $xl-font;
+    font-size: $font-xl;
     font-weight: $normal;
     margin-bottom: $space-l;
     word-break: break-word;
 }
 
 .course-details-content-subtitle {
-    font-size: $l-font;
+    font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-m;
 }
 .course-details-content-text {
-    font-size: $s-font;
+    font-size: $font-s;
     line-height: 1.57;
     margin-bottom: $space-m;
 }
@@ -323,24 +323,24 @@ export default {
 }
 
 .course-details-summary-title {
-    font-size: $l-font;
+    font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-m;
 }
 .course-details-summary-label {
-    font-size: $m-font;
+    font-size: $font-m;
     font-weight: $normal;
     margin-bottom: $space-xs;
 }
 .course-details-summary-text {
-    font-size: $s-font;
+    font-size: $font-s;
     font-weight: initial;
     line-height: 1.57;
     margin-bottom: $space-xs;
     word-break: break-word;
 }
 .course-details-summary-icon-text {
-    font-size: $s-font;
+    font-size: $font-s;
     font-weight: initial;
 }
 .course-details-summary-icon {

@@ -133,7 +133,7 @@ export default {
 <style lang="scss" scoped>
 .course-overview-title {
     display: block;
-    font-size: $l-font;
+    font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-l;
     margin-left: $space-xl + $space-l;
@@ -178,12 +178,12 @@ export default {
     right: $space-xxl;
 }
 .course-card-date {
-    font-size: $s-font;
+    font-size: $font-s;
     color: $dark-grey;
     margin-bottom: $space-xs;
 }
 .course-card-title {
-    font-size: $m-font;
+    font-size: $font-m;
     font-weight: $bold;
     line-height: 1.5;
     margin-bottom: $space-xs;

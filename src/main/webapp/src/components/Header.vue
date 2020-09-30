@@ -55,7 +55,7 @@ export default {};
 .nav-link {
     color: $black;
     padding: 0 $space-s;
-    font-size: $m-font;
+    font-size: $font-m;
     font-weight: $normal;
     height: 100%;
     display: flex;
@@ -70,7 +70,7 @@ export default {};
 .search {
     width: 400px;
     height: 40px;
-    font-size: $m-font;
+    font-size: $font-m;
     background-color: $light-grey;
     border-radius: 20px;
     padding: $space-s $space-xxl;
