@@ -72,7 +72,7 @@ export default {};
     height: 40px;
     font-size: $font-m;
     background-color: $light-grey;
-    border-radius: 20px;
+    border-radius: $border-radius-l;
     padding: $space-s $space-xxl;
     border: 1px solid $light-grey;
     background-image: url('../assets/images/search.svg');

@@ -54,7 +54,7 @@ export default {
 
 <style lang="scss">
 .confirm-modal-overlay {
-    background: rgba(74, 74, 74, 0.8);
+    background: $overlay-background;
     bottom: 0;
     left: 0;
     position: fixed;
@@ -66,14 +66,14 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50.1%, -50.1%);
+    transform: translate(-50%, -50%);
     width: $container-s;
     background-color: $white;
     padding: $space-s;
     height: auto;
     max-height: 500px;
     overflow-y: auto;
-    border-radius: 8px;
+    border-radius: $border-radius-s;
     line-height: 1.6;
 }
 .confirm-modal-title {

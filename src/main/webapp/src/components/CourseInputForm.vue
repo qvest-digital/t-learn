@@ -391,7 +391,7 @@ input,
 textarea,
 select {
     margin: 0 $space-xs;
-    border-radius: 4px;
+    border-radius: $border-radius-xs;
     border: solid 1px $grey;
     height: 34px;
     font-size: $font-xs;
@@ -420,7 +420,7 @@ textarea {
 // v-select style
 .select-category {
     font-size: $font-s;
-    border-radius: 4px;
+    border-radius: $border-radius-xs;
     margin: 0 $space-xs;
     height: 36px;
     .vs__dropdown-toggle {
@@ -431,7 +431,7 @@ textarea {
             .vs__selected {
                 background-color: $light-grey;
                 padding: 0 0 0 $space-xs;
-                border-radius: 4px;
+                border-radius: $border-radius-xs;
                 height: 24px;
             }
             .vs__search {

@@ -1,5 +1,6 @@
 @import './colors.scss';
 @import './fonts.scss';
+@import './borders.scss';
 
 button.button {
     font-size: $font-xs;
@@ -7,7 +8,7 @@ button.button {
     height: 30px;
     min-width: 110px;
     width: max-content;
-    border-radius: 15px;
+    border-radius: $border-radius-m;
     border: none;
     text-align: center;
     cursor: pointer;
