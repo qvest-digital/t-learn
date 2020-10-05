@@ -209,6 +209,7 @@ describe('CourseEditForm.vue', () => {
             startDate: null,
             endDate: null,
             courseType: 'EXTERNAL',
+            price: null,
             location: null,
             address: null,
             targetAudience: null,

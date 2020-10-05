@@ -64,7 +64,8 @@ describe('CourseCreationForm.vue', () => {
             targetAudience: null,
             description: null,
             title: 'Test',
-            trainer: 'Trainer'
+            trainer: 'Trainer',
+            price: null
         });
         expect(routerPushSpy).toHaveBeenCalledWith({
             name: 'courseDetails',
@@ -112,7 +113,8 @@ describe('CourseCreationForm.vue', () => {
             targetAudience: null,
             description: null,
             title: 'Test',
-            trainer: 'Trainer'
+            trainer: 'Trainer',
+            price: null
         });
         await waitFor(() => expect(errorMessages).toBeVisible());
     });

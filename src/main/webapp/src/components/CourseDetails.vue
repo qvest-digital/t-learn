@@ -198,6 +198,21 @@
                         {{ course.location == 'REMOTE' ? 'Remote' : 'Präsenz' }}
                     </span>
                 </div>
+
+                <div class="course-details-summary-with-icon">
+                    <img
+                        class="course-details-summary-icon"
+                        src="../assets/images/cash.svg"
+                    />
+                    <span
+                        v-if="course.price"
+                        data-testid="price"
+                        class="course-details-summary-icon-text"
+                    >
+                        {{ course.price }}
+                    </span>
+                </div>
+
             </div>
         </div>
     </div>
