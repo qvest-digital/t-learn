@@ -201,6 +201,7 @@
 
                 <div class="course-details-summary-with-icon">
                     <img
+                        v-if="course.price"
                         class="course-details-summary-icon"
                         src="../assets/images/cash.svg"
                     />
@@ -212,7 +213,6 @@
                         {{ course.price }}
                     </span>
                 </div>
-
             </div>
         </div>
     </div>
