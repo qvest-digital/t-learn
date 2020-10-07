@@ -133,6 +133,24 @@
                     </option>
                 </select>
             </div>
+            <div class="column">
+                <label for="price" class="form-label">
+                    Preis
+                </label>
+                <input
+                    type="text"
+                    v-model="$v.course.price.$model"
+                    id="price"
+                    :class="validationStateClass('course.price')"
+                    placeholder="Preis"
+                />
+                <span
+                    v-if="$v.course.price.$error"
+                    class="form-validation-text"
+                >
+                    Die maximale Länge sind 255 Zeichen.
+                </span>
+            </div>
         </div>
 
         <div class="row">
@@ -308,6 +326,9 @@ export default {
                 maxLength: maxLength(255)
             },
             organizer: {
+                maxLength: maxLength(255)
+            },
+            price: {
                 maxLength: maxLength(255)
             }
         }
