@@ -2,18 +2,14 @@ import geb.Page
 
 class TLearnDetailsPage extends Page {
 
-    static at = { waitFor {$("div", text: contains("Bearbeiten")) } } 
+  static at = { waitFor {$("div", text: contains("BEARBEITEN")) } } 
 
-    static content = {
-	header {$("a", text: "t-learn")}
-	linkToOverviewPage {$("a", text: "Übersicht")}
-        linkToCreatePage(to: TLearnCreatePage) {$("a", text: "Anlegen")}
-	editButton(to: TLearnEditPage) {$("button", text: "Bearbeiten")}
-	deleteButton {$("button", text: "Löschen")}
-	deleteConfirmationModalCancelButton {$("button", text: "Abbrechen")}
-	deleteConfirmationModalOkButton(to: TLearnOverviewPage) {$("button", text: "Ok")}
-        linkToPrivacyPage {$("a", text: "Privacy Policy")}
-        linkToImpressumPage {$("a", text: "Impressum")}
+  static content = {
+    linkToOverviewPage {$("div.nav-link:nth-child(2) > img:nth-child(1)")}
+    linkToCreatePage(to: TLearnCreatePage) {$("a", text: "Erstellen")}
+    editButton(to: TLearnEditPage) {$("button", text: "BEARBEITEN")}
+    deleteButton {$("button", text: "LÖSCHEN")}
+    deleteConfirmationModalCancelButton {$(".secondary")}
+    deleteConfirmationModalOkButton(to: TLearnOverviewPage) {$(".primary")}
     }
-
 }
