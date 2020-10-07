@@ -117,23 +117,6 @@
                 </span>
             </div>
             <div class="column">
-                <label for="location" class="form-label">Ort</label>
-
-                <select
-                    v-model="course.location"
-                    id="location"
-                    class="input-location"
-                >
-                    <option
-                        v-for="location in locations"
-                        :key="location.text"
-                        :value="location.value"
-                    >
-                        {{ location.text }}
-                    </option>
-                </select>
-            </div>
-            <div class="column">
                 <label for="price" class="form-label">
                     Preis
                 </label>
@@ -172,6 +155,25 @@
                     Die maximale Länge sind 255 Zeichen.
                 </span>
             </div>
+            <div class="column">
+                <label for="location" class="form-label">Ort</label>
+
+                <select
+                    v-model="course.location"
+                    id="location"
+                    class="input-location"
+                >
+                    <option
+                        v-for="location in locations"
+                        :key="location.text"
+                        :value="location.value"
+                    >
+                        {{ location.text }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
             <div class="column">
                 <label for="link" class="form-label"
                     >Weiterführender Link</label
