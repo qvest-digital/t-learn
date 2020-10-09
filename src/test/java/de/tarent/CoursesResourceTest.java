@@ -94,6 +94,7 @@ public class CoursesResourceTest {
         course.address = "Rochusstraße 2-4, 53123 Bonn";
         course.targetAudience = "Alle";
         course.description = "Eine Veranstaltung";
+        course.price = "100€";
         course.link = "http://tarent.de";
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -110,6 +111,7 @@ public class CoursesResourceTest {
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
                 .body("targetAudience", equalTo("Alle"))
                 .body("description", equalTo("Eine Veranstaltung"))
+                .body("price", equalTo("100€"))
                 .body("link", equalTo("http://tarent.de"))
                 .extract().path("id");
 
