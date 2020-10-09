@@ -41,6 +41,7 @@ public class Course extends PanacheEntity {
     public String targetAudience;
     @Length(max = 2000)
     public String description;
+    public String price;
     @Pattern(regexp = "https?\\W.*", flags = CASE_INSENSITIVE, message = "protocol must be \"http\" or \"https\"")
     @URL
     @Length(max = 1000)
