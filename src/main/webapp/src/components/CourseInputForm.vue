@@ -117,6 +117,25 @@
                 </span>
             </div>
             <div class="column">
+                <label for="courseForm" class="form-label">
+                    Veranstaltungsform
+                </label>
+
+                <select
+                    v-model="course.courseForm"
+                    id="courseForm"
+                    class="input-location"
+                >
+                    <option
+                        v-for="courseForm in courseForms"
+                        :key="courseForm.text"
+                        :value="courseForm.value"
+                    >
+                        {{ courseForm.text }}
+                    </option>
+                </select>
+            </div>
+            <div class="column">
                 <label for="price" class="form-label">
                     Preis
                 </label>
@@ -270,6 +289,17 @@ export default {
             startDateRaw: null,
             endDateRaw: null,
             selectedCategories: [],
+            courseForms: [
+                { value: null, text: 'Bitte wählen' },
+                { value: 'MEETUP', text: 'MeetUp' },
+                { value: 'CONFERENCE', text: 'Barcamp/Konferenz' },
+                { value: 'LANGUAGE_COURSE', text: 'Sprachkurs' },
+                { value: 'CERTIFICATION', text: 'Zertifizierung' },
+                { value: 'STUDY_GROUP', text: 'Lerngruppe' },
+                { value: 'LECTURE', text: 'Vortrag' },
+                { value: 'SEMINAR', text: 'Seminar' },
+                { value: 'WORKSHOP', text: 'Workshop' }
+            ],
             courseTypes: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'EXTERNAL', text: 'Extern' },

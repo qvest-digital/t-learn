@@ -34,6 +34,8 @@ public class Course extends PanacheEntity {
     public OffsetDateTime startDate;
     @JsonSerialize(using = UtcOffsetDateTimeSerializer.class)
     public OffsetDateTime endDate;
+    @Enumerated(STRING)
+    public CourseForm courseForm;
     @NotNull
     @Enumerated(STRING)
     public CourseType courseType;
@@ -53,6 +55,17 @@ public class Course extends PanacheEntity {
     public String link;
     @JsonIgnore
     public Boolean deleted;
+
+    public enum CourseForm {
+        CERTIFICATION,
+        CONFERENCE,
+        LANGUAGE_COURSE,
+        LECTURE,
+        MEETUP,
+        SEMINAR,
+        STUDY_GROUP,
+        WORKSHOP
+    }
 
     public enum CourseType {
         EXTERNAL, INTERNAL
