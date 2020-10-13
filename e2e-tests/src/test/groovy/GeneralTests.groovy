@@ -35,6 +35,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormInputField.click()
+    courseFormMeetupOption.click()
     locationInputField.click()
     locationRemoteOption.click()
     priceInputField.value("666€")
@@ -48,7 +50,7 @@ class GeneralTests extends E2ETestSpec {
         
     then:
     waitFor {
-    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("E2E-Test Organizer")) && $("div", text: contains("E2E-Test Contact")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("22.11.2020 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 Bonn")) && $("div", text: contains("https://www.tarent.de")) && $("div", text: contains("E2E QA")) && $("div", text: contains("E2E Description")) && $("div", text: contains("Extern")) && $("div", text: contains("Remote")) && $("div", text: contains("666€"))
+    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("E2E-Test Organizer")) && $("div", text: contains("E2E-Test Contact")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("22.11.2020 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 Bonn")) && $("div", text: contains("https://www.tarent.de")) && $("div", text: contains("E2E QA")) && $("div", text: contains("E2E Description")) && $("div", text: contains("Extern")) && $("div", text: contains("Remote")) && $("div", text: contains("666€")) && $("div", text: contains("MeetUp"))
     }
 
     cleanup:
@@ -69,6 +71,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormInputField.click()
+    courseFormMeetupOption.click()
     locationInputField.click()
     locationRemoteOption.click()
     priceInputField.value("666€")
@@ -83,7 +87,7 @@ class GeneralTests extends E2ETestSpec {
 
     then:
     waitFor {
-    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("Remote")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("666€"))
+    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("Remote")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("666€")) && $("div", text: contains("MeetUp"))
     }
 
     cleanup:
@@ -106,6 +110,8 @@ class GeneralTests extends E2ETestSpec {
     courseTypeExternalOption.click()
     locationInputField.click()
     locationRemoteOption.click()
+    courseFormInputField.click
+    courseFormMeetupOption.click()
     priceInputField.value("666€")
     addressInputField.value("Rochusstr. 2-4, 53123 Bonn")
     linkInputField.value("https://www.tarent.de")
@@ -142,6 +148,8 @@ class GeneralTests extends E2ETestSpec {
     courseTypeExternalOption.click()
     locationInputField.click()
     locationRemoteOption.click()
+    courseFormInputField.click()
+    courseFormMeetupOption.click()
     priceInputField.value("666€")
     addressInputField.value("Rochusstr. 2-4, 53123 Bonn")
     linkInputField.value("https://www.tarent.de")
@@ -155,7 +163,7 @@ class GeneralTests extends E2ETestSpec {
 
     then:
     waitFor {
-    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("E2E-Test Organizer")) && $("div", text: contains("E2E-Test Contact")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("22.11.2020 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 Bonn")) && $("div", text: contains("https://www.tarent.de")) && $("div", text: contains("E2E QA")) && $("div", text: contains("E2E Description")) && $("div", text: contains("Extern")) && $("div", text: contains("Remote")) && $("div", text: contains("666€"))
+    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("E2E-Test Organizer")) && $("div", text: contains("E2E-Test Contact")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("22.11.2020 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 Bonn")) && $("div", text: contains("https://www.tarent.de")) && $("div", text: contains("E2E QA")) && $("div", text: contains("E2E Description")) && $("div", text: contains("Extern")) && $("div", text: contains("Remote")) && $("div", text: contains("666€")) && $("div", text: contains("MeetUp"))
     }
 
     cleanup:
@@ -178,6 +186,8 @@ class GeneralTests extends E2ETestSpec {
     courseTypeExternalOption.click()
     locationInputField.click()
     locationRemoteOption.click()
+    courseFormInputField.click()
+    courseFormMeetupOption.click()
     priceInputField.value("666€")
     addressInputField.value("Rochusstr. 2-4, 53123 Bonn")
     linkInputField.value("https://www.tarent.de")
@@ -194,6 +204,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2021 20:00")
     courseTypeInputField.click()
     courseTypeInternalOption.click()
+    courseFormInputField.click()
+    courseFormLanguageCourseOption.click()
     locationInputField.click()
     locationPresenceOption.click()
     priceInputField.value("999€")
@@ -207,7 +219,7 @@ class GeneralTests extends E2ETestSpec {
 
     then:
     waitFor {
-    $("div", text: contains("E2E-Test TitleEDITED")) && $("div", text: contains("E2E-Test OrganizerEDITED")) && $("div", text: contains("E2E-Test ContactEDITED")) && $("div", text: contains("11.11.2021 08:00")) && $("div", text: contains("22.11.2021 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 BonnEDITED")) && $("div", text: contains("https://www.tarentEDITED.de")) && $("div", text: contains("E2E QAEDITED")) && $("div", text: contains("E2E DescriptionEDITED")) && $("div", text: contains("Intern")) && $("div", text: contains("Präsenz")) &&  $("div", text: contains("999€"))
+    $("div", text: contains("E2E-Test TitleEDITED")) && $("div", text: contains("E2E-Test OrganizerEDITED")) && $("div", text: contains("E2E-Test ContactEDITED")) && $("div", text: contains("11.11.2021 08:00")) && $("div", text: contains("22.11.2021 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 BonnEDITED")) && $("div", text: contains("https://www.tarentEDITED.de")) && $("div", text: contains("E2E QAEDITED")) && $("div", text: contains("E2E DescriptionEDITED")) && $("div", text: contains("Intern")) && $("div", text: contains("Präsenz")) && $("div", text: contains("999€")) && $("div", text: contains("Sprachkurs"))
     }
 
     cleanup:
@@ -230,6 +242,8 @@ class GeneralTests extends E2ETestSpec {
     courseTypeExternalOption.click()
     locationInputField.click()
     locationRemoteOption.click()
+    courseFormInputField.click()
+    courseFormMeetupOption.click()
     priceInputField.value("666€")
     addressInputField.value("Rochusstr. 2-4, 53123 Bonn")
     linkInputField.value("https://www.tarent.de")
@@ -248,6 +262,8 @@ class GeneralTests extends E2ETestSpec {
     courseTypeInternalOption.click()
     locationInputField.click()
     locationPresenceOption.click()
+    courseFormInputField.click()
+    courseFormLanguageCourseOption.click()
     priceInputField.value("999€")
     addressInputField.value("Rochusstr. 2-4, 53123 BonnEDITED")
     linkInputField.value("https://www.tarentEDITED.de")
@@ -259,7 +275,7 @@ class GeneralTests extends E2ETestSpec {
 
     then:
     waitFor {
-    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("E2E-Test Organizer")) && $("div", text: contains("E2E-Test Contact")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("22.11.2020 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 Bonn")) && $("div", text: contains("https://www.tarent.de")) && $("div", text: contains("E2E QA")) && $("div", text: contains("E2E Description")) && $("div", text: contains("Extern")) && $("div", text: contains("Remote")) && $("div", text: contains("666€"))
+    $("div", text: contains("E2E-Test Title")) && $("div", text: contains("E2E-Test Organizer")) && $("div", text: contains("E2E-Test Contact")) && $("div", text: contains("11.11.2020 08:00")) && $("div", text: contains("22.11.2020 20:00")) && $("div", text: contains("Rochusstr. 2-4, 53123 Bonn")) && $("div", text: contains("https://www.tarent.de")) && $("div", text: contains("E2E QA")) && $("div", text: contains("E2E Description")) && $("div", text: contains("Extern")) && $("div", text: contains("Remote")) && $("div", text: contains("666€"))&& $("div", text: contains("MeetUp"))
     }
 
     cleanup:
