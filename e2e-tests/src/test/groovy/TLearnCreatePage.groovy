@@ -16,9 +16,9 @@ class TLearnCreatePage extends Page {
     courseTypeInputField {$("#course-type")}
     courseTypeExternalOption {$("#course-type > option:nth-child(2)")}
     courseTypeInternalOption {$("#course-type > option:nth-child(3)")}
-    courseFormInputField {$("#courseForm")}
-    courseFormMeetupOption
-    courseFormLanguageCourseOption
+//    courseFormInputField {$("#courseForm")}
+//    courseFormMeetupOption
+//    courseFormLanguageCourseOption
     locationInputField {$("#location")}
     locationRemoteOption {$("#location > option:nth-child(2)")}
     locationPresenceOption {$("#location > option:nth-child(3)")}
