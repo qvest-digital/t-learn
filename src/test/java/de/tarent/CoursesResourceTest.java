@@ -226,8 +226,7 @@ public class CoursesResourceTest {
         course.title = "CreatedQuarkusCourse";
         course.trainer = "Norbert Neutrainer";
         course.courseType = EXTERNAL;
-        course.link = "https://".concat(RandomStringUtils.random(1000 - 11)).concat(".de");
-
+        course.link = "https://".concat(RandomStringUtils.randomAlphanumeric(1000 - 11)).concat(".de");
         given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
                 .then()
