@@ -79,4 +79,4 @@ environments {
 //baseUrl = "https://t-force.lan.tarent.de/pepwall"
 //baseUrl = "https://t-force.lan.tarent.de/pepwall_e2etest"
 //baseUrl = System.getenv('FRONTEND_URL') ?: "https://t-force.lan.tarent.de/pepwall_e2etest"
-baseUrl = "https://t-force.lan.tarent.de/t-learn/#/"
+baseUrl = "http://localhost:8080"

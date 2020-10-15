@@ -7,7 +7,7 @@ import org.testcontainers.containers.PostgreSQLContainer
 class E2ETestSpec extends GebSpec {
 
   def db = new PostgreSQLContainer("postgres:13.0")
-  def baseApiUrl = System.getenv('BACKEND_URL') ?: "https://t-force.lan.tarent.de"
+  def baseApiUrl = System.getenv('BACKEND_URL') ?: "http://localhost:8080"
   def resetDb() {
   def client = new RESTClient(baseApiUrl)
   def response = client.post(
