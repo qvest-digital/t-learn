@@ -22,6 +22,8 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
+    - name: show firefox version   
+      run: firefox --version
     - name: Build with Maven
       run: mvn -B package --file pom.xml -Dquarkus.container-image.build=true
     - name: run e2e tests
