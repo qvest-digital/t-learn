@@ -24,3 +24,5 @@ jobs:
           ${{ runner.os }}-maven-
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: run e2e tests
+      run: cd e2e-tests && docker-compose -f ../docker-compose.yml up -d && sleep 2 && ./gradlew firefoxTest
