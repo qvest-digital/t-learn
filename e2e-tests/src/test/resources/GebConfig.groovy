@@ -74,9 +74,5 @@ environments {
 
 // To run the tests with all browsers just run “./gradlew test”
 
-//baseUrl = "http://192.168.66.25:3000"
-//baseUrl = "http://172.20.10.7:3000"
-//baseUrl = "https://t-force.lan.tarent.de/pepwall"
-//baseUrl = "https://t-force.lan.tarent.de/pepwall_e2etest"
 //baseUrl = System.getenv('FRONTEND_URL') ?: "https://t-force.lan.tarent.de/pepwall_e2etest"
 baseUrl = "http://localhost:8080"

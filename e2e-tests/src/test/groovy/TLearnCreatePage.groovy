@@ -21,7 +21,7 @@ class TLearnCreatePage extends Page {
     locationInputField {$("#location")}
     locationRemoteOption {$("#location > option:nth-child(2)")}
     locationPresenceOption {$("#location > option:nth-child(3)")}
-//    priceInputField {$("#price")}
+    priceInputField {$("#price")}
     addressInputField {$("#address")}
     linkInputField {$("#link")}
     categoryInputField {$(".vs__search")}
