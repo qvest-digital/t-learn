@@ -49,7 +49,6 @@ environments {
 		
 		driver = {
 			FirefoxOptions o = new FirefoxOptions();
-//			o.addArguments("--window-size=1920,1080")
 			o.addArguments("--width=1920")
 			o.addArguments("--height=1080")
 			new FirefoxDriver(o)
@@ -63,7 +62,6 @@ environments {
 		driver = {
 			FirefoxOptions o = new FirefoxOptions();
 			o.setHeadless(true);
-//			o.addArguments("--window-size=1920,1080")
 			o.addArguments("--width=1920")
                         o.addArguments("--height=1080")
 			new FirefoxDriver(o)
@@ -74,5 +72,5 @@ environments {
 
 // To run the tests with all browsers just run “./gradlew test”
 
-//baseUrl = System.getenv('FRONTEND_URL') ?: "https://t-force.lan.tarent.de/pepwall_e2etest"
 baseUrl = "http://localhost:8080"
+//baseUrl = "https://t-force.lan.tarent.de/t-learn/#"

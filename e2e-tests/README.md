@@ -1,8 +1,8 @@
-# End To End (e2e) tests for Pep Wall
+# End To End (e2e) tests for t-learn
 
 ## Description
 
-This is a suite of tests running browser-based tests against a Pepwall installation. It is based on Geb and uses the Chrome and Firefox
+This is a suite of tests running browser-based tests against a t-learn installation. It is based on Geb and uses the Chrome and Firefox
 browser to test conformity.
 
 ## Usage
