@@ -28,6 +28,7 @@ describe('CourseInputForm.vue', () => {
             startDate: '2020-05-02T12:34:00+2:00',
             endDate: '2020-05-02T13:00:00+2:00',
             courseType: 'EXTERNAL',
+            courseForm: 'MEETUP',
             price: '100€',
             location: 'REMOTE',
             address: 'Daheim',
@@ -57,6 +58,7 @@ describe('CourseInputForm.vue', () => {
         expect(
             getByRole('combobox', { name: 'Veranstaltungsart' })
         ).toHaveValue('EXTERNAL');
+        expect(getByRole('combobox', { name: 'Veranstaltungsform' })).toHaveValue('MEETUP');
         expect(getByRole('textbox', { name: 'Preis' })).toHaveValue('100€');
         expect(getByRole('combobox', { name: 'Ort' })).toHaveValue('REMOTE');
         expect(
@@ -84,6 +86,7 @@ describe('CourseInputForm.vue', () => {
                 startDate: null,
                 endDate: null,
                 courseType: 'EXTERNAL',
+                courseForm: null,
                 price: null,
                 location: null,
                 address: null,

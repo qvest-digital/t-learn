@@ -183,19 +183,39 @@
                         v-if="course.courseType"
                         data-testid="courseType"
                         class="course-details-summary-icon-text"
-                        >{{
+                    >
+                        {{
                             course.courseType === 'EXTERNAL'
                                 ? 'Extern'
                                 : 'Intern'
-                        }}</span
+                        }}
+                    </span>
+                    <span class="comma" v-if="course.courseForm">,</span>
+                    <span
+                        v-if="course.courseForm"
+                        data-testid="courseForm"
+                        class="course-details-summary-icon-text"
                     >
+                        {{
+                            course.courseForm === 'MEETUP' ? 'MeetUp' :
+                            course.courseForm === 'CONFERENCE' ? 'Barcamp/Konferenz' :
+                            course.courseForm === 'LANGUAGE_COURSE' ? 'Sprachkurs' :
+                            course.courseForm === 'CERTIFICATION' ? 'Zertifizierung' :
+                            course.courseForm === 'STUDY_GROUP' ? 'Lerngruppe' :
+                            course.courseForm === 'LECTURE' ? 'Vortrag' :
+                            course.courseForm === 'SEMINAR' ? 'Seminar' :
+                            course.courseForm === 'WORKSHOP' ? 'Workshop' : ''
+                        }}
+                    </span>
                     <span class="comma" v-if="course.location">,</span>
                     <span
                         v-if="course.location"
                         data-testid="location"
                         class="course-details-summary-icon-text"
                     >
-                        {{ course.location == 'REMOTE' ? 'Remote' : 'Präsenz' }}
+                        {{
+                            course.location === 'REMOTE' ? 'Remote' : 'Präsenz'
+                        }}
                     </span>
                 </div>
 

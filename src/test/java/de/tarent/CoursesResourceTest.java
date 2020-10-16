@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.time.OffsetDateTime;
 
+import static de.tarent.entities.Course.CourseForm.CERTIFICATION;
 import static de.tarent.entities.Course.CourseType.EXTERNAL;
 import static de.tarent.entities.Course.Location.REMOTE;
 import static io.restassured.RestAssured.given;
@@ -35,7 +36,9 @@ public class CoursesResourceTest {
                 .body("organizer", containsInAnyOrder("Otto Organizer", "Oskar Organizer"))
                 .body("startDate", containsInAnyOrder("2020-01-01T20:00:00Z", "2020-01-02T20:00:00Z"))
                 .body("endDate", containsInAnyOrder("2020-01-01T21:00:00Z", "2020-01-02T21:00:00Z"))
+                .body("courseForm", containsInAnyOrder("CERTIFICATION", "CONFERENCE"))
                 .body("courseType", containsInAnyOrder("EXTERNAL", "INTERNAL"))
+                .body("price", containsInAnyOrder("100€", "free"))
                 .body("location", containsInAnyOrder("REMOTE", "ONSITE"))
                 .body("address", containsInAnyOrder("Rochusstraße 2-4, 53123 Bonn", "Dickobskreuz, 53123 Bonn"))
                 .body("targetAudience", containsInAnyOrder("alle", "devs"))
@@ -55,6 +58,8 @@ public class CoursesResourceTest {
                 .body("organizer", equalTo("Otto Organizer"))
                 .body("startDate", equalTo("2020-01-01T20:00:00Z"))
                 .body("endDate", equalTo("2020-01-01T21:00:00Z"))
+                .body("courseForm", equalTo("CERTIFICATION"))
+                .body("price", equalTo("100€"))
                 .body("courseType", equalTo("EXTERNAL"))
                 .body("location", equalTo("REMOTE"))
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
@@ -89,6 +94,7 @@ public class CoursesResourceTest {
         course.organizer = "Oskar Neuorganizer";
         course.startDate = parse("2020-01-03T21:00:00Z");
         course.endDate = parse("2020-01-03T22:00:00Z");
+        course.courseForm = CERTIFICATION;
         course.courseType = EXTERNAL;
         course.location = REMOTE;
         course.address = "Rochusstraße 2-4, 53123 Bonn";
@@ -106,6 +112,7 @@ public class CoursesResourceTest {
                 .body("organizer", equalTo("Oskar Neuorganizer"))
                 .body("startDate", equalTo("2020-01-03T21:00:00Z"))
                 .body("endDate", equalTo("2020-01-03T22:00:00Z"))
+                .body("courseForm", equalTo("CERTIFICATION"))
                 .body("courseType", equalTo("EXTERNAL"))
                 .body("location", equalTo("REMOTE"))
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
@@ -210,7 +217,7 @@ public class CoursesResourceTest {
         course.title = "CreatedQuarkusCourse";
         course.trainer = "Norbert Neutrainer";
         course.courseType = EXTERNAL;
-        course.link = "https://".concat(RandomStringUtils.random(1001 - 11)).concat(".de");
+        course.link = "https://".concat(RandomStringUtils.randomAlphanumeric(1001 - 11)).concat(".de");
 
         given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
@@ -294,6 +301,25 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(201)
                 .body("description", hasLength(2000));
+    }
+
+    @Test
+    public void testCreateNewCourse_FailedValidation_InvalidCourseForm() {
+        String course = "{" +
+                "\"title\": \"irrelevant\"," +
+                "\"trainer\": \"irrelevant\"," +
+                "\"courseType\": \"EXTERNAL\"," +
+                "\"courseForm\": \"UNKNOWN_COURSE_FORM\"" +
+                "}";
+
+        given().body(course).header("Content-Type", APPLICATION_JSON)
+                .when().post("/courses")
+                .then()
+                .statusCode(400)
+                .body("message", equalTo("Cannot deserialize value of type `de.tarent.entities.Course$CourseForm` " +
+                        "from String \"UNKNOWN_COURSE_FORM\": not one of the values accepted for Enum class: " +
+                        "[SEMINAR, MEETUP, WORKSHOP, STUDY_GROUP, CERTIFICATION, CONFERENCE, LECTURE, LANGUAGE_COURSE]"))
+                .body("success", is(false));
     }
 
     @Test

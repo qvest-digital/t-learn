@@ -117,19 +117,21 @@
                 </span>
             </div>
             <div class="column">
-                <label for="location" class="form-label">Ort</label>
+                <label for="courseForm" class="form-label">
+                    Veranstaltungsform
+                </label>
 
                 <select
-                    v-model="course.location"
-                    id="location"
+                    v-model="course.courseForm"
+                    id="courseForm"
                     class="input-location"
                 >
                     <option
-                        v-for="location in locations"
-                        :key="location.text"
-                        :value="location.value"
+                        v-for="courseForm in courseForms"
+                        :key="courseForm.text"
+                        :value="courseForm.value"
                     >
-                        {{ location.text }}
+                        {{ courseForm.text }}
                     </option>
                 </select>
             </div>
@@ -172,6 +174,25 @@
                     Die maximale Länge sind 255 Zeichen.
                 </span>
             </div>
+            <div class="column">
+                <label for="location" class="form-label">Ort</label>
+
+                <select
+                    v-model="course.location"
+                    id="location"
+                    class="input-location"
+                >
+                    <option
+                        v-for="location in locations"
+                        :key="location.text"
+                        :value="location.value"
+                    >
+                        {{ location.text }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
             <div class="column">
                 <label for="link" class="form-label"
                     >Weiterführender Link</label
@@ -268,6 +289,17 @@ export default {
             startDateRaw: null,
             endDateRaw: null,
             selectedCategories: [],
+            courseForms: [
+                { value: null, text: 'Bitte wählen' },
+                { value: 'MEETUP', text: 'MeetUp' },
+                { value: 'CONFERENCE', text: 'Barcamp/Konferenz' },
+                { value: 'LANGUAGE_COURSE', text: 'Sprachkurs' },
+                { value: 'CERTIFICATION', text: 'Zertifizierung' },
+                { value: 'STUDY_GROUP', text: 'Lerngruppe' },
+                { value: 'LECTURE', text: 'Vortrag' },
+                { value: 'SEMINAR', text: 'Seminar' },
+                { value: 'WORKSHOP', text: 'Workshop' }
+            ],
             courseTypes: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'EXTERNAL', text: 'Extern' },

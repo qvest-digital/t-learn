@@ -52,3 +52,9 @@ pnpm-debug.log*
 
 # Coverage
 src/main/webapp/coverage
+
+.gradle
+*.log
+.DS_Store
+out
+e2e-tests/build/

@@ -54,6 +54,7 @@ export default {
                 startDate: null,
                 endDate: null,
                 courseType: null,
+                courseForm: null,
                 location: null,
                 price: null,
                 address: null,

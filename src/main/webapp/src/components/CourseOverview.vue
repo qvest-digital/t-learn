@@ -65,15 +65,24 @@
 
                     <div
                         class="course-card-text"
-                        v-if="course.location === 'ONSITE'"
                     >
-                        Präsenz
-                    </div>
-                    <div
-                        class="course-card-text"
-                        v-if="course.location === 'REMOTE'"
-                    >
-                        Remote
+                        <span v-if="course.location">
+                            {{
+                                course.location === 'REMOTE' ? 'Remote' : 'Präsenz'
+                            }}
+                        </span>
+                        <span v-if="course.courseForm">
+                            {{
+                                course.courseForm === 'MEETUP' ? 'MeetUp' :
+                                course.courseForm === 'CONFERENCE' ? 'Barcamp/Konferenz' :
+                                course.courseForm === 'LANGUAGE_COURSE' ? 'Sprachkurs' :
+                                course.courseForm === 'CERTIFICATION' ? 'Zertifizierung' :
+                                course.courseForm === 'STUDY_GROUP' ? 'Lerngruppe' :
+                                course.courseForm === 'LECTURE' ? 'Vortrag' :
+                                course.courseForm === 'SEMINAR' ? 'Seminar' :
+                                course.courseForm === 'WORKSHOP' ? 'Workshop' : ''
+                            }}
+                        </span>
                     </div>
                 </div>
             </div>
