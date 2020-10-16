@@ -30,7 +30,7 @@ describe('CourseInputForm.vue', () => {
             courseType: 'EXTERNAL',
             courseForm: 'MEETUP',
             price: '100€',
-            location: 'REMOTE',
+            executionType: 'REMOTE',
             address: 'Daheim',
             targetAudience: 'Alle',
             description: 'Beschreibung',
@@ -60,9 +60,9 @@ describe('CourseInputForm.vue', () => {
         ).toHaveValue('EXTERNAL');
         expect(getByRole('combobox', { name: 'Veranstaltungsform' })).toHaveValue('MEETUP');
         expect(getByRole('textbox', { name: 'Preis' })).toHaveValue('100€');
-        expect(getByRole('combobox', { name: 'Ort' })).toHaveValue('REMOTE');
+        expect(getByRole('combobox', { name: 'Durchführung' })).toHaveValue('REMOTE');
         expect(
-            getByRole('textbox', { name: 'Veranstaltungsadresse' })
+            getByRole('textbox', { name: 'Ort' })
         ).toHaveValue('Daheim');
         expect(
             getByRole('textbox', { name: 'Weiterführender Link' })
@@ -88,7 +88,7 @@ describe('CourseInputForm.vue', () => {
                 courseType: 'EXTERNAL',
                 courseForm: null,
                 price: null,
-                location: null,
+                executionType: null,
                 address: null,
                 targetAudience: null,
                 description: null,

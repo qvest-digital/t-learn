@@ -27,7 +27,7 @@ describe('CourseDetails.vue', () => {
                     endDate: '2020-05-02T13:00:00+02:00',
                     courseType: 'EXTERNAL',
                     courseForm: 'MEETUP',
-                    location: 'REMOTE',
+                    executionType: 'REMOTE',
                     price: '100€',
                     address: 'Daheim',
                     targetAudience: 'Alle',
@@ -51,7 +51,7 @@ describe('CourseDetails.vue', () => {
             ),
             expect(getByTestId('courseType')).toHaveTextContent('Extern'),
             expect(getByTestId('courseForm')).toHaveTextContent('MeetUp'),
-            expect(getByTestId('location')).toHaveTextContent('Remote'),
+            expect(getByTestId('executionType')).toHaveTextContent('Remote'),
             expect(getByTestId('price')).toHaveTextContent('100€'),
 
             expect(getByTestId('startDateSummary')).toHaveTextContent(

@@ -158,7 +158,7 @@
         <div class="row">
             <div class="column">
                 <label for="address" class="form-label"
-                    >Veranstaltungsadresse</label
+                    >Ort</label
                 >
                 <input
                     type="text"
@@ -175,19 +175,20 @@
                 </span>
             </div>
             <div class="column">
-                <label for="location" class="form-label">Ort</label>
+                <label for="executionType" class="form-label">Durchführung</label>
+
 
                 <select
-                    v-model="course.location"
-                    id="location"
+                    v-model="course.executionType"
+                    id="executionType"
                     class="input-location"
                 >
                     <option
-                        v-for="location in locations"
-                        :key="location.text"
-                        :value="location.value"
+                        v-for="executionType in executionTypes"
+                        :key="executionType.text"
+                        :value="executionType.value"
                     >
-                        {{ location.text }}
+                        {{ executionType.text }}
                     </option>
                 </select>
             </div>
@@ -305,7 +306,7 @@ export default {
                 { value: 'EXTERNAL', text: 'Extern' },
                 { value: 'INTERNAL', text: 'Intern' }
             ],
-            locations: [
+            executionTypes: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'REMOTE', text: 'Remote' },
                 { value: 'ONSITE', text: 'Präsenz' }
