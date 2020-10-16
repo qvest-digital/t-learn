@@ -56,6 +56,7 @@ describe('CourseCreationForm.vue', () => {
         expect(createCourse).toHaveBeenCalledWith({
             address: null,
             courseType: 'EXTERNAL',
+            courseForm: null,
             endDate: null,
             link: null,
             location: null,
@@ -105,6 +106,7 @@ describe('CourseCreationForm.vue', () => {
         expect(createCourse).toHaveBeenCalledWith({
             address: null,
             courseType: 'EXTERNAL',
+            courseForm: null,
             endDate: null,
             link: null,
             location: null,
