@@ -31,6 +31,7 @@ class GeneralTests extends E2ETestSpec {
     when:
     linkToCreatePage.click()
     titleInputField.value("E2E-Test Title")
+    organizerInputField.value("E2E-Test Organizer")
     contactPersonInputField.value("E2E-Test Contact")
     startDateInputField.value("11.11.2020 08:00")
     endDateInputField.value("22.11.2020 20:00")
@@ -50,6 +51,7 @@ class GeneralTests extends E2ETestSpec {
     then:
     waitFor {
     $("div", text: contains("E2E-Test Title")) &&
+    $("div", text: contains("E2E-Test Organizer")) && 
     $("div", text: contains("E2E-Test Contact")) && 
     $("div", text: contains("11.11.2020 08:00")) && 
     $("div", text: contains("22.11.2020 20:00")) && 
@@ -74,6 +76,7 @@ class GeneralTests extends E2ETestSpec {
     when:
     linkToCreatePage.click()
     titleInputField.value("E2E-Test Title")
+    organizerInputField.value("E2E-Test Organizer")
     contactPersonInputField.value("E2E-Test Contact")
     startDateInputField.value("11.11.2020 08:00")
     endDateInputField.value("22.11.2020 20:00")
@@ -110,6 +113,7 @@ class GeneralTests extends E2ETestSpec {
     when:
     linkToCreatePage.click()
     titleInputField.value("E2E-Test Title")
+    organizerInputField.value("E2E-Test Organizer")
     contactPersonInputField.value("E2E-Test Contact")
     startDateInputField.value("11.11.2020 08:00")
     endDateInputField.value("22.11.2020 20:00")
@@ -145,6 +149,7 @@ class GeneralTests extends E2ETestSpec {
     when:
     linkToCreatePage.click()
     titleInputField.value("E2E-Test Title")
+    organizerInputField.value("E2E-Test Organizer")
     contactPersonInputField.value("E2E-Test Contact")
     startDateInputField.value("11.11.2020 08:00")
     endDateInputField.value("22.11.2020 20:00")
@@ -166,6 +171,7 @@ class GeneralTests extends E2ETestSpec {
     then:
     waitFor {
     $("div", text: contains("E2E-Test Title")) && 
+    $("div", text: contains("E2E-Test Organizer")) && 
     $("div", text: contains("E2E-Test Contact")) && 
     $("div", text: contains("11.11.2020 08:00")) && 
     $("div", text: contains("22.11.2020 20:00")) && 
@@ -190,6 +196,7 @@ class GeneralTests extends E2ETestSpec {
     when:
     linkToCreatePage.click()
     titleInputField.value("E2E-Test Title")
+    organizerInputField.value("E2E-Test Organizer")
     contactPersonInputField.value("E2E-Test Contact")
     startDateInputField.value("11.11.2020 08:00")
     endDateInputField.value("22.11.2020 20:00")
@@ -207,6 +214,7 @@ class GeneralTests extends E2ETestSpec {
     createButton.click()
     editButton.click()
     titleInputField.value("E2E-Test TitleEDITED")
+    organizerInputField.value("E2E-Test OrganizerEDITED")
     contactPersonInputField.value("E2E-Test ContactEDITED")
     startDateInputField.value("11.11.2021 08:00")
     endDateInputField.value("22.11.2021 20:00")
@@ -226,6 +234,7 @@ class GeneralTests extends E2ETestSpec {
     then:
     waitFor {
     $("div", text: contains("E2E-Test TitleEDITED")) && 
+    $("div", text: contains("E2E-Test OrganizerEDITED")) && 
     $("div", text: contains("E2E-Test ContactEDITED")) && 
     $("div", text: contains("11.11.2021 08:00")) && 
     $("div", text: contains("22.11.2021 20:00")) && 
@@ -249,6 +258,7 @@ class GeneralTests extends E2ETestSpec {
     when:
     linkToCreatePage.click()
     titleInputField.value("E2E-Test Title")
+    organizerInputField.value("E2E-Test Organizer")
     contactPersonInputField.value("E2E-Test Contact")
     startDateInputField.value("11.11.2020 08:00")
     endDateInputField.value("22.11.2020 20:00")
@@ -266,6 +276,7 @@ class GeneralTests extends E2ETestSpec {
     createButton.click()
     editButton.click()
     titleInputField.value("E2E-Test TitleEDITED")
+    organizerInputField.value("E2E-Test OrganizerEDITED")
     contactPersonInputField.value("E2E-Test ContactEDITED")
     startDateInputField.value("11.11.2021 08:00")
     endDateInputField.value("22.11.2021 20:00")
@@ -285,6 +296,7 @@ class GeneralTests extends E2ETestSpec {
     then:
     waitFor {
     $("div", text: contains("E2E-Test Title")) && 
+    $("div", text: contains("E2E-Test Organizer")) && 
     $("div", text: contains("E2E-Test Contact")) && 
     $("div", text: contains("11.11.2020 08:00")) && 
     $("div", text: contains("22.11.2020 20:00")) && 

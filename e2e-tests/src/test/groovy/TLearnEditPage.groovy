@@ -10,7 +10,7 @@ class TLearnEditPage extends Page {
     linkToCreatePage {$("a", text: "Erstellen")}
     titleInputField {$("#title")}
     organizerInputField {$("#organizer")}
-    contactPersonInputField {$("#organizer")}
+    contactPersonInputField {$("#contactPerson")}
     startDateInputField {$("#start-date")}
     endDateInputField {$("#end-date")}
     courseTypeInputField {$("#course-type")}
