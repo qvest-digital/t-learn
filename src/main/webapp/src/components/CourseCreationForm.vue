@@ -3,7 +3,7 @@
         <div>
             <div class="page-title">Veranstaltung erstellen</div>
 
-            <form @submit.prevent="create">
+            <form novalidate @submit.prevent="create">
                 <div
                     v-show="hasError"
                     class="form-error-text"
@@ -100,6 +100,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
 .form-footer {
     margin-top: $space-xl;
     margin-right: $space-xs;

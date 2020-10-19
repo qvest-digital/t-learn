@@ -2,7 +2,7 @@
     <div class="course-edit-form-container">
         <div>
             <div class="page-title">Editieren einer Veranstaltung</div>
-            <form @submit.prevent="update">
+            <form novalidate @submit.prevent="update">
                 <div
                     v-show="hasError"
                     class="form-error-text"
@@ -21,7 +21,6 @@
                 <div class="form-footer">
                     <button
                         type="button"
-                        c
                         class="button secondary"
                         @click="
                             $router.push({
@@ -75,12 +74,11 @@ export default {
                     return false;
                 }
 
-                const id = this.courseId;
                 updateCourse(this.course)
                     .then(() => {
                         this.$router.push({
                             name: 'courseDetails',
-                            params: { courseId: id }
+                            params: { courseId: this.courseId }
                         });
                     })
                     .catch(this.handleError);
@@ -116,6 +114,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
 .form-footer {
     margin-top: $space-xl;
     margin-right: $space-xs;
