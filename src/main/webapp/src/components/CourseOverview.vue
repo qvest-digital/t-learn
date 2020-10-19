@@ -63,24 +63,33 @@
                         {{ course.title }}
                     </div>
 
-                    <div
-                        class="course-card-text"
-                    >
+                    <div class="course-card-text">
                         <span v-if="course.executionType">
                             {{
-                                course.executionType === 'REMOTE' ? 'Remote' : 'Präsenz'
+                                course.executionType === 'REMOTE'
+                                    ? 'Remote'
+                                    : 'Präsenz'
                             }}
                         </span>
                         <span v-if="course.courseForm">
                             {{
-                                course.courseForm === 'MEETUP' ? 'MeetUp' :
-                                course.courseForm === 'CONFERENCE' ? 'Barcamp/Konferenz' :
-                                course.courseForm === 'LANGUAGE_COURSE' ? 'Sprachkurs' :
-                                course.courseForm === 'CERTIFICATION' ? 'Zertifizierung' :
-                                course.courseForm === 'STUDY_GROUP' ? 'Lerngruppe' :
-                                course.courseForm === 'LECTURE' ? 'Vortrag' :
-                                course.courseForm === 'SEMINAR' ? 'Seminar' :
-                                course.courseForm === 'WORKSHOP' ? 'Workshop' : ''
+                                course.courseForm === 'MEETUP'
+                                    ? 'MeetUp'
+                                    : course.courseForm === 'CONFERENCE'
+                                    ? 'Barcamp/Konferenz'
+                                    : course.courseForm === 'LANGUAGE_COURSE'
+                                    ? 'Sprachkurs'
+                                    : course.courseForm === 'CERTIFICATION'
+                                    ? 'Zertifizierung'
+                                    : course.courseForm === 'STUDY_GROUP'
+                                    ? 'Lerngruppe'
+                                    : course.courseForm === 'LECTURE'
+                                    ? 'Vortrag'
+                                    : course.courseForm === 'SEMINAR'
+                                    ? 'Seminar'
+                                    : course.courseForm === 'WORKSHOP'
+                                    ? 'Workshop'
+                                    : ''
                             }}
                         </span>
                     </div>

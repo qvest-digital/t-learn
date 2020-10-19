@@ -197,14 +197,23 @@
                         class="course-details-summary-icon-text"
                     >
                         {{
-                            course.courseForm === 'MEETUP' ? 'MeetUp' :
-                            course.courseForm === 'CONFERENCE' ? 'Barcamp/Konferenz' :
-                            course.courseForm === 'LANGUAGE_COURSE' ? 'Sprachkurs' :
-                            course.courseForm === 'CERTIFICATION' ? 'Zertifizierung' :
-                            course.courseForm === 'STUDY_GROUP' ? 'Lerngruppe' :
-                            course.courseForm === 'LECTURE' ? 'Vortrag' :
-                            course.courseForm === 'SEMINAR' ? 'Seminar' :
-                            course.courseForm === 'WORKSHOP' ? 'Workshop' : ''
+                            course.courseForm === 'MEETUP'
+                                ? 'MeetUp'
+                                : course.courseForm === 'CONFERENCE'
+                                ? 'Barcamp/Konferenz'
+                                : course.courseForm === 'LANGUAGE_COURSE'
+                                ? 'Sprachkurs'
+                                : course.courseForm === 'CERTIFICATION'
+                                ? 'Zertifizierung'
+                                : course.courseForm === 'STUDY_GROUP'
+                                ? 'Lerngruppe'
+                                : course.courseForm === 'LECTURE'
+                                ? 'Vortrag'
+                                : course.courseForm === 'SEMINAR'
+                                ? 'Seminar'
+                                : course.courseForm === 'WORKSHOP'
+                                ? 'Workshop'
+                                : ''
                         }}
                     </span>
                     <span class="comma" v-if="course.executionType">,</span>
@@ -214,7 +223,9 @@
                         class="course-details-summary-icon-text"
                     >
                         {{
-                            course.executionType === 'REMOTE' ? 'Remote' : 'Präsenz'
+                            course.executionType === 'REMOTE'
+                                ? 'Remote'
+                                : 'Präsenz'
                         }}
                     </span>
                 </div>

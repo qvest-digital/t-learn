@@ -7,7 +7,7 @@ import vSelect from 'vue-select';
 
 describe('App.vue', () => {
     it('test navigation to overview', async () => {
-        const { getByText, queryByText, queryByTestId } = setupComponent();
+        const { getByText, queryByText } = setupComponent();
 
         await fireEvent.click(getByText('t-learn'));
 

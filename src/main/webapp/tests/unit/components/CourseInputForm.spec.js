@@ -58,12 +58,14 @@ describe('CourseInputForm.vue', () => {
         expect(
             getByRole('combobox', { name: 'Veranstaltungsart' })
         ).toHaveValue('EXTERNAL');
-        expect(getByRole('combobox', { name: 'Veranstaltungsform' })).toHaveValue('MEETUP');
-        expect(getByRole('textbox', { name: 'Preis' })).toHaveValue('100€');
-        expect(getByRole('combobox', { name: 'Durchführung' })).toHaveValue('REMOTE');
         expect(
-            getByRole('textbox', { name: 'Ort' })
-        ).toHaveValue('Daheim');
+            getByRole('combobox', { name: 'Veranstaltungsform' })
+        ).toHaveValue('MEETUP');
+        expect(getByRole('textbox', { name: 'Preis' })).toHaveValue('100€');
+        expect(getByRole('combobox', { name: 'Durchführung' })).toHaveValue(
+            'REMOTE'
+        );
+        expect(getByRole('textbox', { name: 'Ort' })).toHaveValue('Daheim');
         expect(
             getByRole('textbox', { name: 'Weiterführender Link' })
         ).toHaveValue('https://tarent.de');

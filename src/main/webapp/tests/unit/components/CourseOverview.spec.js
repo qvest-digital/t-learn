@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { findAllByTestId, fireEvent, render } from '@testing-library/vue';
+import { fireEvent, render } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import routes from '@/routes';
