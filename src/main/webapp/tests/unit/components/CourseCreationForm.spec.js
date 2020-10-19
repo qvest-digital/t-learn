@@ -42,7 +42,7 @@ describe('CourseCreationForm.vue', () => {
         );
         await fireEvent.update(
             getByRole('textbox', { name: 'Veranstalter*in' }),
-            'Trainer'
+            'Organizer'
         );
         await fireEvent.update(
             getByRole('combobox', { name: 'Veranstaltungsart' }),
@@ -65,7 +65,7 @@ describe('CourseCreationForm.vue', () => {
             targetAudience: null,
             description: null,
             title: 'Test',
-            trainer: 'Trainer',
+            organizer: 'Organizer',
             price: null
         });
         expect(routerPushSpy).toHaveBeenCalledWith({
@@ -93,7 +93,7 @@ describe('CourseCreationForm.vue', () => {
         );
         await fireEvent.update(
             getByRole('textbox', { name: 'Veranstalter*in' }),
-            'Trainer'
+            'Organizer'
         );
         await fireEvent.update(
             getByRole('combobox', { name: 'Veranstaltungsart' }),
@@ -115,7 +115,7 @@ describe('CourseCreationForm.vue', () => {
             targetAudience: null,
             description: null,
             title: 'Test',
-            trainer: 'Trainer',
+            organizer: 'Organizer',
             price: null
         });
         await waitFor(() => expect(errorMessages).toBeVisible());

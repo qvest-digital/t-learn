@@ -1,0 +1,1 @@
+alter table course rename column trainer to organizer;

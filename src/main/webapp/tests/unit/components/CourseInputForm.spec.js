@@ -23,7 +23,7 @@ describe('CourseInputForm.vue', () => {
 
         const course = {
             title: 'Title',
-            trainer: 'Trainer',
+            organizer: 'Organizer',
             contactPerson: 'ContactPerson',
             startDate: '2020-05-02T12:34:00+2:00',
             endDate: '2020-05-02T13:00:00+2:00',
@@ -44,7 +44,7 @@ describe('CourseInputForm.vue', () => {
             'Title'
         );
         expect(getByRole('textbox', { name: 'Veranstalter*in' })).toHaveValue(
-            'Trainer'
+            'Organizer'
         );
         expect(
             getByRole('textbox', { name: 'Ansprechpartner*in' })
@@ -81,7 +81,7 @@ describe('CourseInputForm.vue', () => {
         wrapper.setProps({
             course: {
                 title: 'Title',
-                trainer: 'Trainer',
+                organizer: 'Organizer',
                 contactPerson: null,
                 startDate: null,
                 endDate: null,

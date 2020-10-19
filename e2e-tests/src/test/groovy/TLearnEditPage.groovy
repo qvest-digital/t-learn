@@ -9,7 +9,7 @@ class TLearnEditPage extends Page {
     linkToOverviewPage {$("div.nav-link:nth-child(2) > img:nth-child(1)")}
     linkToCreatePage {$("a", text: "Erstellen")}
     titleInputField {$("#title")}
-    organizerInputField {$("#trainer")}
+    organizerInputField {$("#organizer")}
     contactPersonInputField {$("#organizer")}
     startDateInputField {$("#start-date")}
     endDateInputField {$("#end-date")}

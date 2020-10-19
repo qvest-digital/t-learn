@@ -8,7 +8,7 @@ class TLearnCreatePage extends Page {
     linkToOverviewPage(to: TLearnOverviewPage) {$("a", text: "Übersicht")}
     linkToCreatePage {$("a", text: "Erstellen")}
     titleInputField {$("#title")}
-    organizerInputField {$("#trainer")}
+    organizerInputField {$("#organizer")}
     contactPersonInputField {$("#organizer")}
     startDateInputField {$("#start-date")}
     endDateInputField {$("#end-date")}
