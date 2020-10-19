@@ -120,12 +120,13 @@
                 <label for="courseForm" class="form-label">
                     Veranstaltungsform
                 </label>
-
+                <!-- eslint-disable vue/no-mutating-props -->
                 <select
                     v-model="course.courseForm"
                     id="courseForm"
                     class="input-location"
                 >
+                    <!-- eslint-enable -->
                     <option
                         v-for="courseForm in courseForms"
                         :key="courseForm.text"
@@ -157,9 +158,7 @@
 
         <div class="row">
             <div class="column">
-                <label for="address" class="form-label"
-                    >Ort</label
-                >
+                <label for="address" class="form-label">Ort</label>
                 <input
                     type="text"
                     v-model="$v.course.address.$model"
@@ -175,14 +174,16 @@
                 </span>
             </div>
             <div class="column">
-                <label for="executionType" class="form-label">Durchführung</label>
-
-
+                <label for="executionType" class="form-label"
+                    >Durchführung</label
+                >
+                <!-- eslint-disable vue/no-mutating-props -->
                 <select
                     v-model="course.executionType"
                     id="executionType"
                     class="input-location"
                 >
+                    <!-- eslint-enable -->
                     <option
                         v-for="executionType in executionTypes"
                         :key="executionType.text"
@@ -214,11 +215,12 @@
         </div>
         <div class="row">
             <div class="column">
-                <label for="category" class="form-label">Kategorie </label>
+                <label for="category" class="form-label">Kategorie</label>
                 <MultipleSelect
                     :selectedCategories="selectedCategories"
                     :categories="categories"
                     @input="onCategorySelect"
+                    id="category"
                 />
             </div>
         </div>
@@ -372,9 +374,11 @@ export default {
             this.endDateRaw = this.$options.filters.formatDate(val.endDate);
         },
         startDateRaw: function(val) {
+            // eslint-disable-next-line vue/no-mutating-props
             this.course.startDate = this.parseValidDate(val);
         },
         endDateRaw: function(val) {
+            // eslint-disable-next-line vue/no-mutating-props
             this.course.endDate = this.parseValidDate(val);
         },
         ready(val) {

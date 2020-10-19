@@ -1,6 +1,6 @@
-import MultipleSelect from '@/components/MultipleSelect';
+//import MultipleSelect from '@/components/MultipleSelect';
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/vue';
+//import { fireEvent, render } from '@testing-library/vue';
 import Vue from 'vue';
 import vSelect from 'vue-select';
 
@@ -15,25 +15,25 @@ describe('MultipleSelect.vue', () => {
         // expect(emitted().input.length).toEqual(5);
     });
 
-    function setupComponent() {
-        return render(
-            MultipleSelect,
-            {
-                propsData: {
-                    selectedCategories: [],
-                    categories: [
-                        'fontend',
-                        'backend',
-                        'css',
-                        'javascript',
-                        'vue',
-                        'java'
-                    ]
-                }
-            },
-            localVue => {
-                localVue.component('v-select', vSelect);
-            }
-        );
-    }
+    // function setupComponent() {
+    //     return render(
+    //         MultipleSelect,
+    //         {
+    //             propsData: {
+    //                 selectedCategories: [],
+    //                 categories: [
+    //                     'fontend',
+    //                     'backend',
+    //                     'css',
+    //                     'javascript',
+    //                     'vue',
+    //                     'java'
+    //                 ]
+    //             }
+    //         },
+    //         localVue => {
+    //             localVue.component('v-select', vSelect);
+    //         }
+    //     );
+    // }
 });
