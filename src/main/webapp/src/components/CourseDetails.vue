@@ -106,7 +106,7 @@
                     id="address"
                     class="course-details-summary-label"
                 >
-                    Veranstaltungsadresse:
+                    Ort:
                 </div>
                 <div
                     v-if="course.address"
@@ -207,14 +207,14 @@
                             course.courseForm === 'WORKSHOP' ? 'Workshop' : ''
                         }}
                     </span>
-                    <span class="comma" v-if="course.location">,</span>
+                    <span class="comma" v-if="course.executionType">,</span>
                     <span
-                        v-if="course.location"
-                        data-testid="location"
+                        v-if="course.executionType"
+                        data-testid="executionType"
                         class="course-details-summary-icon-text"
                     >
                         {{
-                            course.location === 'REMOTE' ? 'Remote' : 'Präsenz'
+                            course.executionType === 'REMOTE' ? 'Remote' : 'Präsenz'
                         }}
                     </span>
                 </div>

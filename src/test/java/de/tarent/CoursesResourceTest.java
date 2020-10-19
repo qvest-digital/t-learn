@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 
 import static de.tarent.entities.Course.CourseForm.CERTIFICATION;
 import static de.tarent.entities.Course.CourseType.EXTERNAL;
-import static de.tarent.entities.Course.Location.REMOTE;
+import static de.tarent.entities.Course.ExecutionType.REMOTE;
 import static io.restassured.RestAssured.given;
 import static java.time.OffsetDateTime.parse;
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -39,7 +39,7 @@ public class CoursesResourceTest {
                 .body("courseForm", containsInAnyOrder("CERTIFICATION", "CONFERENCE"))
                 .body("courseType", containsInAnyOrder("EXTERNAL", "INTERNAL"))
                 .body("price", containsInAnyOrder("100€", "free"))
-                .body("location", containsInAnyOrder("REMOTE", "ONSITE"))
+                .body("executionType", containsInAnyOrder("REMOTE", "ONSITE"))
                 .body("address", containsInAnyOrder("Rochusstraße 2-4, 53123 Bonn", "Dickobskreuz, 53123 Bonn"))
                 .body("targetAudience", containsInAnyOrder("alle", "devs"))
                 .body("link", containsInAnyOrder("http://tarent.de", "http://tarent.de"))
@@ -61,7 +61,7 @@ public class CoursesResourceTest {
                 .body("courseForm", equalTo("CERTIFICATION"))
                 .body("price", equalTo("100€"))
                 .body("courseType", equalTo("EXTERNAL"))
-                .body("location", equalTo("REMOTE"))
+                .body("executionType", equalTo("REMOTE"))
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
                 .body("targetAudience", equalTo("alle"))
                 .body("link", equalTo("http://tarent.de"));
@@ -96,7 +96,7 @@ public class CoursesResourceTest {
         course.endDate = parse("2020-01-03T22:00:00Z");
         course.courseForm = CERTIFICATION;
         course.courseType = EXTERNAL;
-        course.location = REMOTE;
+        course.executionType = REMOTE;
         course.address = "Rochusstraße 2-4, 53123 Bonn";
         course.targetAudience = "Alle";
         course.description = "Eine Veranstaltung";
@@ -114,7 +114,7 @@ public class CoursesResourceTest {
                 .body("endDate", equalTo("2020-01-03T22:00:00Z"))
                 .body("courseForm", equalTo("CERTIFICATION"))
                 .body("courseType", equalTo("EXTERNAL"))
-                .body("location", equalTo("REMOTE"))
+                .body("executionType", equalTo("REMOTE"))
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
                 .body("targetAudience", equalTo("Alle"))
                 .body("description", equalTo("Eine Veranstaltung"))
