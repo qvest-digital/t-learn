@@ -39,18 +39,18 @@
                 </span>
             </div>
             <div class="column">
-                <label for="organizer" class="form-label"
+                <label for="contactPerson" class="form-label"
                     >Ansprechpartner*in</label
                 >
                 <input
                     type="text"
-                    v-model="$v.course.organizer.$model"
-                    id="organizer"
-                    :class="validationStateClass('course.organizer')"
+                    v-model="$v.course.contactPerson.$model"
+                    id="contactPerson"
+                    :class="validationStateClass('course.contactPerson')"
                     placeholder="Ansprechpartner*in"
                 />
                 <span
-                    v-if="$v.course.organizer.$error"
+                    v-if="$v.course.contactPerson.$error"
                     class="form-validation-text"
                 >
                     Die maximale Länge sind 255 Zeichen.
@@ -358,7 +358,7 @@ export default {
             address: {
                 maxLength: maxLength(255)
             },
-            organizer: {
+            contactPerson: {
                 maxLength: maxLength(255)
             },
             price: {

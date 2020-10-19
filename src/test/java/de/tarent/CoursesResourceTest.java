@@ -33,7 +33,7 @@ public class CoursesResourceTest {
                 .statusCode(200)
                 .body("title", containsInAnyOrder("Quarkus Into", "Quarkus for Spring Devs"))
                 .body("trainer", containsInAnyOrder("Tim Trainer", "Theo Trainer"))
-                .body("organizer", containsInAnyOrder("Otto Organizer", "Oskar Organizer"))
+                .body("contactPerson", containsInAnyOrder("Otto ContactPerson", "Oskar ContactPerson"))
                 .body("startDate", containsInAnyOrder("2020-01-01T20:00:00Z", "2020-01-02T20:00:00Z"))
                 .body("endDate", containsInAnyOrder("2020-01-01T21:00:00Z", "2020-01-02T21:00:00Z"))
                 .body("courseForm", containsInAnyOrder("CERTIFICATION", "CONFERENCE"))
@@ -55,7 +55,7 @@ public class CoursesResourceTest {
                 .statusCode(200)
                 .body("title", equalTo("Quarkus Into"))
                 .body("trainer", equalTo("Tim Trainer"))
-                .body("organizer", equalTo("Otto Organizer"))
+                .body("contactPerson", equalTo("Otto ContactPerson"))
                 .body("startDate", equalTo("2020-01-01T20:00:00Z"))
                 .body("endDate", equalTo("2020-01-01T21:00:00Z"))
                 .body("courseForm", equalTo("CERTIFICATION"))
@@ -91,7 +91,7 @@ public class CoursesResourceTest {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
         course.trainer = "Norbert Neutrainer";
-        course.organizer = "Oskar Neuorganizer";
+        course.contactPerson = "Oskar NeuContactPerson";
         course.startDate = parse("2020-01-03T21:00:00Z");
         course.endDate = parse("2020-01-03T22:00:00Z");
         course.courseForm = CERTIFICATION;
@@ -109,7 +109,7 @@ public class CoursesResourceTest {
                 .statusCode(201)
                 .body("title", equalTo("CreatedQuarkusCourse"))
                 .body("trainer", equalTo("Norbert Neutrainer"))
-                .body("organizer", equalTo("Oskar Neuorganizer"))
+                .body("contactPerson", equalTo("Oskar NeuContactPerson"))
                 .body("startDate", equalTo("2020-01-03T21:00:00Z"))
                 .body("endDate", equalTo("2020-01-03T22:00:00Z"))
                 .body("courseForm", equalTo("CERTIFICATION"))

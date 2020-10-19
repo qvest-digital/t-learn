@@ -1,0 +1,1 @@
+alter table course rename column organizer to contactPerson;

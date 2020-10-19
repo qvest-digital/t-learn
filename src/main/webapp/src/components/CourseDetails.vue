@@ -120,19 +120,19 @@
                 </div>
 
                 <div
-                    v-if="course.organizer"
-                    id="organizer"
+                    v-if="course.contactPerson"
+                    id="contactPerson"
                     class="course-details-summary-label"
                 >
                     Ansprechpartner*in:
                 </div>
                 <div
-                    v-if="course.organizer"
-                    :title="course.organizer"
-                    data-testid="organizer"
+                    v-if="course.contactPerson"
+                    :title="course.contactPerson"
+                    data-testid="contactPerson"
                     class="course-details-summary-text"
                 >
-                    {{ course.organizer }}
+                    {{ course.contactPerson }}
                 </div>
 
                 <div
