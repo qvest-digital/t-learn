@@ -86,19 +86,19 @@
                     Steckbrief
                 </div>
                 <div
-                    id="trainer"
-                    v-if="course.trainer"
+                    id="organizer"
+                    v-if="course.organizer"
                     class="course-details-summary-label"
                 >
                     Veranstalter*in:
                 </div>
                 <div
-                    data-testid="trainer"
+                    data-testid="organizer"
                     class="course-details-summary-text"
-                    :title="course.trainer"
-                    v-if="course.trainer"
+                    :title="course.organizer"
+                    v-if="course.organizer"
                 >
-                    {{ course.trainer }}
+                    {{ course.organizer }}
                 </div>
 
                 <div
@@ -120,19 +120,19 @@
                 </div>
 
                 <div
-                    v-if="course.organizer"
-                    id="organizer"
+                    v-if="course.contactPerson"
+                    id="contactPerson"
                     class="course-details-summary-label"
                 >
                     Ansprechpartner*in:
                 </div>
                 <div
-                    v-if="course.organizer"
-                    :title="course.organizer"
-                    data-testid="organizer"
+                    v-if="course.contactPerson"
+                    :title="course.contactPerson"
+                    data-testid="contactPerson"
                     class="course-details-summary-text"
                 >
-                    {{ course.organizer }}
+                    {{ course.contactPerson }}
                 </div>
 
                 <div

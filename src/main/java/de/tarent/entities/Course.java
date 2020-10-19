@@ -27,9 +27,9 @@ public class Course extends PanacheEntity {
     public String title;
     @NotBlank
     @Length(max = 255)
-    public String trainer;
-    @Length(max = 255)
     public String organizer;
+    @Length(max = 255)
+    public String contactPerson;
     @JsonSerialize(using = UtcOffsetDateTimeSerializer.class)
     public OffsetDateTime startDate;
     @JsonSerialize(using = UtcOffsetDateTimeSerializer.class)

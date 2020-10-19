@@ -49,8 +49,8 @@ export default {
             hasError: false,
             course: {
                 title: null,
-                trainer: null,
                 organizer: null,
+                contactPerson: null,
                 startDate: null,
                 endDate: null,
                 courseType: null,

@@ -21,8 +21,8 @@ describe('CourseDetails.vue', () => {
                 data: {
                     id: 1,
                     title: 'Title',
-                    trainer: 'Trainer',
                     organizer: 'Organizer',
+                    contactPerson: 'ContactPerson',
                     startDate: '2020-05-02T12:34:00+02:00',
                     endDate: '2020-05-02T13:00:00+02:00',
                     courseType: 'EXTERNAL',
@@ -62,8 +62,8 @@ describe('CourseDetails.vue', () => {
             ),
             expect(getByTestId('address')).toHaveTextContent('Daheim'),
 
+            expect(getByTestId('contactPerson')).toHaveTextContent('ContactPerson'),
             expect(getByTestId('organizer')).toHaveTextContent('Organizer'),
-            expect(getByTestId('trainer')).toHaveTextContent('Trainer'),
 
             expect(getByRole('link')).toHaveTextContent('https://tarent.de'),
             expect(getByTestId('beschreibung')).toHaveTextContent(

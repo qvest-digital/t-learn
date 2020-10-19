@@ -204,8 +204,8 @@ describe('CourseEditForm.vue', () => {
         return {
             id: 1,
             title: 'Title',
-            trainer: 'Trainer',
-            organizer: null,
+            organizer: 'Organizer',
+            contactPerson: null,
             startDate: null,
             endDate: null,
             courseType: 'EXTERNAL',
@@ -225,7 +225,7 @@ describe('CourseEditForm.vue', () => {
             ),
             expect(
                 getByRole('textbox', { name: 'Veranstalter*in' })
-            ).toHaveValue('Trainer'),
+            ).toHaveValue('Organizer'),
             expect(
                 getByRole('combobox', { name: 'Veranstaltungsart' })
             ).toHaveValue('EXTERNAL')

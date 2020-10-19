@@ -20,18 +20,18 @@
         </div>
         <div class="row">
             <div class="column">
-                <label for="trainer" class="form-label required-label"
+                <label for="organizer" class="form-label required-label"
                     >Veranstalter*in</label
                 >
                 <input
                     type="text"
-                    v-model="$v.course.trainer.$model"
-                    :class="validationStateClass('course.trainer')"
-                    id="trainer"
+                    v-model="$v.course.organizer.$model"
+                    :class="validationStateClass('course.organizer')"
+                    id="organizer"
                     placeholder="Veranstalter*in"
                 />
                 <span
-                    v-if="$v.course.trainer.$error"
+                    v-if="$v.course.organizer.$error"
                     class="form-validation-text"
                 >
                     Veranstalter*in ist ein Pflichtfeld und die maximale Länge
@@ -39,18 +39,18 @@
                 </span>
             </div>
             <div class="column">
-                <label for="organizer" class="form-label"
+                <label for="contactPerson" class="form-label"
                     >Ansprechpartner*in</label
                 >
                 <input
                     type="text"
-                    v-model="$v.course.organizer.$model"
-                    id="organizer"
-                    :class="validationStateClass('course.organizer')"
+                    v-model="$v.course.contactPerson.$model"
+                    id="contactPerson"
+                    :class="validationStateClass('course.contactPerson')"
                     placeholder="Ansprechpartner*in"
                 />
                 <span
-                    v-if="$v.course.organizer.$error"
+                    v-if="$v.course.contactPerson.$error"
                     class="form-validation-text"
                 >
                     Die maximale Länge sind 255 Zeichen.
@@ -336,7 +336,7 @@ export default {
                 required,
                 maxLength: maxLength(255)
             },
-            trainer: {
+            organizer: {
                 required,
                 maxLength: maxLength(255)
             },
@@ -358,7 +358,7 @@ export default {
             address: {
                 maxLength: maxLength(255)
             },
-            organizer: {
+            contactPerson: {
                 maxLength: maxLength(255)
             },
             price: {

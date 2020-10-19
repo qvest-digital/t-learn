@@ -32,8 +32,8 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(200)
                 .body("title", containsInAnyOrder("Quarkus Into", "Quarkus for Spring Devs"))
-                .body("trainer", containsInAnyOrder("Tim Trainer", "Theo Trainer"))
-                .body("organizer", containsInAnyOrder("Otto Organizer", "Oskar Organizer"))
+                .body("organizer", containsInAnyOrder("Tim Organizer", "Theo Organizer"))
+                .body("contactPerson", containsInAnyOrder("Otto ContactPerson", "Oskar ContactPerson"))
                 .body("startDate", containsInAnyOrder("2020-01-01T20:00:00Z", "2020-01-02T20:00:00Z"))
                 .body("endDate", containsInAnyOrder("2020-01-01T21:00:00Z", "2020-01-02T21:00:00Z"))
                 .body("courseForm", containsInAnyOrder("CERTIFICATION", "CONFERENCE"))
@@ -54,8 +54,8 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(200)
                 .body("title", equalTo("Quarkus Into"))
-                .body("trainer", equalTo("Tim Trainer"))
-                .body("organizer", equalTo("Otto Organizer"))
+                .body("organizer", equalTo("Tim Organizer"))
+                .body("contactPerson", equalTo("Otto ContactPerson"))
                 .body("startDate", equalTo("2020-01-01T20:00:00Z"))
                 .body("endDate", equalTo("2020-01-01T21:00:00Z"))
                 .body("courseForm", equalTo("CERTIFICATION"))
@@ -90,8 +90,8 @@ public class CoursesResourceTest {
 
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
-        course.organizer = "Oskar Neuorganizer";
+        course.organizer = "Norbert Neuorganizer";
+        course.contactPerson = "Oskar NeuContactPerson";
         course.startDate = parse("2020-01-03T21:00:00Z");
         course.endDate = parse("2020-01-03T22:00:00Z");
         course.courseForm = CERTIFICATION;
@@ -108,8 +108,8 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(201)
                 .body("title", equalTo("CreatedQuarkusCourse"))
-                .body("trainer", equalTo("Norbert Neutrainer"))
-                .body("organizer", equalTo("Oskar Neuorganizer"))
+                .body("organizer", equalTo("Norbert Neuorganizer"))
+                .body("contactPerson", equalTo("Oskar NeuContactPerson"))
                 .body("startDate", equalTo("2020-01-03T21:00:00Z"))
                 .body("endDate", equalTo("2020-01-03T22:00:00Z"))
                 .body("courseForm", equalTo("CERTIFICATION"))
@@ -154,7 +154,7 @@ public class CoursesResourceTest {
                 .statusCode(400)
                 .body("message", allOf(
                         containsString("title must not be blank"),
-                        containsString("trainer must not be blank"),
+                        containsString("organizer must not be blank"),
                         containsString("courseType must not be null")))
                 .body("success", is(false));
 
@@ -166,7 +166,7 @@ public class CoursesResourceTest {
 
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.startDate = now;
         course.endDate = now.minus(1, SECONDS);
@@ -183,7 +183,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_FailedValidation_WrongProtocol() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.link = "ftp://tarent.de";
 
@@ -199,7 +199,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_FailedValidation_InvalidURL() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.link = "https/tarent.de";
 
@@ -215,7 +215,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_FailedValidation_InvalidLinkLength() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.link = "https://".concat(RandomStringUtils.randomAlphanumeric(1001 - 11)).concat(".de");
 
@@ -231,7 +231,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_CheckValidLinkLength() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.link = "https://".concat(RandomStringUtils.randomAlphanumeric(1000 - 11)).concat(".de");
         given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -245,7 +245,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_FailedValidation_InvalidTargetAudienceLength() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.targetAudience = RandomStringUtils.random(2001);
 
@@ -261,7 +261,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_CheckValidTargetAudienceLength() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.targetAudience = RandomStringUtils.random(2000);
 
@@ -276,7 +276,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_FailedValidation_InvalidDescriptionLength() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.description = RandomStringUtils.random(2001);
 
@@ -292,7 +292,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_CheckValidDescriptionLength() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.description = RandomStringUtils.random(2000);
 
@@ -307,7 +307,7 @@ public class CoursesResourceTest {
     public void testCreateNewCourse_FailedValidation_InvalidCourseForm() {
         String course = "{" +
                 "\"title\": \"irrelevant\"," +
-                "\"trainer\": \"irrelevant\"," +
+                "\"organizer\": \"irrelevant\"," +
                 "\"courseType\": \"EXTERNAL\"," +
                 "\"courseForm\": \"UNKNOWN_COURSE_FORM\"" +
                 "}";
@@ -327,7 +327,7 @@ public class CoursesResourceTest {
 
         final Course course = new Course();
         course.title = "UpdateableQuarkusCourse";
-        course.trainer = "Dummy";
+        course.organizer = "Dummy";
         course.courseType = EXTERNAL;
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -359,7 +359,7 @@ public class CoursesResourceTest {
 
         final Course course = new Course();
         course.title = "UpdateableQuarkusCourse";
-        course.trainer = "Dummy";
+        course.organizer = "Dummy";
         course.courseType = EXTERNAL;
 
         given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -374,7 +374,7 @@ public class CoursesResourceTest {
 
         final Course course = new Course();
         course.title = "UpdateableQuarkusCourse";
-        course.trainer = "Dummy";
+        course.organizer = "Dummy";
         course.courseType = EXTERNAL;
 
         given().body(course).header("Content-Type", APPLICATION_JSON)
@@ -410,7 +410,7 @@ public class CoursesResourceTest {
     private void checkCreateWithLink(String link) {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
-        course.trainer = "Norbert Neutrainer";
+        course.organizer = "Norbert Neuorganizer";
         course.courseType = EXTERNAL;
         course.link = link;
 
@@ -419,7 +419,7 @@ public class CoursesResourceTest {
                 .then()
                 .statusCode(201)
                 .body("title", equalTo("CreatedQuarkusCourse"))
-                .body("trainer", equalTo("Norbert Neutrainer"))
+                .body("organizer", equalTo("Norbert Neuorganizer"))
                 .body("courseType", equalTo("EXTERNAL"))
                 .body("link", equalTo(link));
     }
