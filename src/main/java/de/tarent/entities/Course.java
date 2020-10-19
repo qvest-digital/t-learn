@@ -42,7 +42,7 @@ public class Course extends PanacheEntity {
     @Length(max = 255)
     public String price;
     @Enumerated(STRING)
-    public Location location;
+    public ExecutionType executionType;
     @Length(max = 255)
     public String address;
     @Length(max = 2000)
@@ -71,7 +71,7 @@ public class Course extends PanacheEntity {
         EXTERNAL, INTERNAL
     }
 
-    public enum Location {
+    public enum ExecutionType {
         REMOTE, ONSITE
     }
 }

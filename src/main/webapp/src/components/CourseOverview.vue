@@ -66,9 +66,9 @@
                     <div
                         class="course-card-text"
                     >
-                        <span v-if="course.location">
+                        <span v-if="course.executionType">
                             {{
-                                course.location === 'REMOTE' ? 'Remote' : 'Präsenz'
+                                course.executionType === 'REMOTE' ? 'Remote' : 'Präsenz'
                             }}
                         </span>
                         <span v-if="course.courseForm">
