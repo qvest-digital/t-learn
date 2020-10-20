@@ -8,12 +8,14 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
@@ -55,6 +57,22 @@ public class Course extends PanacheEntity {
     public String link;
     @JsonIgnore
     public Boolean deleted;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "course_category",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    public List<Category> categoryList;
+
+    @Transient
+    public List<String> categoryNames;
+
+    public void mapToKnownCategories() {
+        this.categoryList = Category.list("name IN ?1", this.categoryNames);
+        this.categoryNames = categoryList.stream().map(Category::getName).collect(Collectors.toList());
+    }
 
     public enum CourseForm {
         CERTIFICATION,

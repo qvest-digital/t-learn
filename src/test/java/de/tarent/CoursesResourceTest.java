@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 
 import static de.tarent.entities.Course.CourseForm.CERTIFICATION;
 import static de.tarent.entities.Course.CourseType.EXTERNAL;
@@ -23,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class CoursesResourceTest {
+
+    public static final String CONTENT_TYPE = "Content-Type";
 
     @Test
     @Order(1)
@@ -85,8 +89,16 @@ public class CoursesResourceTest {
                 .body(is(emptyString()));
     }
 
+    @Transactional
     @Test
     public void testCreateNewCourse() {
+
+//        Category category = new Category();
+//        category.setName("existiert");
+//        category.persistAndFlush();
+
+        ArrayList<String> categoryNames = new ArrayList<>();
+        categoryNames.add("good category");
 
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
@@ -101,12 +113,14 @@ public class CoursesResourceTest {
         course.targetAudience = "Alle";
         course.description = "Eine Veranstaltung";
         course.price = "100€";
+        course.categoryNames = categoryNames;
         course.link = "http://tarent.de";
 
         final Integer id = given().body(course).header("Content-Type", APPLICATION_JSON)
                 .when().post("/courses")
                 .then()
                 .statusCode(201)
+                .header(CONTENT_TYPE, APPLICATION_JSON)
                 .body("title", equalTo("CreatedQuarkusCourse"))
                 .body("organizer", equalTo("Norbert Neuorganizer"))
                 .body("contactPerson", equalTo("Oskar NeuContactPerson"))
@@ -118,6 +132,7 @@ public class CoursesResourceTest {
                 .body("address", equalTo("Rochusstraße 2-4, 53123 Bonn"))
                 .body("targetAudience", equalTo("Alle"))
                 .body("description", equalTo("Eine Veranstaltung"))
+                .body("categoryNames[0]", equalTo("good category"))
                 .body("price", equalTo("100€"))
                 .body("link", equalTo("http://tarent.de"))
                 .extract().path("id");
@@ -128,7 +143,8 @@ public class CoursesResourceTest {
                 .when().get("/courses/{id}", id)
                 .then()
                 .statusCode(200)
-                .body("title", equalTo("CreatedQuarkusCourse"));
+                .body("title", equalTo("CreatedQuarkusCourse"))
+                .body("categoryNames", contains("good category"));
     }
 
     @Test

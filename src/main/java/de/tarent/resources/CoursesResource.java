@@ -40,6 +40,7 @@ public class CoursesResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response add(Course course) {
+        course.mapToKnownCategories();
         course.persistAndFlush();
         return Response.status(CREATED).entity(course).build();
     }
