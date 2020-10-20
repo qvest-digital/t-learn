@@ -16,6 +16,9 @@ class TLearnEditPage extends Page {
     courseTypeInputField {$("#course-type")}
     courseTypeExternalOption {$("#course-type > option:nth-child(2)")}
     courseTypeInternalOption {$("#course-type > option:nth-child(3)")}
+    courseFormDropdown {$("#courseForm")}
+    courseFormMeetupOption {$("#courseForm > option:nth-child(2)")}
+    courseFormBootcampOption {$("#courseForm > option:nth-child(3)")}
     executionTypeInputField {$("#executionType")}
     executionTypeRemoteOption {$("#executionType > option:nth-child(2)")}
     executionTypePresenceOption {$("#executionType > option:nth-child(3)")}

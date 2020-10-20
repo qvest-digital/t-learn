@@ -37,6 +37,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormDropdown.click()
+    courseFormMeetupOption.click()
     executionTypeInputField.click()
     executionTypeRemoteOption.click()
     priceInputField.value("666€")
@@ -61,6 +63,7 @@ class GeneralTests extends E2ETestSpec {
     $("div", text: contains("E2E Description")) && 
     $("div", text: contains("Extern")) && 
     $("div", text: contains("Remote")) && 
+    $("div", text: contains("Meetup")) &&
     $("div", text: contains("666€"))
     }
 
@@ -82,6 +85,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormDropdown.click()
+    courseFormMeetupOption.click()
     executionTypeInputField.click()
     executionTypeRemoteOption.click()
     priceInputField.value("666€")
@@ -106,7 +111,7 @@ class GeneralTests extends E2ETestSpec {
     //resetDb()
     }
 
-  def "delete event on overview page after creation"(){
+  def "delete event on details page after creation"(){
     given:
     at TLearnOverviewPage
 
@@ -119,6 +124,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormDropdown.click()
+    courseFormMeetupOption.click()
     executionTypeInputField.click()
     executionTypeRemoteOption.click()
     priceInputField.value("666€")
@@ -142,7 +149,7 @@ class GeneralTests extends E2ETestSpec {
     //resetDb()
     }
 
-  def "cancel deleting event on overview page after creation"(){
+  def "cancel deleting event on details page after creation"(){
     given:
     at TLearnOverviewPage
 
@@ -155,6 +162,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormDropdown.click()
+    courseFormMeetupOption.click()
     executionTypeInputField.click()
     executionTypeRemoteOption.click()
     priceInputField.value("666€")
@@ -180,6 +189,7 @@ class GeneralTests extends E2ETestSpec {
     $("div", text: contains("E2E QA")) && 
     $("div", text: contains("E2E Description")) && 
     $("div", text: contains("Extern")) && 
+    $("div", text: contains("Meetup")) &&
     $("div", text: contains("Remote")) && 
     $("div", text: contains("666€"))
     }
@@ -202,6 +212,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormDropdown.click()
+    courseFormMeetupOption.click()
     executionTypeInputField.click()
     executionTypeRemoteOption.click()
     priceInputField.value("666€")
@@ -220,6 +232,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2021 20:00")
     courseTypeInputField.click()
     courseTypeInternalOption.click()
+    courseFormDropdown.click()
+    courseFormBootcampOption.click()
     executionTypeInputField.click()
     executionTypePresenceOption.click()
     priceInputField.value("999€")
@@ -242,6 +256,7 @@ class GeneralTests extends E2ETestSpec {
     $("div", text: contains("https://www.tarentEDITED.de")) && 
     $("div", text: contains("E2E QAEDITED")) && 
     $("div", text: contains("E2E DescriptionEDITED")) && 
+    $("div", text: contains("Bootcamp/Konferenz")) &&
     $("div", text: contains("Intern")) && 
     $("div", text: contains("Präsenz")) 
     }
@@ -264,6 +279,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2020 20:00")
     courseTypeInputField.click()
     courseTypeExternalOption.click()
+    courseFormDropdown.click()
+    courseFormMeetupOption.click()
     executionTypeInputField.click()
     executionTypeRemoteOption.click()
     priceInputField.value("666€")
@@ -282,6 +299,8 @@ class GeneralTests extends E2ETestSpec {
     endDateInputField.value("22.11.2021 20:00")
     courseTypeInputField.click()
     courseTypeInternalOption.click()
+    courseFormDropdown.click()
+    courseFormBootcampOption.click()
     executionTypeInputField.click()
     executionTypePresenceOption.click()
     priceInputField.value("999€")
@@ -305,6 +324,7 @@ class GeneralTests extends E2ETestSpec {
     $("div", text: contains("E2E QA")) && 
     $("div", text: contains("E2E Description")) && 
     $("div", text: contains("Extern")) && 
+    $("div", text: contains("Meetup")) &&
     $("div", text: contains("Remote")) && 
     $("div", text: contains("666€"))
     }
