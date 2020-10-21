@@ -46,6 +46,7 @@ public class CoursesResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response add(Course course) {
+        course.id = null;
         course.mapToKnownCategories();
         course.persistAndFlush();
         course.mapToCategoryNames();

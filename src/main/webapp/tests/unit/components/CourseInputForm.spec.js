@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/vue';
+import { getAllCategories } from '@/services/BackendService';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuelidate from 'vuelidate';
 import CourseInputForm from '@/components/CourseInputForm';
@@ -8,9 +9,15 @@ import { dateFormatFilter } from '@/filter/dateformatFilter';
 import vSelect from 'vue-select';
 
 Vue.filter('formatDate', dateFormatFilter);
-Vue.component('v-select', vSelect);
+jest.mock('@/services/BackendService');
 
 describe('CourseInputForm.vue', () => {
+    getAllCategories.mockImplementation(() =>
+        Promise.resolve({
+            data: ['frontend', 'javascript']
+        })
+    );
+
     it('maps input fields correctly to the UI', async () => {
         const { getByRole, updateProps } = render(
             CourseInputForm,
@@ -34,7 +41,8 @@ describe('CourseInputForm.vue', () => {
             address: 'Daheim',
             targetAudience: 'Alle',
             description: 'Beschreibung',
-            link: 'https://tarent.de'
+            link: 'https://tarent.de',
+            categoryNames: ['frontend', 'javascript']
         };
         await updateProps({
             course
@@ -69,12 +77,20 @@ describe('CourseInputForm.vue', () => {
         expect(
             getByRole('textbox', { name: 'Weiterführender Link' })
         ).toHaveValue('https://tarent.de');
+        const categoriesDropdown = getByRole('combobox', {
+            name: 'Search for option'
+        });
+        expect(categoriesDropdown).toHaveTextContent('frontend');
+        expect(categoriesDropdown).toHaveTextContent('javascript');
+
         expect(getByRole('textbox', { name: 'Zielgruppe' })).toHaveValue(
             'Alle'
         );
         expect(
             getByRole('textbox', { name: 'Beschreibung / Inhalt' })
         ).toHaveValue('Beschreibung');
+
+        expect(getAllCategories).toHaveBeenCalled();
     });
 
     it("calls 'ready' callback with value 'true' when touch was called with no validation errors", async () => {
@@ -94,7 +110,8 @@ describe('CourseInputForm.vue', () => {
                 address: null,
                 targetAudience: null,
                 description: null,
-                link: null
+                link: null,
+                categoryNames: []
             }
         });
 
@@ -116,6 +133,7 @@ describe('CourseInputForm.vue', () => {
     function mountComponent() {
         const localVue = createLocalVue();
         localVue.use(Vuelidate);
+        localVue.component('v-select', vSelect);
 
         return mount(CourseInputForm, {
             localVue,
