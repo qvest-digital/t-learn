@@ -63,7 +63,7 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('E2E Description')) &&
         $('div', text: contains('Extern')) &&
         $('div', text: contains('Remote')) &&
-        $('div', text: contains('Meetup')) &&
+        $('div', text: contains('MeetUp')) &&
         $('div', text: contains('666€'))
         }
 
@@ -189,7 +189,7 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('E2E QA')) &&
         $('div', text: contains('E2E Description')) &&
         $('div', text: contains('Extern')) &&
-        $('div', text: contains('Meetup')) &&
+        $('div', text: contains('MeetUp')) &&
         $('div', text: contains('Remote')) &&
         $('div', text: contains('666€'))
         }
@@ -256,7 +256,7 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('https://www.tarentEDITED.de')) &&
         $('div', text: contains('E2E QAEDITED')) &&
         $('div', text: contains('E2E DescriptionEDITED')) &&
-        $('div', text: contains('Bootcamp/Konferenz')) &&
+        $('div', text: contains('Barcamp/Konferenz')) &&
         $('div', text: contains('Intern')) &&
         $('div', text: contains('Präsenz'))
         }
@@ -324,7 +324,7 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('E2E QA')) &&
         $('div', text: contains('E2E Description')) &&
         $('div', text: contains('Extern')) &&
-        $('div', text: contains('Meetup')) &&
+        $('div', text: contains('MeetUp')) &&
         $('div', text: contains('Remote')) &&
         $('div', text: contains('666€'))
         }
