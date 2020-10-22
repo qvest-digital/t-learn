@@ -64,7 +64,7 @@ insert into Category(id, name) values(nextval('category_sequence'), 'Software-Ar
 insert into Category(id, name) values(nextval('category_sequence'), 'Storytelling');
 insert into Category(id, name) values(nextval('category_sequence'), 'System-Architektur');
 insert into Category(id, name) values(nextval('category_sequence'), 'Technologien');
-insert into Category(id, name) values(nextval('category_sequence'), 'Testing/ QA');
+insert into Category(id, name) values(nextval('category_sequence'), 'Testing/QA');
 insert into Category(id, name) values(nextval('category_sequence'), 'UI & Web Design');
 insert into Category(id, name) values(nextval('category_sequence'), 'User Experience (UX)');
 insert into Category(id, name) values(nextval('category_sequence'), 'User Interface (UI)');
@@ -72,4 +72,4 @@ insert into Category(id, name) values(nextval('category_sequence'), 'UX');
 insert into Category(id, name) values(nextval('category_sequence'), 'UX/UI Design');
 insert into Category(id, name) values(nextval('category_sequence'), 'Vertriebsgespräche');
 insert into Category(id, name) values(nextval('category_sequence'), 'Web');
-insert into Category(id, name) values(nextval('category_sequence'), 'Zeit-und Selbstmanagement');
+insert into Category(id, name) values(nextval('category_sequence'), 'Zeit- und Selbstmanagement');
