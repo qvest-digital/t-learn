@@ -5,23 +5,28 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.tarent.config.UtcOffsetDateTimeSerializer;
 import de.tarent.validator.StartDateBeforeEndDate;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import static java.util.Collections.emptyList;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
 import static javax.persistence.EnumType.STRING;
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 @Entity
 @StartDateBeforeEndDate
+@EqualsAndHashCode(exclude = "categoryList")
+@ToString
 public class Course extends PanacheEntity {
 
     @NotBlank
@@ -70,8 +75,15 @@ public class Course extends PanacheEntity {
     public List<String> categoryNames;
 
     public void mapToKnownCategories() {
-        this.categoryList = Category.list("name IN ?1", this.categoryNames);
-        this.categoryNames = categoryList.stream().map(Category::getName).collect(Collectors.toList());
+        if (categoryNames != null && !categoryNames.isEmpty()) {
+            categoryList = Category.list("name IN ?1", categoryNames);
+        }
+    }
+
+    public void mapToCategoryNames() {
+        categoryNames = ofNullable(categoryList)
+                .map(categoryList -> categoryList.stream().map(category -> category.name).collect(toList()))
+                .orElse(emptyList());
     }
 
     public enum CourseForm {

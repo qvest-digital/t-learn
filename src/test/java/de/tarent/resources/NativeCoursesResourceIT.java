@@ -1,4 +1,4 @@
-package de.tarent;
+package de.tarent.resources;
 
 import io.quarkus.test.junit.NativeImageTest;
 
