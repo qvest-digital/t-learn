@@ -195,7 +195,7 @@ export default {
     margin-bottom: $space-s;
     width: 260px;
     min-height: 120px;
-    max-height: auto;
+    max-height: fit-content;
     cursor: pointer;
 }
 .course-img {

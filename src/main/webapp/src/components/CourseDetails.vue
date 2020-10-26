@@ -61,6 +61,18 @@
                     {{ course.title }}
                 </div>
                 <div
+                    class="course-details-content-category-container"
+                    data-testid="categories"
+                >
+                    <div
+                        v-for="category in course.categoryNames"
+                        :key="category"
+                        class="course-details-content-category"
+                    >
+                        {{ category }}
+                    </div>
+                </div>
+                <div
                     v-if="course.targetAudience"
                     class="course-details-content-subtitle"
                 >
@@ -338,7 +350,7 @@ export default {
     margin-bottom: $space-l;
     width: $container-m;
     min-height: 120px;
-    max-height: auto;
+    max-height: fit-content;
     padding: 3px;
 }
 .course-img {
@@ -354,7 +366,21 @@ export default {
     margin-bottom: $space-l;
     word-break: break-word;
 }
-
+.course-details-content-category-container {
+    display: flex;
+    margin-bottom: $space-xl;
+    flex-wrap: wrap;
+}
+.course-details-content-category {
+    background: $light-grey;
+    padding: 0 $space-xs;
+    font-size: $font-s;
+    font-weight: $bold;
+    line-height: $space-l;
+    border-radius: $border-radius-xs;
+    margin: 0 $space-xs $space-xs 0;
+    height: $space-l;
+}
 .course-details-content-subtitle {
     font-size: $font-l;
     font-weight: $normal;

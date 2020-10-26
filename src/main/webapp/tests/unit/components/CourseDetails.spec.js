@@ -32,7 +32,8 @@ describe('CourseDetails.vue', () => {
                     address: 'Daheim',
                     targetAudience: 'Alle',
                     description: 'Beschreibung',
-                    link: 'https://tarent.de'
+                    link: 'https://tarent.de',
+                    categoryNames: ['frontend', 'javascript']
                 }
             })
         );
@@ -42,10 +43,13 @@ describe('CourseDetails.vue', () => {
             routes: routes
         });
 
+        const categories = getByTestId('categories');
         await waitFor(() => [
             expect(getByTestId('courseDetailsTitle')).toHaveTextContent(
                 'Title'
             ),
+            expect(categories).toHaveTextContent('frontend'),
+            expect(categories).toHaveTextContent('javascript'),
             expect(getByTestId('courseType')).toHaveTextContent('Extern'),
             expect(getByTestId('courseForm')).toHaveTextContent('MeetUp'),
             expect(getByTestId('executionType')).toHaveTextContent('Remote'),
