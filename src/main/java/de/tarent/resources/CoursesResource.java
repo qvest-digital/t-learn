@@ -6,6 +6,7 @@ import io.quarkus.hibernate.orm.panache.runtime.JpaOperations;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.function.Predicate;
 
 import static io.quarkus.panache.common.Sort.ascending;
@@ -26,21 +27,28 @@ public class CoursesResource {
     public Response get(@PathParam("id") Long id) {
         return Course.<Course>findByIdOptional(id)
                 .filter(notDeleted())
-                .map(c -> Response.ok(c).build())
+                .map(course -> {
+                    course.mapToCategoryNames();
+                    return Response.ok(course).build();
+                })
                 .orElse(NOT_FOUND_RESPONSE);
     }
 
     @GET
     @Produces(APPLICATION_JSON)
     public Response list() {
-        return Response.ok(Course.list("deleted = false or deleted is null", ascending("title", "startDate"))).build();
+        final List<Course> courses = Course.list("deleted = false or deleted is null", ascending("title", "startDate"));
+        courses.forEach(Course::mapToCategoryNames);
+        return Response.ok(courses).build();
     }
 
     @POST
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     public Response add(Course course) {
+        course.mapToKnownCategories();
         course.persistAndFlush();
+        course.mapToCategoryNames();
         return Response.status(CREATED).entity(course).build();
     }
 
@@ -53,6 +61,7 @@ public class CoursesResource {
                 .filter(notDeleted())
                 .map(origCourse -> {
                     course.id = id;
+                    course.mapToKnownCategories();
                     JpaOperations.getEntityManager().merge(course);
                     return Response.noContent().build();
                 }).orElse(NOT_FOUND_RESPONSE);

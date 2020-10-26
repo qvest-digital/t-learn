@@ -6,3 +6,12 @@ values (hibernate_sequence.NEXTVAL, 'Quarkus for Spring Devs', 'Theo Organizer',
 
 insert into course(id, title, organizer, courseType, deleted)
 values (hibernate_sequence.NEXTVAL, 'Deleted Course', 'Deleted Organizer', 'INTERNAL', true);
+
+insert into category(id, name)
+values (category_sequence.NEXTVAL, 'great category');
+
+insert into category(id, name)
+values (category_sequence.NEXTVAL, 'good category');
+
+insert into course_category(category_id, course_id) values
+( (select id from category where name = 'good category'), (select id from course where title = 'Quarkus Into') );
