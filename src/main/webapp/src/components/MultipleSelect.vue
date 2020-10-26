@@ -43,12 +43,12 @@ export default {
     font-size: $font-s;
     border-radius: $border-radius-xs;
     margin: 0 $space-xs;
-    height: 36px;
+    min-height: 36px;
     .vs__dropdown-toggle {
         border: solid 1px $grey;
-        height: 36px;
-        padding: 0; //overrides defaults
+        min-height: 36px;
         .vs__selected-options {
+            padding: 2px;
             .vs__selected {
                 background-color: $light-grey;
                 padding: 0 0 0 $space-xs;
