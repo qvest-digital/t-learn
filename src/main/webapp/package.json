@@ -20,7 +20,7 @@
         "vue": "^2.6.12",
         "vue-router": "^3.4.7",
         "vue-select": "^3.10.8",
-        "vuelidate": "^0.7.5"
+        "vuelidate": "^0.7.6"
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.11.5",
