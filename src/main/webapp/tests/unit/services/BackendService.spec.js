@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
     deleteCourse,
+    getCategories,
     getCourses,
     getCourse,
     createCourse,
@@ -95,5 +96,17 @@ describe('BackendService.js', () => {
 
         await deleteCourse(1);
         expect(axios.delete).toHaveBeenCalledWith('courses/1');
+    });
+
+    it('requests categories from the server', async () => {
+        axios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: ['frontend', 'javascript']
+            })
+        );
+
+        const categories = await getCategories();
+        expect(axios.get).toHaveBeenCalledWith('categories');
+        expect(categories.data).toHaveLength(2);
     });
 });

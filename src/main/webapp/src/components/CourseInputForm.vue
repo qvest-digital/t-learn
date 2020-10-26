@@ -268,7 +268,7 @@
 import { isValid, parse } from 'date-fns';
 import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
 import MultipleSelect from './MultipleSelect';
-import { getAllCategories } from '@/services/BackendService';
+import { getCategories } from '@/services/BackendService';
 
 const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -404,7 +404,7 @@ export default {
         }
     },
     mounted: function() {
-        getAllCategories()
+        getCategories()
             .then(response => (this.categories = response.data))
             .catch(() => {
                 console.error('Course categories could not be loaded');

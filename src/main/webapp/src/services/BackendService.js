@@ -20,6 +20,6 @@ export function deleteCourse(courseId) {
     return axios.delete(`courses/${courseId}`);
 }
 
-export function getAllCategories() {
+export function getCategories() {
     return axios.get('categories');
 }

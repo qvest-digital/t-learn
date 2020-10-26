@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
 import {
-    getAllCategories,
+    getCategories,
     getCourse,
     updateCourse
 } from '@/services/BackendService';
@@ -16,7 +16,7 @@ jest.mock('@/services/BackendService');
 global.console = { error: jest.fn() };
 
 describe('CourseEditForm.vue', () => {
-    getAllCategories.mockImplementation(() =>
+    getCategories.mockImplementation(() =>
         Promise.resolve({
             data: ['frontend', 'javascript']
         })

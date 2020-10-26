@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/vue';
-import { getAllCategories } from '@/services/BackendService';
+import { getCategories } from '@/services/BackendService';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuelidate from 'vuelidate';
 import CourseInputForm from '@/components/CourseInputForm';
@@ -12,7 +12,7 @@ Vue.filter('formatDate', dateFormatFilter);
 jest.mock('@/services/BackendService');
 
 describe('CourseInputForm.vue', () => {
-    getAllCategories.mockImplementation(() =>
+    getCategories.mockImplementation(() =>
         Promise.resolve({
             data: ['frontend', 'javascript']
         })
@@ -90,7 +90,7 @@ describe('CourseInputForm.vue', () => {
             getByRole('textbox', { name: 'Beschreibung / Inhalt' })
         ).toHaveValue('Beschreibung');
 
-        expect(getAllCategories).toHaveBeenCalled();
+        expect(getCategories).toHaveBeenCalled();
     });
 
     it("calls 'ready' callback with value 'true' when touch was called with no validation errors", async () => {
