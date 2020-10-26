@@ -368,7 +368,7 @@ export default {
 }
 .course-details-content-category-container {
     display: flex;
-    margin-bottom: $space-l;
+    margin-bottom: $space-xl;
     flex-wrap: wrap;
 }
 .course-details-content-category {
