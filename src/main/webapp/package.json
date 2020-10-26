@@ -13,7 +13,7 @@
         "prod": "vue-cli-service build --dest ../resources/META-INF/resources/"
     },
     "dependencies": {
-        "axios": "^0.20.0",
+        "axios": "^0.21.0",
         "core-js": "^3.6.5",
         "date-fns": "^2.16.1",
         "date-fns-tz": "^1.0.12",
