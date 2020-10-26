@@ -1,6 +1,10 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
-import { getCourse, updateCourse } from '@/services/BackendService';
+import {
+    getCategories,
+    getCourse,
+    updateCourse
+} from '@/services/BackendService';
 import Vuelidate from 'vuelidate';
 import routes from '@/routes';
 import CourseEditForm from '@/components/CourseEditForm';
@@ -12,6 +16,12 @@ jest.mock('@/services/BackendService');
 global.console = { error: jest.fn() };
 
 describe('CourseEditForm.vue', () => {
+    getCategories.mockImplementation(() =>
+        Promise.resolve({
+            data: ['frontend', 'javascript']
+        })
+    );
+
     afterEach(() => {
         getCourse.mockReset();
         updateCourse.mockReset();
@@ -214,7 +224,8 @@ describe('CourseEditForm.vue', () => {
             address: null,
             targetAudience: null,
             description: null,
-            link: null
+            link: null,
+            categoryNames: null
         };
     }
 

@@ -2,12 +2,12 @@
     <div>
         <v-select
             class="multiple-select"
-            id="category"
+            id="multiselect"
             placeholder="Bitte wählen"
             multiple
-            v-model="updatedCategories"
-            :options="categories"
-            @input="$emit('input', updatedCategories)"
+            v-model="internalValue"
+            :options="internalOptions"
+            @input="$emit('input', internalValue)"
         />
     </div>
 </template>
@@ -15,17 +15,24 @@
 export default {
     data: function() {
         return {
-            updatedCategories: this.selectedCategories
+            internalValue: this.value,
+            internalOptions: this.options
         };
     },
     props: {
-        selectedCategories: {
-            type: Array,
-            required: true
+        value: {
+            type: Array
         },
-        categories: {
-            type: Array,
-            required: true
+        options: {
+            type: Array
+        }
+    },
+    watch: {
+        value(value) {
+            this.internalValue = value;
+        },
+        options(options) {
+            this.internalOptions = options;
         }
     }
 };

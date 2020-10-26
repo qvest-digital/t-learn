@@ -217,9 +217,8 @@
             <div class="column">
                 <label for="category" class="form-label">Kategorie</label>
                 <MultipleSelect
-                    :selectedCategories="selectedCategories"
-                    :categories="categories"
-                    @input="onCategorySelect"
+                    v-model="course.categoryNames"
+                    :options="categories"
                     id="category"
                 />
             </div>
@@ -269,6 +268,7 @@
 import { isValid, parse } from 'date-fns';
 import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
 import MultipleSelect from './MultipleSelect';
+import { getCategories } from '@/services/BackendService';
 
 const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -291,7 +291,6 @@ export default {
         return {
             startDateRaw: null,
             endDateRaw: null,
-            selectedCategories: [],
             courseForms: [
                 { value: null, text: 'Bitte wählen' },
                 { value: 'MEETUP', text: 'MeetUp' },
@@ -313,14 +312,7 @@ export default {
                 { value: 'REMOTE', text: 'Remote' },
                 { value: 'ONSITE', text: 'Präsenz' }
             ],
-            categories: [
-                'fontend',
-                'backend',
-                'css',
-                'javascript',
-                'vue',
-                'java'
-            ]
+            categories: []
         };
     },
     props: ['course'],
@@ -409,10 +401,15 @@ export default {
         parseValidDate: function(val) {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;
-        },
-        onCategorySelect(updatedCategories) {
-            this.selectedCategories = updatedCategories;
         }
+    },
+    mounted: function() {
+        getCategories()
+            .then(response => (this.categories = response.data))
+            .catch(() => {
+                console.error('Course categories could not be loaded');
+                this.categories = [];
+            });
     }
 };
 </script>
