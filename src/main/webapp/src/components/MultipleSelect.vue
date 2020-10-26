@@ -64,7 +64,8 @@ export default {
 
 .multiple-select .vs__actions {
     padding: $space-s;
-    background: url('../assets/images/chevron-down.svg') no-repeat right #fff;
+    background: url('../assets/images/chevron-down.svg') no-repeat $space-xs
+        center $white;
 }
 .multiple-select .vs__deselect {
     padding: $space-xs $space-m $space-xs 0;

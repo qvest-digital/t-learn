@@ -15,21 +15,19 @@
         />
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
-                <div
-                    class="course-card"
-                    @click="
-                        $router.push({
-                            name: 'courseDetails',
-                            params: { courseId: course.id }
-                        })
-                    "
-                >
+                <div class="course-card">
                     <div class="course-card-image-container">
                         <img
                             class="course-img"
                             :src="cardimage(course)"
                             :alt="course.title"
                             title="Veranstaltung Details"
+                            @click="
+                                $router.push({
+                                    name: 'courseDetails',
+                                    params: { courseId: course.id }
+                                })
+                            "
                         />
 
                         <div class="icon-container delete-course-icon">
@@ -198,6 +196,7 @@ export default {
     width: 260px;
     min-height: 120px;
     max-height: auto;
+    cursor: pointer;
 }
 .course-img {
     max-width: 100%;
