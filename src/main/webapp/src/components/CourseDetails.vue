@@ -350,7 +350,7 @@ export default {
     margin-bottom: $space-l;
     width: $container-m;
     min-height: 120px;
-    max-height: auto;
+    max-height: fit-content;
     padding: 3px;
 }
 .course-img {
