@@ -71,6 +71,3 @@ environments {
 }
 
 // To run the tests with all browsers just run “./gradlew test”
-
-baseUrl = "http://localhost:8080"
-//baseUrl = "https://t-force.lan.tarent.de/t-learn/#"

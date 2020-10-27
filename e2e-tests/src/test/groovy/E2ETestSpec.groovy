@@ -1,24 +1,27 @@
 import geb.spock.GebSpec
-import groovyx.net.http.RESTClient
+import org.testcontainers.containers.DockerComposeContainer
 import org.testcontainers.spock.Testcontainers
-import org.testcontainers.containers.PostgreSQLContainer
+import spock.lang.Shared
 
 @Testcontainers
 class E2ETestSpec extends GebSpec {
 
-    def db = new PostgreSQLContainer('postgres:13.0')
-    def baseApiUrl = System.getenv('BACKEND_URL') ?: 'http://localhost:8080'
-    def resetDb() {
-    def client = new RESTClient(baseApiUrl)
-    def response = client.post(
-        path: '/api_e2etest/reset',
-        body: '',
-        contentType: 'application/json'
-        )
+    private static final String serviceName = "app-backend"
+    private static final int servicePort = 8080
+
+    @Shared
+    DockerComposeContainer application = new DockerComposeContainer(new File("./e2e-docker-compose.yml"))
+            .withExposedService(serviceName, servicePort)
+            .withLocalCompose(true);
+
+    String getContainerUrl() {
+        def host = application.getServiceHost(serviceName, servicePort)
+        def port = application.getServicePort(serviceName, servicePort)
+        return "http://$host:$port"
     }
 
     def setup() {
-      to TLearnOverviewPage
+        TLearnOverviewPage.url = getContainerUrl()
+        to TLearnOverviewPage
     }
-
 }
