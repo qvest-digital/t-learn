@@ -1,15 +1,33 @@
 <template>
     <div class="course-details-container">
         <ConfirmModal
-            @cancel="showModal = false"
+            @cancel="showConfirmDeleteModal = false"
             @confirm="deleteCourse(course.id)"
-            v-if="showModal"
+            v-if="showConfirmDeleteModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
             :extraTitle="course.title"
-            text="Möchtest Du die Veranstaltung wirklich löschen?"
-        />
+        >
+            <div
+                data-testid="confirmModalContent"
+                class="confirm-modal-content"
+            >
+                Möchtest Du die Veranstaltung wirklich löschen?
+            </div>
+        </ConfirmModal>
+
+        <ConfirmModal
+            @cancel="showFeedbackModal = false"
+            @confirm="addFeedback(course.id)"
+            v-if="showFeedbackModal"
+            confirmButtonTitle="SPEICHERN"
+            cancelButtonTitle="ABBRECHEN"
+            modalTitle="Veranstaltung löschen - "
+            :extraTitle="course.title"
+        >
+            <FeedbackQuestions @feedback="setFeedback" />
+        </ConfirmModal>
         <div class="course-details-nav">
             <div class="nav-item">
                 <button class="button with-icon" @click="$router.push('/')">
@@ -21,6 +39,15 @@
                 </button>
             </div>
             <div class="nav-item">
+                <button
+                    class="button with-icon"
+                    @click="showFeedbackModal = true"
+                >
+                    <img
+                        class="button-icon"
+                        src="../assets/images/chat-text.svg"
+                    />FEEDBACK
+                </button>
                 <button
                     class="button with-icon"
                     @click="
@@ -36,7 +63,10 @@
                     />
                     BEARBEITEN
                 </button>
-                <button class="button with-icon" @click="showModal = true">
+                <button
+                    class="button with-icon"
+                    @click="showConfirmDeleteModal = true"
+                >
                     <img
                         class="button-icon"
                         src="../assets/images/trash.svg"
@@ -264,15 +294,18 @@ import coffeeImg from '@/assets/images/coffee.jpg';
 import signsImg from '@/assets/images/signs.jpg';
 import { deleteCourse, getCourse } from '@/services/BackendService';
 import ConfirmModal from './ConfirmModal';
+import FeedbackQuestions from './FeedbackQuestions';
 import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
-    components: { ConfirmModal },
-    data: function () {
+    components: { ConfirmModal, FeedbackQuestions },
+    data: function() {
         return {
             course: {},
-            showModal: false
+            showConfirmDeleteModal: false,
+            showFeedbackModal: false,
+            feedback: {}
         };
     },
     props: {
@@ -305,12 +338,23 @@ export default {
         deleteCourse: function (courseId) {
             deleteCourse(courseId)
                 .then(() => {
-                    this.showModal = false;
+                    this.showConfirmDeleteModal = false;
                     this.$router.push('/');
                 })
                 .catch(() =>
                     console.error(`${courseId} could not be deleted)`)
                 );
+        },
+        setFeedback: function(feedback) {
+            this.feedback = feedback;
+        },
+        addFeedback: function(/*courseId*/) {
+            //TODO: send payload to backend
+            // createFeedback(courseId, this.feedback)
+            //     .then(response => {
+            //         this.feedback = response.data;
+            //     })
+            //     .catch(error => handleError(this, error));
         }
     },
     mounted: function () {
@@ -336,7 +380,7 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
-.nav-item > button:first-child {
+.nav-item > button:not(:last-child) {
     margin-right: $space-s;
 }
 

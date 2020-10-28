@@ -9,9 +9,7 @@ describe('ConfirmModal.vue', () => {
         expect(getByTestId('confirmModalTitle')).toHaveTextContent(
             'Confirmation'
         );
-        expect(getByTestId('confirmModalContent')).toHaveTextContent(
-            'Are you sure?'
-        );
+      
 
         getByRole('button', { name: 'yes' });
         getByRole('button', { name: 'no' });
@@ -38,8 +36,7 @@ describe('ConfirmModal.vue', () => {
             propsData: {
                 modalTitle: 'Confirmation',
                 confirmButtonTitle: 'yes',
-                cancelButtonTitle: 'no',
-                text: 'Are you sure?'
+                cancelButtonTitle: 'no'
             }
         });
     }
