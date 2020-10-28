@@ -9,10 +9,7 @@
             modalTitle="Veranstaltung löschen - "
             :extraTitle="course.title"
         >
-            <div
-                data-testid="confirmModalContent"
-                class="confirm-modal-content"
-            >
+            <div>
                 Möchtest Du die Veranstaltung wirklich löschen?
             </div>
         </ConfirmModal>
