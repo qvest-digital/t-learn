@@ -7,12 +7,7 @@
                     {{ extraTitle }}
                 </span>
             </div>
-            <div
-                data-testid="confirmModalContent"
-                class="confirm-modal-content"
-            >
-                {{ text }}
-            </div>
+            <slot></slot>
             <div class="confirm-modal-footer">
                 <button @click="$emit('cancel')" class="button secondary">
                     {{ cancelButtonTitle }}
@@ -43,10 +38,6 @@ export default {
         cancelButtonTitle: {
             default: 'NEIN',
             type: String
-        },
-        text: {
-            default: 'Sind Sie sicher?',
-            type: String
         }
     }
 };
@@ -67,11 +58,11 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: $container-s;
+    width: $container-m;
     background-color: $white;
     padding: $space-s;
     height: auto;
-    max-height: 500px;
+    max-height: $container-l;
     overflow-y: auto;
     border-radius: $border-radius-s;
     line-height: 1.6;
@@ -80,7 +71,7 @@ export default {
     font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-s;
-    max-width: 490px;
+    max-width: $container-m;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -4,15 +4,18 @@
             Übersicht aller Verstanstaltungen
         </div>
         <ConfirmModal
-            @cancel="showModal = false"
+            @cancel="showConfirmDeleteModal = false"
             @confirm="deleteCourse(selectedCourse)"
-            v-if="showModal"
+            v-if="showConfirmDeleteModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
             :extraTitle="selectedCourse.title"
-            text="Möchtest Du die Veranstaltung wirklich löschen?"
-        />
+        >
+            <div>
+                Möchtest Du die Veranstaltung wirklich löschen?
+            </div>
+        </ConfirmModal>
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
                 <div class="course-card">
@@ -112,7 +115,7 @@ export default {
         return {
             courses: [],
             selectedCourse: {},
-            showModal: false
+            showConfirmDeleteModal: false
         };
     },
     methods: {
@@ -126,7 +129,7 @@ export default {
             }
         },
         onDeleteCourse: function(course) {
-            this.showModal = true;
+            this.showConfirmDeleteModal = true;
             this.selectedCourse = course;
         },
         deleteCourse: function(selectedCourse) {
@@ -140,7 +143,7 @@ export default {
                 .catch(() =>
                     console.error(`${selectedCourse.id} could not be deleted)`)
                 );
-            this.showModal = false;
+            this.showConfirmDeleteModal = false;
         }
     },
     mounted: function() {
