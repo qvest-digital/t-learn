@@ -9,7 +9,6 @@ class E2ETestSpec extends GebSpec {
     private static final String serviceName = "app-backend"
     private static final int servicePort = 8080
 
-    @Shared
     DockerComposeContainer application = new DockerComposeContainer(new File("./e2e-docker-compose.yml"))
             .withExposedService(serviceName, servicePort)
             .withLocalCompose(true);
