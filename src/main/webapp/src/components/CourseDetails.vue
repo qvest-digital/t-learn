@@ -23,7 +23,11 @@
             modalTitle="Veranstaltung löschen - "
             :extraTitle="course.title"
         >
-            <FeedbackQuestions @feedback="setFeedback" />
+            <FeedbackForm
+                ref="feedbackForm"
+                @feedback="setFeedback"
+                @ready="setFeedbackValidationStatus"
+            />
         </ConfirmModal>
         <div class="course-details-nav">
             <div class="nav-item">
@@ -291,20 +295,25 @@
 <script>
 import coffeeImg from '@/assets/images/coffee.jpg';
 import signsImg from '@/assets/images/signs.jpg';
-import { deleteCourse, getCourse } from '@/services/BackendService';
+import {
+    deleteCourse,
+    getCourse,
+    createFeedback
+} from '@/services/BackendService';
 import ConfirmModal from './ConfirmModal';
-import FeedbackQuestions from './FeedbackQuestions';
+import FeedbackForm from './FeedbackForm';
 import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
-    components: { ConfirmModal, FeedbackQuestions },
+    components: { ConfirmModal, FeedbackForm },
     data: function() {
         return {
             course: {},
             showConfirmDeleteModal: false,
             showFeedbackModal: false,
-            feedback: {}
+            feedback: {},
+            feedbackValidationStatus: false
         };
     },
     props: {
@@ -347,13 +356,19 @@ export default {
         setFeedback: function(feedback) {
             this.feedback = feedback;
         },
-        addFeedback: function(/*courseId*/) {
-            //TODO: send payload to backend
-            // createFeedback(courseId, this.feedback)
-            //     .then(response => {
-            //         this.feedback = response.data;
-            //     })
-            //     .catch(error => handleError(this, error));
+        setFeedbackValidationStatus: function(feedbackValidationStatus) {
+            this.feedbackValidationStatus = feedbackValidationStatus;
+        },
+
+        addFeedback: function(courseId) {
+            this.$refs.feedbackForm.touch();
+            if (this.feedbackValidationStatus) {
+                createFeedback(courseId, this.feedback)
+                    .then(() => {
+                        this.showFeedbackModal = false;
+                    })
+                    .catch(error => handleError(this, error));
+            }
         }
     },
     mounted: function() {
@@ -416,7 +431,7 @@ export default {
     background: $light-grey;
     padding: 0 $space-xs;
     font-size: $font-s;
-    font-weight: $bold;
+    font-weight: $normal;
     line-height: $space-l;
     border-radius: $border-radius-xs;
     margin: 0 $space-xs $space-xs 0;

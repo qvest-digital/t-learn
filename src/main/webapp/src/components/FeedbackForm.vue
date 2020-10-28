@@ -73,7 +73,12 @@
             <div class="feedback-question">
                 <div class="row">
                     <div class="column">
-                        <label class="feedback-label required-label"
+                        <label
+                            :class="
+                                validationStateClass(
+                                    'feedback.recommendation'
+                                ) + ' feedback-label required-label'
+                            "
                             >Kannst Du die Teilnahme an dieser Fortbildung
                             weiterempfehlen?</label
                         >
@@ -86,7 +91,15 @@
                                 id="feedback-recommendation-yes"
                                 placeholder="Langantwort-Text (Optional)"
                             />
-                            <label for="feedback-recommendation-yes">Ja</label>
+                            <label
+                                :class="
+                                    validationStateClass(
+                                        'feedback.recommendation'
+                                    )
+                                "
+                                for="feedback-recommendation-yes"
+                                >Ja</label
+                            >
                         </div>
                         <div class="feedback-radio-button-container">
                             <input
@@ -96,11 +109,24 @@
                                 @change="$emit('feedback', feedback)"
                                 id="feedback-recommendation-no"
                                 placeholder="Langantwort-Text (Optional)"
+                                :class="
+                                    validationStateClass(
+                                        'feedback.recommendation'
+                                    )
+                                "
                             />
-                            <label for="feedback-recommendation-no">Nein</label>
+                            <label
+                                :class="
+                                    validationStateClass(
+                                        'feedback.recommendation'
+                                    )
+                                "
+                                for="feedback-recommendation-no"
+                                >Nein</label
+                            >
                         </div>
                         <span
-                            v-if="$v.feedback.recommendationQuestion.$error"
+                            v-if="$v.feedback.recommendation.$error"
                             class="feedback-validation-text"
                             >Bitte wählen.
                         </span>
@@ -124,6 +150,23 @@ export default {
                 recommendation: ''
             }
         };
+    },
+    methods: {
+        touch: function() {
+            this.$v.$touch();
+            this.$emit('ready', !this.$v.$invalid);
+        },
+        validationStateClass: function(path) {
+            const { $dirty, $error } = path
+                .split('.')
+                .reduce(
+                    (previous, current) =>
+                        previous ? previous[current] : null,
+                    this.$v
+                );
+
+            return $dirty && $error ? 'is-invalid' : 'is-valid';
+        }
     },
     validations: {
         feedback: {
@@ -157,12 +200,10 @@ export default {
     content: '\00a0*';
 }
 .is-invalid {
-    border: $red 1px solid;
     color: $red;
 }
 .feedback-validation-text {
     color: $red;
-    font-size: $font-xs;
     margin-top: $space-xs;
 }
 .feedback-radio-button-container {
