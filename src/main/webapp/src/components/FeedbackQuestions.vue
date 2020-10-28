@@ -7,18 +7,20 @@
             <div class="feedback-question">
                 <div class="row">
                     <div class="column">
-                        <label for="feedback-person-name" class="feedback-label"
+                        <label
+                            for="feedback-participant-name"
+                            class="feedback-label"
                             >Wie lautet Dein Name?</label
                         >
                         <input
                             type="text"
-                            v-model="$v.feedback.personName.$model"
+                            v-model="$v.feedback.participantName.$model"
                             @change="$emit('feedback', feedback)"
-                            id="person-name"
+                            id="feedback-participant-name"
                             placeholder="Kurzantwort-Text (Optional)"
                         />
                         <span
-                            v-if="$v.feedback.personName.$error"
+                            v-if="$v.feedback.participantName.$error"
                             class="feedback-validation-text"
                             >Die maximale Länge sind 255 Zeichen.
                         </span>
@@ -28,23 +30,21 @@
             <div class="feedback-question">
                 <div class="row">
                     <div class="column">
-                        <label
-                            for="feedback-negative-question"
-                            class="feedback-label"
+                        <label for="feedback-dislikes" class="feedback-label"
                             >Was hat Dir im Rahmen der Fortbildung nicht
                             gefallen?</label
                         >
                         <input
                             type="text"
-                            v-model="$v.feedback.negativeQuestion.$model"
+                            v-model="$v.feedback.dislikes.$model"
                             @change="$emit('feedback', feedback)"
-                            id="feedback-negative-question"
+                            id="feedback-dislikes"
                             placeholder="Langantwort-Text (Optional)"
                         />
                         <span
-                            v-if="$v.feedback.negativeQuestion.$error"
+                            v-if="$v.feedback.dislikes.$error"
                             class="feedback-validation-text"
-                            >Die maximale Länge sind 255 Zeichen.
+                            >Die maximale Länge sind 2000 Zeichen.
                         </span>
                     </div>
                 </div>
@@ -52,22 +52,20 @@
             <div class="feedback-question">
                 <div class="row">
                     <div class="column">
-                        <label
-                            for="feedback-positive-question"
-                            class="feedback-label"
+                        <label for="feedback-likes" class="feedback-label"
                             >Was hat Dir besonders gut gefallen?</label
                         >
                         <input
                             type="text"
-                            v-model="$v.feedback.positiveQuestion.$model"
+                            v-model="$v.feedback.likes.$model"
                             @change="$emit('feedback', feedback)"
-                            id="feedback-positive-question"
+                            id="feedback-likes"
                             placeholder="Langantwort-Text (Optional)"
                         />
                         <span
-                            v-if="$v.feedback.positiveQuestion.$error"
+                            v-if="$v.feedback.likes.$error"
                             class="feedback-validation-text"
-                            >Die maximale Länge sind 255 Zeichen.
+                            >Die maximale Länge sind 2000 Zeichen.
                         </span>
                     </div>
                 </div>
@@ -83,31 +81,23 @@
                             <input
                                 type="radio"
                                 value="yes"
-                                v-model="
-                                    $v.feedback.recommendationQuestion.$model
-                                "
+                                v-model="$v.feedback.recommendation.$model"
                                 @change="$emit('feedback', feedback)"
-                                id="feedback-recommendation-question-yes"
+                                id="feedback-recommendation-yes"
                                 placeholder="Langantwort-Text (Optional)"
                             />
-                            <label for="feedback-recommendation-question-yes"
-                                >Ja</label
-                            >
+                            <label for="feedback-recommendation-yes">Ja</label>
                         </div>
                         <div class="feedback-radio-button-container">
                             <input
                                 type="radio"
                                 value="no"
-                                v-model="
-                                    $v.feedback.recommendationQuestion.$model
-                                "
+                                v-model="$v.feedback.recommendation.$model"
                                 @change="$emit('feedback', feedback)"
-                                id="feedback-recommendation-question-no"
+                                id="feedback-recommendation-no"
                                 placeholder="Langantwort-Text (Optional)"
                             />
-                            <label for="feedback-recommendation-question-no"
-                                >Nein</label
-                            >
+                            <label for="feedback-recommendation-no">Nein</label>
                         </div>
                         <span
                             v-if="$v.feedback.recommendationQuestion.$error"
@@ -128,19 +118,19 @@ export default {
     data: function() {
         return {
             feedback: {
-                personName: '',
-                negativeQuestion: '',
-                positiveQuestion: '',
-                recommendationQuestion: ''
+                participantName: '',
+                dislikes: '',
+                likes: '',
+                recommendation: ''
             }
         };
     },
     validations: {
         feedback: {
-            personName: { maxLength: maxLength(255) },
-            negativeQuestion: { maxLength: maxLength(255) },
-            positiveQuestion: { maxLength: maxLength(255) },
-            recommendationQuestion: { required }
+            participantName: { maxLength: maxLength(255) },
+            dislikes: { maxLength: maxLength(2000) },
+            likes: { maxLength: maxLength(2000) },
+            recommendation: { required }
         }
     }
 };
