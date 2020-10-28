@@ -17,7 +17,7 @@ ext {
         seleniumVersion = '3.14.0'
         chromeDriverVersion = '85.0.4183.38'
         geckoDriverVersion = '0.26.0'
-	testContainerVersion = '1.14.3'
+        testContainerVersion = '1.14.3'
     }
 }
 
@@ -32,8 +32,7 @@ dependencies {
         exclude group: "org.codehaus.groovy"
     }
 
-    testCompile group: 'org.codehaus.groovy.modules.http-builder', name: 'http-builder', version: '0.7.1'
-    testCompile "org.testcontainers:postgresql:$testContainerVersion"
+    testCompile "org.codehaus.groovy.modules.http-builder:http-builder:0.7.1"
     testCompile "org.testcontainers:spock:$testContainerVersion"
 
     // Drivers
