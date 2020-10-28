@@ -1,5 +1,4 @@
 import geb.Page
-import groovyx.net.http.RESTClient
 
 class TLearnEditPage extends Page {
 

@@ -1,4 +1,3 @@
-    import spock.lang.Ignore
 import spock.lang.Stepwise
 
 @Stepwise
@@ -19,9 +18,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Veranstaltungsart ist ein Pflichtfeld und die maximale Länge sind 255 Zeichen.'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
 
     def "event is displayed on details page after creation"() {
@@ -67,9 +63,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('666€'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
 
     def "created event is displayed on overview page"() {
@@ -106,9 +99,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('11.11.2020 08:00'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
 
     def "delete event on details page after creation"() {
@@ -144,9 +134,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: notContains('E2E-Test Title'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
 
     def "cancel deleting event on details page after creation"() {
@@ -194,9 +181,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('666€'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
 
     def "edit event after creation"() {
@@ -261,9 +245,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Präsenz'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
 
       def "cancel editing event after creation"() {
@@ -329,9 +310,5 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('666€'))
         }
 
-        cleanup:
-        Thread.sleep(100)
-        //resetDb()
         }
-
 }
