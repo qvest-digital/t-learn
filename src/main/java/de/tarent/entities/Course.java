@@ -1,6 +1,7 @@
 package de.tarent.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.tarent.config.UtcOffsetDateTimeSerializer;
 import de.tarent.validator.StartDateBeforeEndDate;
@@ -16,17 +17,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 @Entity
 @StartDateBeforeEndDate
-@EqualsAndHashCode(exclude = "categoryList")
+@EqualsAndHashCode(exclude = {"categoryList", "participantFeedback"})
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Course extends PanacheEntity {
 
     @NotBlank
@@ -70,6 +74,11 @@ public class Course extends PanacheEntity {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     public List<Category> categoryList;
+
+    @JsonIgnore
+    @OneToMany(cascade = ALL)
+    @JoinColumn(name = "course_id", nullable = false)
+    public Set<ParticipantFeedback> participantFeedback;
 
     @Transient
     public List<String> categoryNames;

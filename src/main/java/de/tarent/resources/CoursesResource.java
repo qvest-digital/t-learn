@@ -19,7 +19,7 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 @Transactional
 public class CoursesResource {
 
-    private static final Response NOT_FOUND_RESPONSE = Response.status(NOT_FOUND).build();
+    static final Response NOT_FOUND_RESPONSE = Response.status(NOT_FOUND).build();
 
     @GET
     @Produces(APPLICATION_JSON)
@@ -78,7 +78,7 @@ public class CoursesResource {
                 });
     }
 
-    private Predicate<Course> notDeleted() {
+    static Predicate<Course> notDeleted() {
         return course -> !TRUE.equals(course.deleted);
     }
 }
