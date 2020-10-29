@@ -1,5 +1,9 @@
 <template>
-    <div data-testid="confirmModal" class="confirm-modal-overlay">
+    <div
+        v-if="visible"
+        data-testid="confirmModal"
+        class="confirm-modal-overlay"
+    >
         <div class="confirm-modal-container">
             <div data-testid="confirmModalTitle" class="confirm-modal-title">
                 {{ modalTitle }}
@@ -10,7 +14,7 @@
             <slot></slot>
             <div class="confirm-modal-footer">
                 <button
-                    @click="$emit('cancel')"
+                    @click="hideModal"
                     class="button secondary"
                     id="cancel-button"
                 >
@@ -46,6 +50,19 @@ export default {
         cancelButtonTitle: {
             default: 'NEIN',
             type: String
+        }
+    },
+    data() {
+        return {
+            visible: false
+        };
+    },
+    methods: {
+        showModal() {
+            this.visible = true;
+        },
+        hideModal() {
+            this.visible = false;
         }
     }
 };

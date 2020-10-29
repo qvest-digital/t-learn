@@ -4,9 +4,8 @@
             Übersicht aller Verstanstaltungen
         </div>
         <ConfirmModal
-            @cancel="showConfirmDeleteModal = false"
+            ref="confirmDeleteModal"
             @confirm="deleteCourse(selectedCourse)"
-            v-if="showConfirmDeleteModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
@@ -114,8 +113,7 @@ export default {
     data: function() {
         return {
             courses: [],
-            selectedCourse: {},
-            showConfirmDeleteModal: false
+            selectedCourse: {}
         };
     },
     methods: {
@@ -129,7 +127,7 @@ export default {
             }
         },
         onDeleteCourse: function(course) {
-            this.showConfirmDeleteModal = true;
+            this.$refs.confirmDeleteModal.showModal();
             this.selectedCourse = course;
         },
         deleteCourse: function(selectedCourse) {
@@ -143,7 +141,7 @@ export default {
                 .catch(() =>
                     console.error(`${selectedCourse.id} could not be deleted)`)
                 );
-            this.showConfirmDeleteModal = false;
+            this.$refs.confirmDeleteModal.hideModal();
         }
     },
     mounted: function() {
