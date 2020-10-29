@@ -4,133 +4,118 @@
             Die Inhalte werden veröffentlicht sein.
         </div>
         <div class="feedback-questions-container">
-            <div class="feedback-question">
-                <div class="row">
-                    <div class="column">
-                        <label
-                            for="feedback-participant-name"
-                            class="feedback-label"
-                            >Wie lautet Dein Name?</label
-                        >
-                        <input
-                            type="text"
-                            v-model="$v.feedback.participantName.$model"
-                            @change="$emit('feedback', feedback)"
-                            id="feedback-participant-name"
-                            placeholder="Kurzantwort-Text (Optional)"
-                        />
-                        <span
-                            v-if="$v.feedback.participantName.$error"
-                            class="feedback-validation-text"
-                            >Die maximale Länge sind 255 Zeichen.
-                        </span>
-                    </div>
+            <div class="row">
+                <div class="column">
+                    <label
+                        for="feedback-participant-name"
+                        class="feedback-label"
+                        >Wie lautet Dein Name?</label
+                    >
+                    <input
+                        type="text"
+                        v-model="$v.feedback.participantName.$model"
+                        @change="$emit('feedback', feedback)"
+                        id="feedback-participant-name"
+                        placeholder="Kurzantwort-Text (Optional)"
+                    />
+                    <span
+                        v-if="$v.feedback.participantName.$error"
+                        class="feedback-validation-text"
+                        >Die maximale Länge sind 255 Zeichen.
+                    </span>
                 </div>
             </div>
-            <div class="feedback-question">
-                <div class="row">
-                    <div class="column">
-                        <label for="feedback-dislikes" class="feedback-label"
-                            >Was hat Dir im Rahmen der Fortbildung nicht
-                            gefallen?</label
-                        >
+            <div class="row">
+                <div class="column">
+                    <label for="feedback-dislikes" class="feedback-label"
+                        >Was hat Dir im Rahmen der Fortbildung nicht
+                        gefallen?</label
+                    >
+                    <input
+                        type="text"
+                        v-model="$v.feedback.dislikes.$model"
+                        @change="$emit('feedback', feedback)"
+                        id="feedback-dislikes"
+                        placeholder="Langantwort-Text (Optional)"
+                    />
+                    <span
+                        v-if="$v.feedback.dislikes.$error"
+                        class="feedback-validation-text"
+                        >Die maximale Länge sind 2000 Zeichen.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label for="feedback-likes" class="feedback-label"
+                        >Was hat Dir besonders gut gefallen?</label
+                    >
+                    <input
+                        type="text"
+                        v-model="$v.feedback.likes.$model"
+                        @change="$emit('feedback', feedback)"
+                        id="feedback-likes"
+                        placeholder="Langantwort-Text (Optional)"
+                    />
+                    <span
+                        v-if="$v.feedback.likes.$error"
+                        class="feedback-validation-text"
+                        >Die maximale Länge sind 2000 Zeichen.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <label
+                        :class="
+                            validationStateClass('feedback.recommendation') +
+                                ' feedback-label required-label'
+                        "
+                        >Kannst Du die Teilnahme an dieser Fortbildung
+                        weiterempfehlen?</label
+                    >
+                    <div class="feedback-radio-button-container">
                         <input
-                            type="text"
-                            v-model="$v.feedback.dislikes.$model"
+                            type="radio"
+                            value="yes"
+                            v-model="$v.feedback.recommendation.$model"
                             @change="$emit('feedback', feedback)"
-                            id="feedback-dislikes"
+                            id="feedback-recommendation-yes"
                             placeholder="Langantwort-Text (Optional)"
                         />
-                        <span
-                            v-if="$v.feedback.dislikes.$error"
-                            class="feedback-validation-text"
-                            >Die maximale Länge sind 2000 Zeichen.
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="feedback-question">
-                <div class="row">
-                    <div class="column">
-                        <label for="feedback-likes" class="feedback-label"
-                            >Was hat Dir besonders gut gefallen?</label
-                        >
-                        <input
-                            type="text"
-                            v-model="$v.feedback.likes.$model"
-                            @change="$emit('feedback', feedback)"
-                            id="feedback-likes"
-                            placeholder="Langantwort-Text (Optional)"
-                        />
-                        <span
-                            v-if="$v.feedback.likes.$error"
-                            class="feedback-validation-text"
-                            >Die maximale Länge sind 2000 Zeichen.
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="feedback-question">
-                <div class="row">
-                    <div class="column">
                         <label
                             :class="
-                                validationStateClass(
-                                    'feedback.recommendation'
-                                ) + ' feedback-label required-label'
+                                validationStateClass('feedback.recommendation')
                             "
-                            >Kannst Du die Teilnahme an dieser Fortbildung
-                            weiterempfehlen?</label
+                            for="feedback-recommendation-yes"
+                            >Ja</label
                         >
-                        <div class="feedback-radio-button-container">
-                            <input
-                                type="radio"
-                                value="yes"
-                                v-model="$v.feedback.recommendation.$model"
-                                @change="$emit('feedback', feedback)"
-                                id="feedback-recommendation-yes"
-                                placeholder="Langantwort-Text (Optional)"
-                            />
-                            <label
-                                :class="
-                                    validationStateClass(
-                                        'feedback.recommendation'
-                                    )
-                                "
-                                for="feedback-recommendation-yes"
-                                >Ja</label
-                            >
-                        </div>
-                        <div class="feedback-radio-button-container">
-                            <input
-                                type="radio"
-                                value="no"
-                                v-model="$v.feedback.recommendation.$model"
-                                @change="$emit('feedback', feedback)"
-                                id="feedback-recommendation-no"
-                                placeholder="Langantwort-Text (Optional)"
-                                :class="
-                                    validationStateClass(
-                                        'feedback.recommendation'
-                                    )
-                                "
-                            />
-                            <label
-                                :class="
-                                    validationStateClass(
-                                        'feedback.recommendation'
-                                    )
-                                "
-                                for="feedback-recommendation-no"
-                                >Nein</label
-                            >
-                        </div>
-                        <span
-                            v-if="$v.feedback.recommendation.$error"
-                            class="feedback-validation-text"
-                            >Bitte wählen.
-                        </span>
                     </div>
+                    <div class="feedback-radio-button-container">
+                        <input
+                            type="radio"
+                            value="no"
+                            v-model="$v.feedback.recommendation.$model"
+                            @change="$emit('feedback', feedback)"
+                            id="feedback-recommendation-no"
+                            placeholder="Langantwort-Text (Optional)"
+                            :class="
+                                validationStateClass('feedback.recommendation')
+                            "
+                        />
+                        <label
+                            :class="
+                                validationStateClass('feedback.recommendation')
+                            "
+                            for="feedback-recommendation-no"
+                            >Nein</label
+                        >
+                    </div>
+                    <span
+                        v-if="$v.feedback.recommendation.$error"
+                        class="feedback-validation-text"
+                        >Bitte wählen.
+                    </span>
                 </div>
             </div>
         </div>
@@ -184,9 +169,7 @@ export default {
     margin-top: $space-s;
     margin-bottom: $space-xl;
 }
-.feedback-question {
-    margin-bottom: $space-l;
-}
+
 .feedback-label {
     font-size: $font-m;
     color: $black;
@@ -231,14 +214,6 @@ input[type='radio'] {
     height: $font-l;
 }
 .row {
-    margin-bottom: $space-s;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-.column {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    margin-bottom: $space-l;
 }
 </style>

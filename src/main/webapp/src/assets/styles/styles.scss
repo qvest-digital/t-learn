@@ -7,10 +7,12 @@
 @import './containers.scss';
 @import './borders.scss';
 @import './shadows.scss';
+@import './grid.scss';
 
 // global styles
 * {
     font-family: $ubuntu;
     margin: 0;
     padding: 0;
+    color: $black;
 }

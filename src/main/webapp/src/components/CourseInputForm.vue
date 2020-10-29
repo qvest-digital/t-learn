@@ -468,13 +468,5 @@ textarea {
 }
 .row {
     margin-bottom: $space-s;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-.column {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
 }
 </style>
