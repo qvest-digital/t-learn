@@ -31,7 +31,11 @@
         </ConfirmModal>
         <div class="course-details-nav">
             <div class="nav-item">
-                <button class="button with-icon" @click="$router.push('/')">
+                <button
+                    id="back-button"
+                    class="button with-icon"
+                    @click="$router.push('/')"
+                >
                     <img
                         class="button-icon"
                         src="../assets/images/arrow-left.svg"
@@ -41,6 +45,7 @@
             </div>
             <div class="nav-item">
                 <button
+                    id="add-feedback-button"
                     class="button with-icon"
                     @click="showFeedbackModal = true"
                 >
@@ -50,6 +55,7 @@
                     />FEEDBACK
                 </button>
                 <button
+                    id="edit-course-button"
                     class="button with-icon"
                     @click="
                         $router.push({
@@ -65,6 +71,7 @@
                     BEARBEITEN
                 </button>
                 <button
+                    id="delete-course-button"
                     class="button with-icon"
                     @click="showConfirmDeleteModal = true"
                 >
