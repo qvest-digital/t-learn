@@ -9,10 +9,18 @@
             </div>
             <slot></slot>
             <div class="confirm-modal-footer">
-                <button @click="$emit('cancel')" class="button secondary">
+                <button
+                    @click="$emit('cancel')"
+                    class="button secondary"
+                    id="cancel-button"
+                >
                     {{ cancelButtonTitle }}
                 </button>
-                <button @click="$emit('confirm')" class="button primary">
+                <button
+                    @click="$emit('confirm')"
+                    class="button primary"
+                    id="confirm-button"
+                >
                     {{ confirmButtonTitle }}
                 </button>
             </div>

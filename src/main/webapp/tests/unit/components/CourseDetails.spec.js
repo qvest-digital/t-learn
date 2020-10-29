@@ -1,8 +1,16 @@
 import '@testing-library/jest-dom';
+import { createLocalVue, mount } from '@vue/test-utils';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
-import { deleteCourse, getCourse } from '@/services/BackendService';
+import {
+    deleteCourse,
+    getCourse,
+    createFeedback
+} from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
+import FeedbackForm from '@/components/FeedbackForm';
+import Vuelidate from 'vuelidate';
+
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
 
@@ -13,8 +21,38 @@ describe('CourseDetails.vue', () => {
     afterEach(() => {
         getCourse.mockReset();
         deleteCourse.mockReset();
+        createFeedback.mockReset();
     });
+    it('should call createFeedback', async () => {
+        const feedback = {
+            participantName: '',
+            dislikes: '',
+            likes: '',
+            recommendation: 'yes'
+        };
+        getCourse.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {
+                    id: 2
+                }
+            })
+        );
+        createFeedback.mockImplementationOnce(() =>
+            Promise.resolve({
+                feedback
+            })
+        );
 
+        const localVue = createLocalVue();
+        localVue.use(Vuelidate);
+        const wrapper = mount(CourseDetails, {
+            localVue
+        });
+        await wrapper.find('#add-feedback-button').trigger('click');
+        await wrapper.find('#feedback-recommendation-yes').trigger('click');
+        await wrapper.find('#confirm-button').trigger('click');
+        expect(createFeedback).toHaveBeenCalledWith(2, { ...feedback });
+    });
     it('loads course from server and displays all fields', async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
