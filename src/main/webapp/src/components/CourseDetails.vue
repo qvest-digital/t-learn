@@ -1,9 +1,8 @@
 <template>
     <div class="course-details-container">
         <ConfirmModal
-            @cancel="showConfirmDeleteModal = false"
+            ref="confirmDeleteModal"
             @confirm="deleteCourse(course.id)"
-            v-if="showConfirmDeleteModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
@@ -15,9 +14,8 @@
         </ConfirmModal>
 
         <ConfirmModal
-            @cancel="showFeedbackModal = false"
+            ref="feedbackModal"
             @confirm="addFeedback(course.id)"
-            v-if="showFeedbackModal"
             confirmButtonTitle="SPEICHERN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
@@ -47,7 +45,7 @@
                 <button
                     id="add-feedback-button"
                     class="button with-icon"
-                    @click="showFeedbackModal = true"
+                    @click="$refs.feedbackModal.showModal()"
                 >
                     <img
                         class="button-icon"
@@ -73,7 +71,7 @@
                 <button
                     id="delete-course-button"
                     class="button with-icon"
-                    @click="showConfirmDeleteModal = true"
+                    @click="$refs.confirmDeleteModal.showModal()"
                 >
                     <img
                         class="button-icon"
@@ -315,8 +313,6 @@ export default {
     data: function() {
         return {
             course: {},
-            showConfirmDeleteModal: false,
-            showFeedbackModal: false,
             feedback: {},
             feedbackValidationStatus: false
         };
@@ -351,7 +347,7 @@ export default {
         deleteCourse: function (courseId) {
             deleteCourse(courseId)
                 .then(() => {
-                    this.showConfirmDeleteModal = false;
+                    this.$refs.confirmDeleteModal.hideModal();
                     this.$router.push('/');
                 })
                 .catch(() =>
@@ -370,7 +366,7 @@ export default {
             if (this.feedbackValidationStatus) {
                 createFeedback(courseId, this.feedback)
                     .then(() => {
-                        this.showFeedbackModal = false;
+                        this.$refs.feedbackModal.hideModal();
                     })
                     .catch(error => handleError(this, error));
             }
