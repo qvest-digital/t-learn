@@ -77,7 +77,7 @@
                     <div class="feedback-radio-button-container">
                         <input
                             type="radio"
-                            value="yes"
+                            :value="true"
                             v-model="$v.feedback.recommendation.$model"
                             @change="$emit('feedback', feedback)"
                             id="feedback-recommendation-yes"
@@ -94,7 +94,7 @@
                     <div class="feedback-radio-button-container">
                         <input
                             type="radio"
-                            value="no"
+                            :value="false"
                             v-model="$v.feedback.recommendation.$model"
                             @change="$emit('feedback', feedback)"
                             id="feedback-recommendation-no"
@@ -132,7 +132,8 @@ export default {
                 participantName: '',
                 dislikes: '',
                 likes: '',
-                recommendation: ''
+                recommendation: null,
+                feedbackTime: ''
             }
         };
     },

@@ -22,7 +22,8 @@ function renderComponent() {
                         participantName: '',
                         dislikes: '',
                         likes: '',
-                        recommendation: ''
+                        recommendation: null,
+                        feedbackTime: ''
                     }
                 };
             }
@@ -51,7 +52,8 @@ describe('FeedbackForm.vue', () => {
                 participantName: '',
                 dislikes: '',
                 likes: '',
-                recommendation: 'yes'
+                recommendation: true,
+                feedbackTime: ''
             }
         });
 

@@ -25,5 +25,11 @@ export function getCategories() {
 }
 
 export function createFeedback(courseId, feedback) {
-    return axios.post(`courses/${courseId}/feedback`, feedback);
+    const body = {
+        participant_name: feedback.participantName,
+        likes: feedback.likes,
+        dislikes: feedback.dislikes,
+        recommendation: feedback.recommendation
+    };
+    return axios.post(`courses/${courseId}/feedback`, body);
 }
