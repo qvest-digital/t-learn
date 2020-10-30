@@ -5,6 +5,7 @@
             id="multiselect"
             placeholder="Bitte wählen"
             multiple
+            :closeOnSelect="false"
             v-model="internalValue"
             :options="internalOptions"
             @input="$emit('input', internalValue)"
