@@ -28,7 +28,8 @@ describe('CourseDetails.vue', () => {
             participantName: '',
             dislikes: '',
             likes: '',
-            recommendation: 'yes'
+            recommendation: true,
+            feedbackTime: ''
         };
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
