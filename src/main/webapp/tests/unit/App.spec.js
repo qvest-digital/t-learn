@@ -30,7 +30,7 @@ describe('App.vue', () => {
             {
                 routes: routes
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
                 localVue.component('v-select', vSelect);
             }

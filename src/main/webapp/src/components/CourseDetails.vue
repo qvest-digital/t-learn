@@ -94,9 +94,7 @@
             </div>
 
             <div class="course-details-summary-container">
-                <div class="course-details-summary-title">
-                    Steckbrief
-                </div>
+                <div class="course-details-summary-title">Steckbrief</div>
                 <div
                     id="organizer"
                     v-if="course.organizer"
@@ -271,7 +269,7 @@ import handleError from '@/components/handleError';
 export default {
     name: 'CourseDetails',
     components: { ConfirmModal },
-    data: function() {
+    data: function () {
         return {
             course: {},
             showModal: false
@@ -283,12 +281,12 @@ export default {
         }
     },
     watch: {
-        courseId: function(courseId) {
+        courseId: function (courseId) {
             this.loadCourse(courseId);
         }
     },
     methods: {
-        cardimage: function(course) {
+        cardimage: function (course) {
             switch (course.courseType) {
                 case 'EXTERNAL':
                     return signsImg;
@@ -297,14 +295,14 @@ export default {
                     return coffeeImg;
             }
         },
-        loadCourse: function(courseId) {
+        loadCourse: function (courseId) {
             getCourse(courseId)
-                .then(response => {
+                .then((response) => {
                     this.course = response.data;
                 })
-                .catch(error => handleError(this, error));
+                .catch((error) => handleError(this, error));
         },
-        deleteCourse: function(courseId) {
+        deleteCourse: function (courseId) {
             deleteCourse(courseId)
                 .then(() => {
                     this.showModal = false;
@@ -315,7 +313,7 @@ export default {
                 );
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.loadCourse(this.courseId);
     }
 };
