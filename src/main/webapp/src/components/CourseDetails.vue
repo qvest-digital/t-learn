@@ -1,6 +1,6 @@
 <template>
     <div class="course-details-container">
-        <ConfirmModal
+        <ModalContainer
             ref="confirmDeleteModal"
             @confirm="deleteCourse(course.id)"
             confirmButtonTitle="LÖSCHEN"
@@ -11,9 +11,9 @@
             <div>
                 Möchtest Du die Veranstaltung wirklich löschen?
             </div>
-        </ConfirmModal>
+        </ModalContainer>
 
-        <ConfirmModal
+        <ModalContainer
             ref="feedbackModal"
             @confirm="addFeedback"
             confirmButtonTitle="SPEICHERN"
@@ -26,7 +26,7 @@
                 @feedback="setFeedback"
                 @ready="setFeedbackValidationStatus"
             />
-        </ConfirmModal>
+        </ModalContainer>
         <div class="course-details-nav">
             <div class="nav-item">
                 <button
@@ -306,13 +306,13 @@ import {
     getCourse,
     createFeedback
 } from '@/services/BackendService';
-import ConfirmModal from './ConfirmModal';
+import ModalContainer from './ModalContainer';
 import FeedbackForm from './FeedbackForm';
 import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
-    components: { ConfirmModal, FeedbackForm },
+    components: { ModalContainer, FeedbackForm },
     data: function() {
         return {
             course: {},

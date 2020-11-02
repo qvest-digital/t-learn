@@ -1,18 +1,21 @@
 <template>
     <div
         v-if="visible"
-        data-testid="confirmModal"
-        class="confirm-modal-overlay"
+        data-testid="ModalContainer"
+        class="container-modal-overlay"
     >
-        <div class="confirm-modal-container">
-            <div data-testid="confirmModalTitle" class="confirm-modal-title">
+        <div class="container-modal-container">
+            <div
+                data-testid="modalContainerTitle"
+                class="container-modal-title"
+            >
                 {{ modalTitle }}
                 <span :title="extraTitle" class="title-bold">
                     {{ extraTitle }}
                 </span>
             </div>
             <slot></slot>
-            <div class="confirm-modal-footer">
+            <div class="container-modal-footer">
                 <button
                     @click="hideModal"
                     class="button secondary"
@@ -69,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.confirm-modal-overlay {
+.container-modal-overlay {
     background: $overlay-background;
     bottom: 0;
     left: 0;
@@ -78,7 +81,7 @@ export default {
     top: 0;
     z-index: 9999;
 }
-.confirm-modal-container {
+.container-modal-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -92,7 +95,7 @@ export default {
     border-radius: $border-radius-s;
     line-height: 1.6;
 }
-.confirm-modal-title {
+.container-modal-title {
     font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-s;
@@ -104,7 +107,7 @@ export default {
 .title-bold {
     font-weight: $bold;
 }
-.confirm-modal-footer {
+.container-modal-footer {
     margin-top: $space-xl;
     margin-right: $space-xs;
     display: flex;
