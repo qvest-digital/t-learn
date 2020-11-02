@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div data-testid="confirmModalContent" class="feedback-tip-text">
+        <div class="feedback-tip-text">
             Die Inhalte werden veröffentlicht sein.
         </div>
         <div class="feedback-questions-container">

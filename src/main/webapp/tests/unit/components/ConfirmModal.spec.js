@@ -1,11 +1,11 @@
-import ConfirmModal from '@/components/ConfirmModal';
+import ModalContainer from '@/components/ModalContainer';
 import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/vue';
 
-describe('ConfirmModal.vue', () => {
-    test('render ConfirmModal with text from props', () => {
+describe('ModalContainer.vue', () => {
+    test('render ModalContainer with text from props', () => {
         const { getByRole, getByTestId } = setupComponent();
-        expect(getByTestId('confirmModalTitle')).toHaveTextContent(
+        expect(getByTestId('modalContainerTitle')).toHaveTextContent(
             'Confirmation'
         );
         getByRole('button', { name: 'yes' });
@@ -27,7 +27,7 @@ describe('ConfirmModal.vue', () => {
     });
 
     function setupComponent() {
-        return render(ConfirmModal, {
+        return render(ModalContainer, {
             propsData: {
                 modalTitle: 'Confirmation',
                 confirmButtonTitle: 'yes',

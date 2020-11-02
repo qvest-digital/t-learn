@@ -3,7 +3,7 @@
         <div class="course-overview-title">
             Übersicht aller Verstanstaltungen
         </div>
-        <ConfirmModal
+        <ModalContainer
             ref="confirmDeleteModal"
             @confirm="deleteCourse(selectedCourse)"
             confirmButtonTitle="LÖSCHEN"
@@ -14,7 +14,7 @@
             <div>
                 Möchtest Du die Veranstaltung wirklich löschen?
             </div>
-        </ConfirmModal>
+        </ModalContainer>
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
                 <div class="course-card">
@@ -103,12 +103,12 @@
 import coffeeImg from '../assets/images/coffee.jpg';
 import signsImg from '../assets/images/signs.jpg';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-import ConfirmModal from './ConfirmModal';
+import ModalContainer from './ModalContainer';
 
 export default {
     name: 'CourseOverview',
     components: {
-        ConfirmModal
+        ModalContainer
     },
     data: function () {
         return {
