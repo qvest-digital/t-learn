@@ -81,7 +81,6 @@
                             v-model="$v.feedback.recommendation.$model"
                             @change="$emit('feedback', feedback)"
                             id="feedback-recommendation-yes"
-                            placeholder="Langantwort-Text (Optional)"
                         />
                         <label
                             :class="
@@ -98,7 +97,6 @@
                             v-model="$v.feedback.recommendation.$model"
                             @change="$emit('feedback', feedback)"
                             id="feedback-recommendation-no"
-                            placeholder="Langantwort-Text (Optional)"
                             :class="
                                 validationStateClass('feedback.recommendation')
                             "
@@ -132,8 +130,7 @@ export default {
                 participantName: '',
                 dislikes: '',
                 likes: '',
-                recommendation: null,
-                feedbackTime: ''
+                recommendation: null
             }
         };
     },

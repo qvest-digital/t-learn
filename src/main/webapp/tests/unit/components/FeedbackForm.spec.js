@@ -3,7 +3,6 @@ import { render, waitFor, fireEvent } from '@testing-library/vue';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuelidate from 'vuelidate';
 import FeedbackForm from '@/components/FeedbackForm';
-import Vue from 'vue';
 
 function mountComponent() {
     const localVue = createLocalVue();
@@ -22,8 +21,7 @@ function renderComponent() {
                         participantName: '',
                         dislikes: '',
                         likes: '',
-                        recommendation: null,
-                        feedbackTime: ''
+                        recommendation: null
                     }
                 };
             }
@@ -52,8 +50,7 @@ describe('FeedbackForm.vue', () => {
                 participantName: '',
                 dislikes: '',
                 likes: '',
-                recommendation: true,
-                feedbackTime: ''
+                recommendation: true
             }
         });
 
@@ -101,10 +98,33 @@ describe('FeedbackForm.vue', () => {
         ).toBeChecked();
     });
 
-    it('should display error message when text is too long', async () => {
-        const { getByLabelText, getByText } = renderComponent();
+    it('should display error message for participantName when text is too long', async () => {
+        const { getByLabelText, getByText, queryByText } = renderComponent();
+        expect(
+            queryByText('Die maximale Länge sind 255 Zeichen.')
+        ).not.toBeInTheDocument();
         const participantName = getByLabelText(/Wie lautet Dein Name?/i);
         await fireEvent.update(participantName, 'a'.repeat(256));
-        getByText('Die maximale Länge sind 255 Zeichen.');
+        await getByText('Die maximale Länge sind 255 Zeichen.');
+    });
+    it('should display error message for dislikes question when text is too long', async () => {
+        const { getByLabelText, getByText, queryByText } = renderComponent();
+        expect(
+            queryByText('Die maximale Länge sind 2000 Zeichen.')
+        ).not.toBeInTheDocument();
+        const dislikes = getByLabelText(
+            /Was hat Dir im Rahmen der Fortbildung nicht gefallen?/i
+        );
+        await fireEvent.update(dislikes, 'a'.repeat(2001));
+        await getByText('Die maximale Länge sind 2000 Zeichen.');
+    });
+    it('should display error message for likes when text is too long', async () => {
+        const { getByLabelText, getByText, queryByText } = renderComponent();
+        expect(
+            queryByText('Die maximale Länge sind 2000 Zeichen.')
+        ).not.toBeInTheDocument();
+        const likes = getByLabelText(/Was hat Dir besonders gut gefallen?/i);
+        await fireEvent.update(likes, 'a'.repeat(2001));
+        await getByText('Die maximale Länge sind 2000 Zeichen.');
     });
 });
