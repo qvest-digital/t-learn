@@ -20,7 +20,7 @@ describe('CourseCreationForm.vue', () => {
     });
 
     it('sends form data on submit to server and navigates to details view', async () => {
-        createCourse.mockImplementationOnce(course => {
+        createCourse.mockImplementationOnce((course) => {
             return Promise.resolve({
                 data: { id: 1, ...course }
             });
@@ -296,7 +296,7 @@ describe('CourseCreationForm.vue', () => {
     });
 
     function setupComponent() {
-        return render(CourseCreationForm, {}, localVue => {
+        return render(CourseCreationForm, {}, (localVue) => {
             localVue.use(Vuelidate);
         });
     }

@@ -13,7 +13,7 @@ describe('MultipleSelect.vue', () => {
                     options: ['option 1', 'option 2', 'option 3']
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.component('v-select', vSelect);
             }
         );
@@ -32,7 +32,7 @@ describe('MultipleSelect.vue', () => {
                     options: ['option 1', 'option 2', 'option 3']
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.component('v-select', vSelect);
             }
         );
@@ -53,7 +53,7 @@ describe('MultipleSelect.vue', () => {
                     value: ['option 1']
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.component('v-select', vSelect);
             }
         );
@@ -92,7 +92,7 @@ describe('MultipleSelect.vue', () => {
                     options: ['option 1', 'option 2', 'option 3']
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.component('v-select', vSelect);
             }
         );

@@ -108,7 +108,7 @@ export default {
     components: {
         ConfirmModal
     },
-    data: function() {
+    data: function () {
         return {
             courses: [],
             selectedCourse: {},
@@ -116,7 +116,7 @@ export default {
         };
     },
     methods: {
-        cardimage: function(course) {
+        cardimage: function (course) {
             switch (course.courseType) {
                 case 'EXTERNAL':
                     return signsImg;
@@ -125,16 +125,16 @@ export default {
                     return coffeeImg;
             }
         },
-        onDeleteCourse: function(course) {
+        onDeleteCourse: function (course) {
             this.showModal = true;
             this.selectedCourse = course;
         },
-        deleteCourse: function(selectedCourse) {
+        deleteCourse: function (selectedCourse) {
             deleteCourse(selectedCourse.id)
                 .then(
                     () =>
                         (this.courses = this.courses.filter(
-                            course => course.id !== selectedCourse.id
+                            (course) => course.id !== selectedCourse.id
                         ))
                 )
                 .catch(() =>
@@ -143,9 +143,9 @@ export default {
             this.showModal = false;
         }
     },
-    mounted: function() {
+    mounted: function () {
         getCourses()
-            .then(response => (this.courses = response.data))
+            .then((response) => (this.courses = response.data))
             .catch(() => (this.courses = []));
     }
 };
