@@ -15,10 +15,10 @@
 
         <ConfirmModal
             ref="feedbackModal"
-            @confirm="addFeedback(course.id)"
+            @confirm="addFeedback"
             confirmButtonTitle="SPEICHERN"
             cancelButtonTitle="ABBRECHEN"
-            modalTitle="Veranstaltung löschen - "
+            modalTitle="Feedback zur Veranstaltung - "
             :extraTitle="course.title"
         >
             <FeedbackForm
@@ -50,7 +50,8 @@
                     <img
                         class="button-icon"
                         src="../assets/images/chat-text.svg"
-                    />FEEDBACK
+                    />
+                    FEEDBACK
                 </button>
                 <button
                     id="edit-course-button"
@@ -363,10 +364,10 @@ export default {
             this.feedbackValidationStatus = feedbackValidationStatus;
         },
 
-        addFeedback: function(courseId) {
+        addFeedback: function() {
             this.$refs.feedbackForm.touch();
             if (this.feedbackValidationStatus) {
-                createFeedback(courseId, this.feedback)
+                createFeedback(this.courseId, this.feedback)
                     .then(() => {
                         this.$refs.feedbackModal.hideModal();
                     })

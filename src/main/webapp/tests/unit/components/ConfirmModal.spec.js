@@ -12,7 +12,7 @@ describe('ConfirmModal.vue', () => {
         getByRole('button', { name: 'no' });
     });
 
-    test('should emit confirm event and hide modal when confirm button is clicked', async () => {
+    test('should emit confirm event when confirm button is clicked', async () => {
         const { getByRole, emitted } = setupComponent();
         await fireEvent.click(getByRole('button', { name: 'yes' }));
         expect(emitted().confirm.length).toEqual(1);

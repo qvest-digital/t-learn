@@ -8,12 +8,10 @@ import {
 } from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
-import FeedbackForm from '@/components/FeedbackForm';
 import Vuelidate from 'vuelidate';
 
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
-
 Vue.filter('formatDate', dateFormatFilter);
 jest.mock('@/services/BackendService');
 
@@ -28,8 +26,7 @@ describe('CourseDetails.vue', () => {
             participantName: '',
             dislikes: '',
             likes: '',
-            recommendation: true,
-            feedbackTime: ''
+            recommendation: true
         };
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
@@ -40,14 +37,15 @@ describe('CourseDetails.vue', () => {
         );
         createFeedback.mockImplementationOnce(() =>
             Promise.resolve({
-                feedback
+                data: feedback
             })
         );
 
         const localVue = createLocalVue();
         localVue.use(Vuelidate);
         const wrapper = mount(CourseDetails, {
-            localVue
+            localVue,
+            propsData: { courseId: 2 }
         });
         await wrapper.find('#add-feedback-button').trigger('click');
         await wrapper.find('#feedback-recommendation-yes').trigger('click');
