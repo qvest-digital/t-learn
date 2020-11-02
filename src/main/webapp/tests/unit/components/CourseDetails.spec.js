@@ -3,7 +3,8 @@ import { fireEvent, render, waitFor } from '@testing-library/vue';
 import {
     createFeedback,
     deleteCourse,
-    getCourse
+    getCourse,
+    getCourseFeedback
 } from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
@@ -16,6 +17,19 @@ Vue.filter('formatDate', dateFormatFilter);
 jest.mock('@/services/BackendService');
 
 describe('CourseDetails.vue', () => {
+    beforeEach(() => {
+        getCourseFeedback.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {
+                    participant_name: 'User',
+                    dislikes: 'nothing',
+                    likes: 'everything',
+                    recommendation: true,
+                    feedbackTime: '2012-12-12T09:55:00Z'
+                }
+            })
+        );
+    });
     afterEach(() => {
         getCourse.mockReset();
         deleteCourse.mockReset();
@@ -61,6 +75,7 @@ describe('CourseDetails.vue', () => {
         await fireEvent.click(getByLabelText('Ja'));
         await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
         expect(createFeedback).toHaveBeenCalledWith(2, { ...feedback });
+        getCourseFeedback.mockReset();
     });
 
     it('loads course from server and displays all fields', async () => {

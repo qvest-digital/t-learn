@@ -124,6 +124,7 @@
                 <p class="course-details-content-text">
                     {{ course.description }}
                 </p>
+                <FeedbackDetails :feedback="feedback" />
             </div>
 
             <div class="course-details-summary-container">
@@ -300,11 +301,13 @@ import signsImg from '@/assets/images/signs.jpg';
 import {
     deleteCourse,
     getCourse,
-    createFeedback
+    createFeedback,
+    getCourseFeedback
 } from '@/services/BackendService';
 import ModalContainer from './ModalContainer';
 import FeedbackForm from './FeedbackForm';
 import handleError from '@/components/handleError';
+import FeedbackDetails from './FeedbackDetails';
 
 export default {
     name: 'CourseDetails',
@@ -369,10 +372,24 @@ export default {
                     })
                     .catch((error) => handleError(this, error));
             }
+        },
+        loadCourseFeedback: function (courseId) {
+            getCourseFeedback(courseId)
+                .then(({ data }) => {
+                    this.feedback = {
+                        participantName: data.participant_name,
+                        dislikes: data.dislikes,
+                        likes: data.likes,
+                        recommendation: data.recommendation,
+                        feedbackTime: data.feedbackTime
+                    };
+                })
+                .catch((error) => handleError(this, error));
         }
     },
     mounted: function () {
         this.loadCourse(this.courseId);
+        // this.loadCourseFeedback(this.courseId);
     }
 };
 </script>

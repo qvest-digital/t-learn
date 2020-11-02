@@ -27,3 +27,6 @@ export function getCategories() {
 export function createFeedback(courseId, feedback) {
     return axios.post(`courses/${courseId}/feedback`, feedback);
 }
+export function getCourseFeedback(courseId) {
+    return axios.get(`courses/${courseId}/feedback`);
+}
