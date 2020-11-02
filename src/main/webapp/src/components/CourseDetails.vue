@@ -389,7 +389,7 @@ export default {
     },
     mounted: function () {
         this.loadCourse(this.courseId);
-        // this.loadCourseFeedback(this.courseId);
+        this.loadCourseFeedback(this.courseId);
     }
 };
 </script>

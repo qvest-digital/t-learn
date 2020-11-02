@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/vue';
 import FeedbackDetails from '@/components/FeedbackDetails';
-import { dateOnlyFilter } from '@/filter/dateformatFilter';
+import { dateFormatFilter } from '@/filter/dateformatFilter';
 
 function renderComponent() {
     return render(
@@ -18,7 +18,7 @@ function renderComponent() {
             }
         },
         localVue => {
-            localVue.filter('formatDateOnly', dateOnlyFilter);
+            localVue.filter('formatDate', dateFormatFilter);
         }
     );
 }

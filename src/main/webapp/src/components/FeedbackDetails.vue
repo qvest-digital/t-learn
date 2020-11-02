@@ -12,7 +12,9 @@
                         </div>
                         <div v-if="feedback.feedbackTime" class="creation-date">
                             Erstellt am
-                            {{ feedback.feedbackTime | formatDateOnly }}
+                            {{
+                                feedback.feedbackTime | formatDate('dd.MM.yyyy')
+                            }}
                         </div>
                     </div>
                 </div>
