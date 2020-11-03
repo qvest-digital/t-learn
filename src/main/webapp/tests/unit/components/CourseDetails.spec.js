@@ -44,7 +44,12 @@ describe('CourseDetails.vue', () => {
         const { getByLabelText, getByRole } = render(
             CourseDetails,
             {
-                propsData: { courseId: 2 }
+                propsData: { courseId: 2 },
+                data() {
+                    return {
+                        feedback
+                    };
+                }
             },
             localVue => {
                 localVue.use(Vuelidate);
@@ -52,9 +57,7 @@ describe('CourseDetails.vue', () => {
         );
 
         await fireEvent.click(getByRole('button', { name: 'FEEDBACK' }));
-        await fireEvent.change(getByLabelText('Ja'), {
-            target: { value: 'true' }
-        });
+        await fireEvent.click(getByLabelText('Ja'));
         await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
         expect(createFeedback).toHaveBeenCalledWith(2, { ...feedback });
     });

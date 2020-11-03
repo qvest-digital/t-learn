@@ -16,7 +16,27 @@
 <script>
 export default {
     name: 'RadioButton',
-    props: ['name', 'label', 'value', 'id', 'validationClass'],
+    props: {
+        name: {
+            type: String,
+            default: 'option'
+        },
+        label: {
+            type: String,
+            required: true
+        },
+        value: {
+            required: true
+        },
+        id: {
+            type: String,
+            required: true
+        },
+        validationClass: {
+            type: String,
+            default: ''
+        }
+    },
     computed: {
         radioButtonValue: {
             get: function() {
