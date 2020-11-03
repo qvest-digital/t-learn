@@ -21,6 +21,7 @@ describe('CourseDetails.vue', () => {
         deleteCourse.mockReset();
         createFeedback.mockReset();
     });
+
     it('should call createFeedback', async () => {
         const feedback = {
             participantName: '',
@@ -61,6 +62,7 @@ describe('CourseDetails.vue', () => {
         await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
         expect(createFeedback).toHaveBeenCalledWith(2, { ...feedback });
     });
+
     it('loads course from server and displays all fields', async () => {
         getCourse.mockImplementationOnce(() =>
             Promise.resolve({
