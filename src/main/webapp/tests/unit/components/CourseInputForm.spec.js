@@ -22,7 +22,7 @@ describe('CourseInputForm.vue', () => {
         const { getByRole, updateProps } = render(
             CourseInputForm,
             { props: { course: {} } },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
                 localVue.component('v-select', vSelect);
             }

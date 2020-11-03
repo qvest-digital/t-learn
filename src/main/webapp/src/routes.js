@@ -9,13 +9,13 @@ export default [
         path: '/details/:courseId',
         name: 'courseDetails',
         component: CourseDetails,
-        props: route => ({ courseId: Number.parseInt(route.params.courseId) })
+        props: (route) => ({ courseId: Number.parseInt(route.params.courseId) })
     },
     {
         path: '/edit/:courseId',
         name: 'courseEdit',
         component: CourseEditForm,
-        props: route => ({ courseId: Number.parseInt(route.params.courseId) })
+        props: (route) => ({ courseId: Number.parseInt(route.params.courseId) })
     },
     { path: '*', component: CourseOverview }
 ];

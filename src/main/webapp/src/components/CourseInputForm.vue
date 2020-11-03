@@ -137,9 +137,7 @@
                 </select>
             </div>
             <div class="column">
-                <label for="price" class="form-label">
-                    Preis
-                </label>
+                <label for="price" class="form-label"> Preis </label>
                 <input
                     type="text"
                     v-model="$v.course.price.$model"
@@ -270,9 +268,9 @@ import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
 import MultipleSelect from './MultipleSelect';
 import { getCategories } from '@/services/BackendService';
 
-const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
+const parseDate = (val) => parse(val, 'dd.MM.yyyy H:m', new Date());
 
-const validDate = val => !helpers.req(val) || isValid(parseDate(val));
+const validDate = (val) => !helpers.req(val) || isValid(parseDate(val));
 
 const startBeforeEnd = (val, model) => {
     const startDate = parseDate(model.startDateRaw);
@@ -287,7 +285,7 @@ const startBeforeEnd = (val, model) => {
 export default {
     name: 'CourseInputForm',
     components: { MultipleSelect },
-    data: function() {
+    data: function () {
         return {
             startDateRaw: null,
             endDateRaw: null,
@@ -361,15 +359,15 @@ export default {
         }
     },
     watch: {
-        course: function(val) {
+        course: function (val) {
             this.startDateRaw = this.$options.filters.formatDate(val.startDate);
             this.endDateRaw = this.$options.filters.formatDate(val.endDate);
         },
-        startDateRaw: function(val) {
+        startDateRaw: function (val) {
             // eslint-disable-next-line vue/no-mutating-props
             this.course.startDate = this.parseValidDate(val);
         },
-        endDateRaw: function(val) {
+        endDateRaw: function (val) {
             // eslint-disable-next-line vue/no-mutating-props
             this.course.endDate = this.parseValidDate(val);
         },
@@ -383,11 +381,11 @@ export default {
         }
     },
     methods: {
-        touch: function() {
+        touch: function () {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
-        validationStateClass: function(path) {
+        validationStateClass: function (path) {
             const { $dirty, $error } = path
                 .split('.')
                 .reduce(
@@ -398,14 +396,14 @@ export default {
 
             return $dirty && $error ? 'is-invalid' : 'is-valid';
         },
-        parseValidDate: function(val) {
+        parseValidDate: function (val) {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;
         }
     },
-    mounted: function() {
+    mounted: function () {
         getCategories()
-            .then(response => (this.categories = response.data))
+            .then((response) => (this.categories = response.data))
             .catch(() => {
                 console.error('Course categories could not be loaded');
                 this.categories = [];

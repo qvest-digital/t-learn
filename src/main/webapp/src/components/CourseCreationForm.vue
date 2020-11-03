@@ -1,9 +1,7 @@
 <template>
     <div class="course-creation-form-container">
         <div>
-            <div class="page-title">
-                Veranstaltung erstellen
-            </div>
+            <div class="page-title">Veranstaltung erstellen</div>
 
             <form @submit.prevent="create">
                 <div
@@ -17,7 +15,7 @@
                 <CourseInputForm
                     ref="courseForm"
                     :course="course"
-                    @ready="isReady => (isValid = isReady)"
+                    @ready="(isReady) => (isValid = isReady)"
                 />
 
                 <div class="form-footer">
@@ -27,9 +25,7 @@
                     >
                         ABBRECHEN
                     </button>
-                    <button class="button primary">
-                        ERSTELLEN
-                    </button>
+                    <button class="button primary">ERSTELLEN</button>
                 </div>
             </form>
         </div>
@@ -43,7 +39,7 @@ import CourseInputForm from '@/components/CourseInputForm';
 export default {
     name: 'CourseCreationForm',
     components: { CourseInputForm },
-    data: function() {
+    data: function () {
         return {
             isValid: false,
             hasError: false,
@@ -65,7 +61,7 @@ export default {
         };
     },
     methods: {
-        create: function() {
+        create: function () {
             this.$refs.courseForm.touch();
 
             this.$nextTick(() => {
@@ -74,7 +70,7 @@ export default {
                 }
 
                 createCourse(this.course)
-                    .then(response => {
+                    .then((response) => {
                         const createdCourse = response.data;
                         this.$router.push({
                             name: 'courseDetails',
@@ -84,7 +80,7 @@ export default {
                     .catch(this.handleError);
             });
         },
-        handleError: function(error) {
+        handleError: function (error) {
             if (error.response) {
                 console.error(error.response.data);
             } else {

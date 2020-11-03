@@ -1,4 +1,4 @@
-export default function(vm /*, error */) {
+export default function (vm /*, error */) {
     const { $router } = vm;
 
     $router.push('/');
