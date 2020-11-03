@@ -16,27 +16,7 @@ public class InvalidFormatExceptionMapper implements ExceptionMapper<InvalidForm
     public Response toResponse(InvalidFormatException invalidFormatException) {
         return Response.status(BAD_REQUEST)
                 .type(MediaType.APPLICATION_JSON_TYPE)
-                .entity(new Result(invalidFormatException))
+                .entity(Result.unsuccessful(invalidFormatException.getOriginalMessage()))
                 .build();
-    }
-
-    private static class Result {
-
-        private final String message;
-        private final boolean success;
-
-        Result(InvalidFormatException violations) {
-            this.success = false;
-            this.message = violations.getOriginalMessage();
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public boolean isSuccess() {
-            return success;
-        }
-
     }
 }

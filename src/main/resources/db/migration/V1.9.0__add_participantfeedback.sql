@@ -1,4 +1,4 @@
-create table participantfeedback
+create table participant_feedback
 (
     id               int8 not null,
     course_id        int8 not null,
@@ -6,7 +6,7 @@ create table participantfeedback
     likes            varchar(2000),
     dislikes         varchar(2000),
     recommendation   boolean,
-    feedbackTime     timestamp,
+    feedback_time    timestamp,
     primary key (id),
     foreign key (course_id) references course (id)
 );

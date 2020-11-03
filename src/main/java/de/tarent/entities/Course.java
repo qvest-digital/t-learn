@@ -1,7 +1,6 @@
 package de.tarent.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import de.tarent.config.UtcOffsetDateTimeSerializer;
 import de.tarent.validator.StartDateBeforeEndDate;
@@ -28,9 +27,8 @@ import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 @Entity
 @StartDateBeforeEndDate
-@EqualsAndHashCode(exclude = {"categoryList", "participantFeedback"})
+@EqualsAndHashCode
 @ToString
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Course extends PanacheEntity {
 
     @NotBlank
@@ -68,6 +66,7 @@ public class Course extends PanacheEntity {
     public Boolean deleted;
 
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(
             name = "course_category",
@@ -76,11 +75,13 @@ public class Course extends PanacheEntity {
     public List<Category> categoryList;
 
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     @OneToMany(cascade = ALL)
     @JoinColumn(name = "course_id", nullable = false)
     public Set<ParticipantFeedback> participantFeedback;
 
     @Transient
+    @EqualsAndHashCode.Exclude
     public List<String> categoryNames;
 
     public void mapToKnownCategories() {

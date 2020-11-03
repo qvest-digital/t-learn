@@ -5,6 +5,7 @@ import io.quarkus.jackson.ObjectMapperCustomizer;
 
 import javax.inject.Singleton;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
 
 @Singleton
@@ -12,5 +13,6 @@ public class JacksonObjectMapperCustomizer implements ObjectMapperCustomizer {
 
     public void customize(ObjectMapper mapper) {
         mapper.disable(WRITE_DATES_AS_TIMESTAMPS);
+        mapper.disable(FAIL_ON_UNKNOWN_PROPERTIES);
     }
 }

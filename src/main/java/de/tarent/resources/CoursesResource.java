@@ -20,13 +20,14 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 public class CoursesResource {
 
     static final Response NOT_FOUND_RESPONSE = Response.status(NOT_FOUND).build();
+    static final Predicate<Course> IS_NOT_DELETED = course -> !TRUE.equals(course.deleted);
 
     @GET
     @Produces(APPLICATION_JSON)
     @Path("{id}")
-    public Response get(@PathParam("id") Long id) {
+    public Response get(@PathParam("id") long id) {
         return Course.<Course>findByIdOptional(id)
-                .filter(notDeleted())
+                .filter(IS_NOT_DELETED)
                 .map(course -> {
                     course.mapToCategoryNames();
                     return Response.ok(course).build();
@@ -57,9 +58,9 @@ public class CoursesResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Path("{id}")
-    public Response update(@PathParam("id") Long id, Course course) {
+    public Response update(@PathParam("id") long id, Course course) {
         return Course.<Course>findByIdOptional(id)
-                .filter(notDeleted())
+                .filter(IS_NOT_DELETED)
                 .map(origCourse -> {
                     course.id = id;
                     course.mapToKnownCategories();
@@ -70,15 +71,11 @@ public class CoursesResource {
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
+    public void delete(@PathParam("id") long id) {
         Course.<Course>findByIdOptional(id)
                 .ifPresent(course -> {
                     course.deleted = true;
                     course.persistAndFlush();
                 });
-    }
-
-    static Predicate<Course> notDeleted() {
-        return course -> !TRUE.equals(course.deleted);
     }
 }
