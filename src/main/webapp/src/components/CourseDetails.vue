@@ -74,10 +74,8 @@
                     class="button with-icon"
                     @click="$refs.confirmDeleteModal.showModal()"
                 >
-                    <img
-                        class="button-icon"
-                        src="../assets/images/trash.svg"
-                    />LÖSCHEN
+                    <img class="button-icon" src="../assets/images/trash.svg" />
+                    LÖSCHEN
                 </button>
             </div>
         </div>
@@ -210,14 +208,16 @@
                         v-if="course.startDate"
                         data-testid="startDateSummary"
                         class="course-details-summary-icon-text"
-                        >{{ course.startDate | formatDate }}
+                    >
+                        {{ course.startDate | formatDate }}
                     </span>
                     <span class="hyphen" v-if="course.endDate">-</span>
                     <span
                         v-if="course.endDate"
                         data-testid="endDate"
                         class="course-details-summary-icon-text"
-                        >{{ course.endDate | formatDate }}
+                    >
+                        {{ course.endDate | formatDate }}
                     </span>
                 </div>
 

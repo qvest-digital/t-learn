@@ -116,7 +116,7 @@ describe('BackendService.js', () => {
     });
     it('sends course feedback data to the server', async () => {
         const feedback = {
-            participant_name: 'user',
+            participantName: 'user',
             dislikes: '',
             likes: 'good',
             recommendation: true
@@ -128,12 +128,7 @@ describe('BackendService.js', () => {
             })
         );
 
-        const response = await createFeedback(2, {
-            participantName: 'user',
-            dislikes: '',
-            likes: 'good',
-            recommendation: true
-        });
+        const response = await createFeedback(2, feedback);
         expect(axios.post).toHaveBeenCalledWith('courses/2/feedback', feedback);
         expect(response.data).toEqual(feedback);
     });
