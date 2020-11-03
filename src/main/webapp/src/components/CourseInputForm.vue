@@ -269,6 +269,7 @@ import { isValid, parse } from 'date-fns';
 import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
 import MultipleSelect from './MultipleSelect';
 import { getCategories } from '@/services/BackendService';
+import { validationStateClass } from '@/utils/validations';
 
 const parseDate = val => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -387,17 +388,7 @@ export default {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
-        validationStateClass: function(path) {
-            const { $dirty, $error } = path
-                .split('.')
-                .reduce(
-                    (previous, current) =>
-                        previous ? previous[current] : null,
-                    this.$v
-                );
-
-            return $dirty && $error ? 'is-invalid' : 'is-valid';
-        },
+        validationStateClass,
         parseValidDate: function(val) {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;

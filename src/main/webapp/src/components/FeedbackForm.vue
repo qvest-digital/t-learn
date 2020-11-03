@@ -9,8 +9,9 @@
                     <label
                         for="feedback-participant-name"
                         class="feedback-label"
-                        >Wie lautet Dein Name?</label
                     >
+                        Wie lautet Dein Name?
+                    </label>
                     <input
                         type="text"
                         v-model="$v.feedback.participantName.$model"
@@ -21,16 +22,16 @@
                     <span
                         v-if="$v.feedback.participantName.$error"
                         class="feedback-validation-text"
-                        >Die maximale Länge sind 255 Zeichen.
+                    >
+                        Die maximale Länge sind 255 Zeichen.
                     </span>
                 </div>
             </div>
             <div class="row">
                 <div class="column">
-                    <label for="feedback-dislikes" class="feedback-label"
-                        >Was hat Dir im Rahmen der Fortbildung nicht
-                        gefallen?</label
-                    >
+                    <label for="feedback-dislikes" class="feedback-label">
+                        Was hat Dir im Rahmen der Fortbildung nicht gefallen?
+                    </label>
                     <input
                         type="text"
                         v-model="$v.feedback.dislikes.$model"
@@ -41,15 +42,16 @@
                     <span
                         v-if="$v.feedback.dislikes.$error"
                         class="feedback-validation-text"
-                        >Die maximale Länge sind 2000 Zeichen.
+                    >
+                        Die maximale Länge sind 2000 Zeichen.
                     </span>
                 </div>
             </div>
             <div class="row">
                 <div class="column">
-                    <label for="feedback-likes" class="feedback-label"
-                        >Was hat Dir besonders gut gefallen?</label
-                    >
+                    <label for="feedback-likes" class="feedback-label">
+                        Was hat Dir besonders gut gefallen?
+                    </label>
                     <input
                         type="text"
                         v-model="$v.feedback.likes.$model"
@@ -60,7 +62,8 @@
                     <span
                         v-if="$v.feedback.likes.$error"
                         class="feedback-validation-text"
-                        >Die maximale Länge sind 2000 Zeichen.
+                    >
+                        Die maximale Länge sind 2000 Zeichen.
                     </span>
                 </div>
             </div>
@@ -71,9 +74,10 @@
                             validationStateClass('feedback.recommendation') +
                                 ' feedback-label required-label'
                         "
-                        >Kannst Du die Teilnahme an dieser Fortbildung
-                        weiterempfehlen?</label
                     >
+                        Kannst Du die Teilnahme an dieser Fortbildung
+                        weiterempfehlen?
+                    </label>
                     <div class="feedback-radio-button-container">
                         <input
                             type="radio"
@@ -87,8 +91,9 @@
                                 validationStateClass('feedback.recommendation')
                             "
                             for="feedback-recommendation-yes"
-                            >Ja</label
                         >
+                            Ja
+                        </label>
                     </div>
                     <div class="feedback-radio-button-container">
                         <input
@@ -106,13 +111,15 @@
                                 validationStateClass('feedback.recommendation')
                             "
                             for="feedback-recommendation-no"
-                            >Nein</label
                         >
+                            Nein
+                        </label>
                     </div>
                     <span
                         v-if="$v.feedback.recommendation.$error"
                         class="feedback-validation-text"
-                        >Bitte wählen.
+                    >
+                        Bitte wählen.
                     </span>
                 </div>
             </div>
@@ -122,7 +129,7 @@
 
 <script>
 import { maxLength, required } from 'vuelidate/lib/validators';
-
+import { validationStateClass } from '@/utils/validations';
 export default {
     data: function() {
         return {
@@ -139,17 +146,7 @@ export default {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
-        validationStateClass: function(path) {
-            const { $dirty, $error } = path
-                .split('.')
-                .reduce(
-                    (previous, current) =>
-                        previous ? previous[current] : null,
-                    this.$v
-                );
-
-            return $dirty && $error ? 'is-invalid' : 'is-valid';
-        }
+        validationStateClass
     },
     validations: {
         feedback: {
