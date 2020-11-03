@@ -17,7 +17,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Veranstalter*in ist ein Pflichtfeld und die maximale Länge sind 255 Zeichen.')) &&
         $('div', text: contains('Veranstaltungsart ist ein Pflichtfeld und die maximale Länge sind 255 Zeichen.'))
         }
-
         }
 
     def "event is displayed on details page after creation"() {
@@ -62,7 +61,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('MeetUp')) &&
         $('div', text: contains('666€'))
         }
-
         }
 
     def "created event is displayed on overview page"() {
@@ -98,7 +96,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Remote')) &&
         $('div', text: contains('11.11.2020 08:00'))
         }
-
         }
 
     def "delete event on details page after creation"() {
@@ -133,7 +130,6 @@ class GeneralTests extends E2ETestSpec {
         waitFor {
         $('div', text: notContains('E2E-Test Title'))
         }
-
         }
 
     def "cancel deleting event on details page after creation"() {
@@ -180,7 +176,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Remote')) &&
         $('div', text: contains('666€'))
         }
-
         }
 
     def "edit event after creation"() {
@@ -244,7 +239,6 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Intern')) &&
         $('div', text: contains('Präsenz'))
         }
-
         }
 
       def "cancel editing event after creation"() {
@@ -309,6 +303,173 @@ class GeneralTests extends E2ETestSpec {
         $('div', text: contains('Remote')) &&
         $('div', text: contains('666€'))
         }
-
         }
+
+    def "delete event on overview page"() {
+        given:
+        at TLearnOverviewPage
+
+        when:
+        linkToCreatePage.click()
+        titleInputField.value('E2E-Test Title')
+        organizerInputField.value('E2E-Test Organizer')
+        contactPersonInputField.value('E2E-Test Contact')
+        startDateInputField.value('11.11.2020 08:00')
+        endDateInputField.value('22.11.2020 20:00')
+        courseTypeInputField.click()
+        courseTypeExternalOption.click()
+        courseFormDropdown.click()
+        courseFormMeetupOption.click()
+        executionTypeInputField.click()
+        executionTypeRemoteOption.click()
+        priceInputField.value('666€')
+        addressInputField.value('Rochusstr. 2-4, 53123 Bonn')
+        linkInputField.value('https://www.tarent.de')
+        categoryInputField.click()
+        categoryInputField.value('fontend')
+        targetAudienceInputField.value('E2E QA')
+        descriptionInputField.value('E2E Description')
+        createButton.click()
+        linkToOverviewPage.click()
+        interact{
+            moveToElement(firstEvent)
+            }
+        firstEventDeleteButton.click()
+        deleteEventConfirmationModalDeleteButton.click()
+
+        then:
+        waitFor {
+            $('div', text: notContains('E2E-Test Title'))
+            }
+        }
+
+    def "cancel deleting event on overview page"() {
+        given:
+        at TLearnOverviewPage
+
+        when:
+        linkToCreatePage.click()
+        titleInputField.value('E2E-Test Title')
+        organizerInputField.value('E2E-Test Organizer')
+        contactPersonInputField.value('E2E-Test Contact')
+        startDateInputField.value('11.11.2020 08:00')
+        endDateInputField.value('22.11.2020 20:00')
+        courseTypeInputField.click()
+        courseTypeExternalOption.click()
+        courseFormDropdown.click()
+        courseFormMeetupOption.click()
+        executionTypeInputField.click()
+        executionTypeRemoteOption.click()
+        priceInputField.value('666€')
+        addressInputField.value('Rochusstr. 2-4, 53123 Bonn')
+        linkInputField.value('https://www.tarent.de')
+        categoryInputField.click()
+        categoryInputField.value('fontend')
+        targetAudienceInputField.value('E2E QA')
+        descriptionInputField.value('E2E Description')
+        createButton.click()
+        linkToOverviewPage.click()
+        interact{
+            moveToElement(firstEvent)
+            }
+        firstEventDeleteButton.click()
+        deleteEventConfirmationModalCancelButton.click()
+
+        then:
+        waitFor {
+            $('div', text: contains('E2E-Test Title'))
+            }
+        }
+
+    def "edit event from overview page"() {
+        given:
+        at TLearnOverviewPage
+
+        when:
+        linkToCreatePage.click()
+        titleInputField.value('E2E-Test Title')
+        organizerInputField.value('E2E-Test Organizer')
+        contactPersonInputField.value('E2E-Test Contact')
+        startDateInputField.value('11.11.2020 08:00')
+        endDateInputField.value('22.11.2020 20:00')
+        courseTypeInputField.click()
+        courseTypeExternalOption.click()
+        courseFormDropdown.click()
+        courseFormMeetupOption.click()
+        executionTypeInputField.click()
+        executionTypeRemoteOption.click()
+        priceInputField.value('666€')
+        addressInputField.value('Rochusstr. 2-4, 53123 Bonn')
+        linkInputField.value('https://www.tarent.de')
+        categoryInputField.click()
+        categoryInputField.value('fontend')
+        targetAudienceInputField.value('E2E QA')
+        descriptionInputField.value('E2E Description')
+        createButton.click()
+        linkToOverviewPage.click()
+        interact{
+            moveToElement(firstEvent)
+            }
+        firstEventEditButton.click()
+        titleInputField.value('E2E-Test TitleEDITED')
+        organizerInputField.value('E2E-Test OrganizerEDITED')
+        contactPersonInputField.value('E2E-Test ContactEDITED')
+        startDateInputField.value('11.11.2021 08:00')
+        endDateInputField.value('22.11.2021 20:00')
+        courseTypeInputField.click()
+        courseTypeInternalOption.click()
+        courseFormDropdown.click()
+        courseFormBootcampOption.click()
+        executionTypeInputField.click()
+        executionTypePresenceOption.click()
+        priceInputField.value('999€')
+        addressInputField.value('Rochusstr. 2-4, 53123 BonnEDITED')
+        linkInputField.value('https://www.tarentEDITED.de')
+        categoryInputField.click()
+        categoryInputField.value('fontend')
+        targetAudienceInputField.value('E2E QAEDITED')
+        descriptionInputField.value('E2E DescriptionEDITED')
+        saveButton.click()
+        linkToOverviewPage.click()
+
+        then:
+        waitFor {
+            $('div', text: contains('E2E-Test TitleEDITED'))
+            }
+        }
+
+    def "open event from overview page by clicking its image"() {
+        given:
+        at TLearnOverviewPage
+
+        when:
+        linkToCreatePage.click()
+        titleInputField.value('E2E-Test Title')
+        organizerInputField.value('E2E-Test Organizer')
+        contactPersonInputField.value('E2E-Test Contact')
+        startDateInputField.value('11.11.2020 08:00')
+        endDateInputField.value('22.11.2020 20:00')
+        courseTypeInputField.click()
+        courseTypeExternalOption.click()
+        courseFormDropdown.click()
+        courseFormMeetupOption.click()
+        executionTypeInputField.click()
+        executionTypeRemoteOption.click()
+        priceInputField.value('666€')
+        addressInputField.value('Rochusstr. 2-4, 53123 Bonn')
+        linkInputField.value('https://www.tarent.de')
+        categoryInputField.click()
+        categoryInputField.value('fontend')
+        targetAudienceInputField.value('E2E QA')
+        descriptionInputField.value('E2E Description')
+        createButton.click()
+        linkToOverviewPage.click()
+        firstEvent.click()
+
+        then:
+        waitFor {
+            $('div', text: contains('Steckbrief'))
+            }
+        }
+
 }
