@@ -1,10 +1,9 @@
 import '@testing-library/jest-dom';
-import { createLocalVue, mount } from '@vue/test-utils';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
 import {
+    createFeedback,
     deleteCourse,
-    getCourse,
-    createFeedback
+    getCourse
 } from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
@@ -12,6 +11,7 @@ import Vuelidate from 'vuelidate';
 
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
+
 Vue.filter('formatDate', dateFormatFilter);
 jest.mock('@/services/BackendService');
 
@@ -41,15 +41,21 @@ describe('CourseDetails.vue', () => {
             })
         );
 
-        const localVue = createLocalVue();
-        localVue.use(Vuelidate);
-        const wrapper = mount(CourseDetails, {
-            localVue,
-            propsData: { courseId: 2 }
+        const { getByLabelText, getByRole } = render(
+            CourseDetails,
+            {
+                propsData: { courseId: 2 }
+            },
+            localVue => {
+                localVue.use(Vuelidate);
+            }
+        );
+
+        await fireEvent.click(getByRole('button', { name: 'FEEDBACK' }));
+        await fireEvent.change(getByLabelText('Ja'), {
+            target: { value: 'true' }
         });
-        await wrapper.find('#add-feedback-button').trigger('click');
-        await wrapper.find('#feedback-recommendation-yes').trigger('click');
-        await wrapper.find('#confirm-button').trigger('click');
+        await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
         expect(createFeedback).toHaveBeenCalledWith(2, { ...feedback });
     });
     it('loads course from server and displays all fields', async () => {
