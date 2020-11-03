@@ -22,6 +22,7 @@
                     <span
                         v-if="$v.feedback.participantName.$error"
                         class="feedback-validation-text"
+                        data-testid="participantNameErrorMessage"
                     >
                         Die maximale Länge sind 255 Zeichen.
                     </span>
@@ -42,6 +43,7 @@
                     <span
                         v-if="$v.feedback.dislikes.$error"
                         class="feedback-validation-text"
+                        data-testid="dislikesErrorMessage"
                     >
                         Die maximale Länge sind 2000 Zeichen.
                     </span>
@@ -62,6 +64,7 @@
                     <span
                         v-if="$v.feedback.likes.$error"
                         class="feedback-validation-text"
+                        data-testid="likesErrorMessage"
                     >
                         Die maximale Länge sind 2000 Zeichen.
                     </span>
@@ -78,43 +81,28 @@
                         Kannst Du die Teilnahme an dieser Fortbildung
                         weiterempfehlen?
                     </label>
-                    <div class="feedback-radio-button-container">
-                        <input
-                            type="radio"
-                            :value="true"
-                            v-model="$v.feedback.recommendation.$model"
-                            @change="$emit('feedback', feedback)"
-                            id="feedback-recommendation-yes"
-                        />
-                        <label
-                            :class="
-                                validationStateClass('feedback.recommendation')
-                            "
-                            for="feedback-recommendation-yes"
-                        >
-                            Ja
-                        </label>
-                    </div>
-                    <div class="feedback-radio-button-container">
-                        <input
-                            type="radio"
-                            :value="false"
-                            v-model="$v.feedback.recommendation.$model"
-                            @change="$emit('feedback', feedback)"
-                            id="feedback-recommendation-no"
-                            :class="
-                                validationStateClass('feedback.recommendation')
-                            "
-                        />
-                        <label
-                            :class="
-                                validationStateClass('feedback.recommendation')
-                            "
-                            for="feedback-recommendation-no"
-                        >
-                            Nein
-                        </label>
-                    </div>
+                    <RadioButton
+                        name="feedback-recommendation"
+                        label="Ja"
+                        id="feedback-radio-button-yes"
+                        :value="feedback.recommendation"
+                        @change="setFeedbackRecommendation"
+                        :validationClass="
+                            validationStateClass('feedback.recommendation')
+                        "
+                    >
+                    </RadioButton>
+                    <RadioButton
+                        name="feedback-recommendation"
+                        label="Nein"
+                        id="feedback-radio-button-no"
+                        :value="feedback.recommendation"
+                        @change="setFeedbackRecommendation"
+                        :validationClass="
+                            validationStateClass('feedback.recommendation')
+                        "
+                    >
+                    </RadioButton>
                     <span
                         v-if="$v.feedback.recommendation.$error"
                         class="feedback-validation-text"
@@ -130,7 +118,11 @@
 <script>
 import { maxLength, required } from 'vuelidate/lib/validators';
 import { validationStateClass } from '@/utils/validations';
+import RadioButton from './RadioButton';
 export default {
+    components: {
+        RadioButton
+    },
     data: function() {
         return {
             feedback: {
@@ -145,6 +137,9 @@ export default {
         touch: function() {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
+        },
+        setFeedbackRecommendation(value) {
+            this.feedback.recommendation = value === 'Ja' ? true : false;
         },
         validationStateClass
     },
