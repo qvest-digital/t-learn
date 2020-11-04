@@ -20,13 +20,22 @@ describe('CourseDetails.vue', () => {
     beforeEach(() => {
         getCourseFeedback.mockImplementationOnce(() =>
             Promise.resolve({
-                data: {
-                    participant_name: 'User',
-                    dislikes: 'nothing',
-                    likes: 'everything',
-                    recommendation: true,
-                    feedbackTime: '2012-12-12T09:55:00Z'
-                }
+                data: [
+                    {
+                        participant_name: 'User1',
+                        dislikes: 'bad',
+                        likes: '',
+                        recommendation: false,
+                        feedbackTime: '2012-12-12T09:55:00Z'
+                    },
+                    {
+                        participant_name: 'User2',
+                        dislikes: '',
+                        likes: 'good',
+                        recommendation: true,
+                        feedbackTime: '2012-12-12T09:56:00Z'
+                    }
+                ]
             })
         );
     });

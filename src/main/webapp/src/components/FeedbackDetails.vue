@@ -64,13 +64,21 @@
                 </div>
             </div>
         </div>
-        <div class="line-seperator"></div>
+        <div v-if="index < feedbackLength - 1" class="line-seperator"></div>
     </div>
 </template>
 
 <script>
 export default {
     props: {
+        feedbackLength: {
+            type: Number,
+            default: 1
+        },
+        index: {
+            type: Number,
+            default: 0
+        },
         feedback: {
             participantName: {
                 type: String,

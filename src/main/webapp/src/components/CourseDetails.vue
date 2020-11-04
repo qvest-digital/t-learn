@@ -124,7 +124,45 @@
                 <p class="course-details-content-text">
                     {{ course.description }}
                 </p>
-                <FeedbackDetails :feedback="feedback" />
+                <div v-if="feedbackList.length">
+                    <div
+                        data-testid="feedback"
+                        class="course-details-content-subtitle"
+                    >
+                        Feedback
+                    </div>
+                    <details open>
+                        <summary
+                            class="summary"
+                            @click="toggleDisplay = !toggleDisplay"
+                        >
+                            {{
+                                toggleDisplay
+                                    ? 'Weniger anzeigen'
+                                    : 'Mehr anzeigen'
+                            }}
+                            <img
+                                v-if="toggleDisplay"
+                                src="../assets/images/chevron-up.svg"
+                            />
+                            <img
+                                v-else
+                                src="../assets/images/chevron-down.svg"
+                            />
+                        </summary>
+                        <div
+                            v-for="(feedbackItem, index) in feedbackList"
+                            :key="feedbackItem.feedbackTime"
+                            class="course-details-feedback-details"
+                        >
+                            <FeedbackDetails
+                                :index="index"
+                                :feedbackLength="feedbackList.length"
+                                :feedback="feedbackItem"
+                            />
+                        </div>
+                    </details>
+                </div>
             </div>
 
             <div class="course-details-summary-container">
@@ -315,8 +353,10 @@ export default {
     data: function () {
         return {
             course: {},
-            feedback: {},
-            feedbackValidationStatus: false
+            feedbackValidationStatus: false,
+            feedbackList: [],
+            showModal: false,
+            toggleDisplay: true
         };
     },
     props: {
@@ -376,13 +416,7 @@ export default {
         loadCourseFeedback: function (courseId) {
             getCourseFeedback(courseId)
                 .then(({ data }) => {
-                    this.feedback = {
-                        participantName: data.participant_name,
-                        dislikes: data.dislikes,
-                        likes: data.likes,
-                        recommendation: data.recommendation,
-                        feedbackTime: data.feedbackTime
-                    };
+                    this.feedbackList = data;
                 })
                 .catch((error) => handleError(this, error));
         }
@@ -463,6 +497,31 @@ export default {
     font-size: $font-s;
     line-height: 1.57;
     margin-bottom: $space-m;
+}
+.course-details-feedback-details {
+    margin-bottom: $space-l;
+}
+.summary {
+    outline: 0;
+    cursor: pointer;
+    font-size: $font-s;
+    color: $dark-grey;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    margin-bottom: $space-l;
+
+    img {
+        margin-left: $space-xs;
+        height: 24px;
+        width: 24px;
+        //change svg color to $dark-grey #3c3c3b
+        filter: invert(21%) sepia(6%) saturate(104%) hue-rotate(22deg)
+            brightness(92%) contrast(87%);
+    }
+}
+.summary::-webkit-details-marker {
+    display: none;
 }
 // course summary
 .course-details-summary-container {
