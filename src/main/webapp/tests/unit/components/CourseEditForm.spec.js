@@ -64,7 +64,7 @@ describe('CourseEditForm.vue', () => {
             'New Title'
         );
 
-        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
+        await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(errorMessages).not.toBeVisible();
         expect(getCourse).toHaveBeenCalledWith(1);
@@ -108,7 +108,7 @@ describe('CourseEditForm.vue', () => {
         const errorMessages = getByTestId('errorMsg');
         expect(errorMessages).not.toBeVisible();
 
-        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
+        await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(updateCourse).toHaveBeenCalledWith(course);
         expect(routerPushSpy).not.toHaveBeenCalled();
@@ -171,7 +171,7 @@ describe('CourseEditForm.vue', () => {
 
         expect(title.classList).toContain('is-invalid');
 
-        await fireEvent.submit(getByRole('button', { name: 'SPEICHERN' }));
+        await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
 
         expect(updateCourse).not.toHaveBeenCalled();
         expect(routerPushSpy).not.toHaveBeenCalled();
@@ -219,8 +219,9 @@ describe('CourseEditForm.vue', () => {
             startDate: null,
             endDate: null,
             courseType: 'EXTERNAL',
+            courseForm: null,
             price: null,
-            location: null,
+            executionType: null,
             address: null,
             targetAudience: null,
             description: null,

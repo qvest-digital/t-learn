@@ -39,22 +39,15 @@
                 </span>
             </div>
             <div class="column">
-                <label for="contactPerson" class="form-label"
-                    >Ansprechpartner*in</label
-                >
-                <input
-                    type="text"
-                    v-model="$v.course.contactPerson.$model"
+                <InputField
                     id="contactPerson"
-                    :class="validationStateClass('course.contactPerson')"
+                    label="Ansprechpartner*in"
                     placeholder="Ansprechpartner*in"
-                />
-                <span
-                    v-if="$v.course.contactPerson.$error"
-                    class="form-validation-text"
+                    v-model="$v.course.contactPerson.$model"
+                    :validations="validations.contactPerson"
+                    error-message="Die maximale Länge ist 255 Zeichen"
                 >
-                    Die maximale Länge sind 255 Zeichen.
-                </span>
+                </InputField>
             </div>
         </div>
         <div class="row">
@@ -172,9 +165,9 @@
                 </span>
             </div>
             <div class="column">
-                <label for="executionType" class="form-label"
-                    >Durchführung</label
-                >
+                <label for="executionType" class="form-label">
+                    Durchführung
+                </label>
                 <!-- eslint-disable vue/no-mutating-props -->
                 <select
                     v-model="course.executionType"
@@ -267,6 +260,8 @@ import { isValid, parse } from 'date-fns';
 import { helpers, maxLength, required, url } from 'vuelidate/lib/validators';
 import MultipleSelect from './MultipleSelect';
 import { getCategories } from '@/services/BackendService';
+import InputField from '@/components/fields/InputField';
+import { validationStateClass } from '@/utils/validations';
 
 const parseDate = (val) => parse(val, 'dd.MM.yyyy H:m', new Date());
 
@@ -284,9 +279,17 @@ const startBeforeEnd = (val, model) => {
 
 export default {
     name: 'CourseInputForm',
-    components: { MultipleSelect },
+    components: {
+        MultipleSelect,
+        InputField
+    },
     data: function () {
         return {
+            validations: {
+                contactPerson: {
+                    maxLength: maxLength(255)
+                }
+            },
             startDateRaw: null,
             endDateRaw: null,
             courseForms: [
@@ -385,17 +388,7 @@ export default {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
-        validationStateClass: function (path) {
-            const { $dirty, $error } = path
-                .split('.')
-                .reduce(
-                    (previous, current) =>
-                        previous ? previous[current] : null,
-                    this.$v
-                );
-
-            return $dirty && $error ? 'is-invalid' : 'is-valid';
-        },
+        validationStateClass,
         parseValidDate: function (val) {
             const date = parseDate(val);
             return isValid(date) ? date.toISOString() : null;

@@ -4,9 +4,12 @@ import CourseCreationForm from '@/components/CourseCreationForm.vue';
 import { createCourse, getCategories } from '@/services/BackendService';
 import Vuelidate from 'vuelidate';
 import routes from '@/routes';
+import Vue from 'vue';
+import { dateFormatFilter } from '@/filter/dateformatFilter';
 
 jest.mock('@/services/BackendService');
 global.console = { error: jest.fn() };
+Vue.filter('formatDate', dateFormatFilter);
 
 describe('CourseCreationForm.vue', () => {
     getCategories.mockImplementation(() =>
