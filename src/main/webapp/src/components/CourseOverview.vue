@@ -3,16 +3,18 @@
         <div class="course-overview-title">
             Übersicht aller Verstanstaltungen
         </div>
-        <ConfirmModal
-            @cancel="showModal = false"
+        <ModalContainer
+            ref="confirmDeleteModal"
             @confirm="deleteCourse(selectedCourse)"
-            v-if="showModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
             :extraTitle="selectedCourse.title"
-            text="Möchtest Du die Veranstaltung wirklich löschen?"
-        />
+        >
+            <div>
+                Möchtest Du die Veranstaltung wirklich löschen?
+            </div>
+        </ModalContainer>
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
                 <div class="course-card">
@@ -101,18 +103,17 @@
 import coffeeImg from '../assets/images/coffee.jpg';
 import signsImg from '../assets/images/signs.jpg';
 import { deleteCourse, getCourses } from '@/services/BackendService';
-import ConfirmModal from './ConfirmModal';
+import ModalContainer from './ModalContainer';
 
 export default {
     name: 'CourseOverview',
     components: {
-        ConfirmModal
+        ModalContainer
     },
     data: function() {
         return {
             courses: [],
-            selectedCourse: {},
-            showModal: false
+            selectedCourse: {}
         };
     },
     methods: {
@@ -126,7 +127,7 @@ export default {
             }
         },
         onDeleteCourse: function(course) {
-            this.showModal = true;
+            this.$refs.confirmDeleteModal.showModal();
             this.selectedCourse = course;
         },
         deleteCourse: function(selectedCourse) {
@@ -140,7 +141,7 @@ export default {
                 .catch(() =>
                     console.error(`${selectedCourse.id} could not be deleted)`)
                 );
-            this.showModal = false;
+            this.$refs.confirmDeleteModal.hideModal();
         }
     },
     mounted: function() {

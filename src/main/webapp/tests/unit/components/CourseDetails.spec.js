@@ -1,8 +1,14 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, waitFor } from '@testing-library/vue';
-import { deleteCourse, getCourse } from '@/services/BackendService';
+import {
+    createFeedback,
+    deleteCourse,
+    getCourse
+} from '@/services/BackendService';
 import routes from '@/routes';
 import CourseDetails from '@/components/CourseDetails';
+import Vuelidate from 'vuelidate';
+
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
 
@@ -13,6 +19,48 @@ describe('CourseDetails.vue', () => {
     afterEach(() => {
         getCourse.mockReset();
         deleteCourse.mockReset();
+        createFeedback.mockReset();
+    });
+
+    it('should call createFeedback', async () => {
+        const feedback = {
+            participantName: '',
+            dislikes: '',
+            likes: '',
+            recommendation: true
+        };
+        getCourse.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: {
+                    id: 2
+                }
+            })
+        );
+        createFeedback.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: feedback
+            })
+        );
+
+        const { getByLabelText, getByRole } = render(
+            CourseDetails,
+            {
+                propsData: { courseId: 2 },
+                data() {
+                    return {
+                        feedback
+                    };
+                }
+            },
+            localVue => {
+                localVue.use(Vuelidate);
+            }
+        );
+
+        await fireEvent.click(getByRole('button', { name: 'FEEDBACK' }));
+        await fireEvent.click(getByLabelText('Ja'));
+        await fireEvent.click(getByRole('button', { name: 'SPEICHERN' }));
+        expect(createFeedback).toHaveBeenCalledWith(2, { ...feedback });
     });
 
     it('loads course from server and displays all fields', async () => {

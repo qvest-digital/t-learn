@@ -1,45 +1,42 @@
-import ConfirmModal from '@/components/ConfirmModal';
+import ModalContainer from '@/components/ModalContainer';
 import '@testing-library/jest-dom';
 import { fireEvent, render } from '@testing-library/vue';
 
-describe('ConfirmModal.vue', () => {
-    test('render ConfirmModal with text from props', () => {
+describe('ModalContainer.vue', () => {
+    test('render ModalContainer with text from props', () => {
         const { getByRole, getByTestId } = setupComponent();
-
-        expect(getByTestId('confirmModalTitle')).toHaveTextContent(
+        expect(getByTestId('modalContainerTitle')).toHaveTextContent(
             'Confirmation'
         );
-        expect(getByTestId('confirmModalContent')).toHaveTextContent(
-            'Are you sure?'
-        );
-
         getByRole('button', { name: 'yes' });
         getByRole('button', { name: 'no' });
     });
 
-    test('check if cancel event is emitted on cancel button click', async () => {
+    test('should emit confirm event when confirm button is clicked', async () => {
         const { getByRole, emitted } = setupComponent();
-
         await fireEvent.click(getByRole('button', { name: 'yes' }));
         expect(emitted().confirm.length).toEqual(1);
         expect(emitted().confirm[0]).toEqual([]);
     });
 
-    test('check if confirm event is emitted on confirm button click', async () => {
-        const { getByRole, emitted } = setupComponent();
-
+    test('should hide modal when cancel button is clicked', async () => {
+        const { getByRole, queryByText } = setupComponent();
+        expect(queryByText('Confirmation')).toBeInTheDocument();
         await fireEvent.click(getByRole('button', { name: 'no' }));
-        expect(emitted().cancel.length).toEqual(1);
-        expect(emitted().cancel[0]).toEqual([]);
+        expect(queryByText('Confirmation')).not.toBeInTheDocument();
     });
 
     function setupComponent() {
-        return render(ConfirmModal, {
+        return render(ModalContainer, {
             propsData: {
                 modalTitle: 'Confirmation',
                 confirmButtonTitle: 'yes',
-                cancelButtonTitle: 'no',
-                text: 'Are you sure?'
+                cancelButtonTitle: 'no'
+            },
+            data() {
+                return {
+                    visible: true
+                };
             }
         });
     }
