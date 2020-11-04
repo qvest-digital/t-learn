@@ -39,18 +39,12 @@ export default {
         loadCourseFeedbackCounter() {
             getCourseFeedback(this.courseId)
                 .then(({ data }) => {
-                    data.forEach(feedback => {
-                        if (feedback.recommendation === true) {
-                            this.likes++;
-                        } else {
-                            this.dislikes++;
-                        }
-                    });
+                    this.countFeedback(data);
                 })
                 .catch(error => handleError(this, error));
         },
-        countFeedback() {
-            this.feedbackList.forEach(feedback => {
+        countFeedback(feedbackList) {
+            feedbackList.forEach(feedback => {
                 if (feedback.recommendation === true) {
                     this.likes++;
                 } else {
@@ -60,7 +54,13 @@ export default {
         }
     },
     mounted() {
-        this.courseId ? this.loadCourseFeedbackCounter() : this.countFeedback();
+        /* 
+        pass courseId in the props to call the async method OR
+        pass feedbackList in the props to avoid calling the async method
+        */
+        this.courseId
+            ? this.loadCourseFeedbackCounter()
+            : this.countFeedback(this.feedbackList);
     }
 };
 </script>
