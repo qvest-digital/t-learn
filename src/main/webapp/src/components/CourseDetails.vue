@@ -125,13 +125,17 @@
                     {{ course.description }}
                 </p>
                 <div v-if="feedbackList.length">
-                    <div
-                        data-testid="feedback"
-                        class="course-details-content-subtitle"
-                    >
-                        Feedback
+                    <div class="course-details-feedback-counter-container">
+                        <div
+                            data-testid="feedback"
+                            class="course-details-content-feedback-title"
+                        >
+                            Feedback
+                        </div>
+
+                        <FeedbackCounter :feedbackList="feedbackList" />
                     </div>
-                    <details open>
+                    <details class="course-feedback-details-container" open>
                         <summary
                             class="summary"
                             @click="toggleDisplay = !toggleDisplay"
@@ -346,10 +350,16 @@ import ModalContainer from './ModalContainer';
 import FeedbackForm from './FeedbackForm';
 import handleError from '@/components/handleError';
 import FeedbackDetails from './FeedbackDetails';
+import FeedbackCounter from './FeedbackCounter';
 
 export default {
     name: 'CourseDetails',
-    components: { ModalContainer, FeedbackForm },
+    components: {
+        ModalContainer,
+        FeedbackForm,
+        FeedbackDetails,
+        FeedbackCounter
+    },
     data: function () {
         return {
             course: {},
@@ -497,6 +507,18 @@ export default {
     font-size: $font-s;
     line-height: 1.57;
     margin-bottom: $space-m;
+}
+.course-details-feedback-counter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.course-details-content-feedback-title {
+    font-size: $font-l;
+    font-weight: $normal;
+}
+.course-feedback-details-container {
+    margin-top: $space-m;
 }
 .course-details-feedback-details {
     margin-bottom: $space-l;
