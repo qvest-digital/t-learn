@@ -1,4 +1,5 @@
 import spock.lang.Stepwise
+import geb.driver.CachingDriverFactory
 
 @Stepwise
 class GeneralTests extends E2ETestSpec {
@@ -345,7 +346,9 @@ class GeneralTests extends E2ETestSpec {
 
     def "cancel deleting event on overview page"() {
         given:
-        at TLearnOverviewPage
+        resetBrowser()
+        CachingDriverFactory.clearCacheAndQuitDriver()
+        to TLearnOverviewPage
 
         when:
         linkToCreatePage.click()
@@ -383,7 +386,9 @@ class GeneralTests extends E2ETestSpec {
 
     def "edit event from overview page"() {
         given:
-        at TLearnOverviewPage
+        resetBrowser()
+        CachingDriverFactory.clearCacheAndQuitDriver()
+        to TLearnOverviewPage
 
         when:
         linkToCreatePage.click()
@@ -440,7 +445,9 @@ class GeneralTests extends E2ETestSpec {
 
     def "open event from overview page by clicking its image"() {
         given:
-        at TLearnOverviewPage
+        resetBrowser()
+        CachingDriverFactory.clearCacheAndQuitDriver()
+        to TLearnOverviewPage
 
         when:
         linkToCreatePage.click()
