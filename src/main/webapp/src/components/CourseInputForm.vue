@@ -130,39 +130,29 @@
                 </select>
             </div>
             <div class="column">
-                <label for="price" class="form-label"> Preis </label>
-                <input
-                    type="text"
-                    v-model="$v.course.price.$model"
+                <InputField
                     id="price"
-                    :class="validationStateClass('course.price')"
+                    label="Preis"
                     placeholder="Preis"
-                />
-                <span
-                    v-if="$v.course.price.$error"
-                    class="form-validation-text"
+                    v-model="$v.course.price.$model"
+                    :validations="validations.price"
+                    error-message="Die maximale Länge ist 255 Zeichen"
                 >
-                    Die maximale Länge sind 255 Zeichen.
-                </span>
+                </InputField>
             </div>
         </div>
 
         <div class="row">
             <div class="column">
-                <label for="address" class="form-label">Ort</label>
-                <input
-                    type="text"
-                    v-model="$v.course.address.$model"
+                <InputField
                     id="address"
-                    :class="validationStateClass('course.address')"
-                    placeholder="postalische Adresse"
-                />
-                <span
-                    v-if="$v.course.address.$error"
-                    class="form-validation-text"
+                    label="Ort"
+                    placeholder="Postalische Adresse"
+                    v-model="$v.course.address.$model"
+                    :validations="validations.address"
+                    error-message="Die maximale Länge ist 255 Zeichen"
                 >
-                    Die maximale Länge sind 255 Zeichen.
-                </span>
+                </InputField>
             </div>
             <div class="column">
                 <label for="executionType" class="form-label">
@@ -187,21 +177,17 @@
         </div>
         <div class="row">
             <div class="column">
-                <label for="link" class="form-label"
-                    >Weiterführender Link</label
-                >
-                <input
-                    type="text"
-                    v-model="$v.course.link.$model"
-                    :class="validationStateClass('course.link')"
+                <InputField
                     id="link"
+                    label="Weiterführender Link"
                     placeholder="https://"
-                />
-                <span v-if="$v.course.link.$error" class="form-validation-text">
-                    Der Link muss ein gültiger URL sein, mit den Protokollen
-                    "http" oder "https" beginnen und darf nur maximal 1000
-                    Zeichen lang sein.
-                </span>
+                    v-model="$v.course.link.$model"
+                    :validations="validations.link"
+                    error-message="Der Link muss ein gültiger URL sein, mit
+                        den Protokollen 'http' oder 'https' beginnen und darf
+                        nur maximal 1000 Zeichen lang sein."
+                >
+                </InputField>
             </div>
         </div>
         <div class="row">
@@ -286,8 +272,19 @@ export default {
     data: function () {
         return {
             validations: {
+                address: {
+                    maxLength: maxLength(255)
+                },
                 contactPerson: {
                     maxLength: maxLength(255)
+                },
+                price: {
+                    maxLength: maxLength(255)
+                },
+                link: {
+                    url,
+                    protocol: helpers.regex('protocol', /https?\W/),
+                    maxLength: maxLength(1000)
                 }
             },
             startDateRaw: null,
