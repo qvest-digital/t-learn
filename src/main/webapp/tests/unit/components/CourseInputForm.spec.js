@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, waitFor } from '@testing-library/vue';
+import { fireEvent, render, waitFor } from '@testing-library/vue';
 import { getCategories } from '@/services/BackendService';
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vuelidate from 'vuelidate';
@@ -7,6 +7,7 @@ import CourseInputForm from '@/components/CourseInputForm';
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
 import vSelect from 'vue-select';
+import { getRandomString } from '../../util/testUtil';
 
 Vue.filter('formatDate', dateFormatFilter);
 jest.mock('@/services/BackendService');
@@ -93,7 +94,7 @@ describe('CourseInputForm.vue', () => {
         expect(getCategories).toHaveBeenCalled();
     });
 
-    it("calls 'ready' callback with value 'true' when touch was called with no validation errors", async () => {
+    it('calls "ready" callback with value "true" when touch was called with no validation errors', async () => {
         const wrapper = mountComponent();
 
         wrapper.setProps({
@@ -120,13 +121,96 @@ describe('CourseInputForm.vue', () => {
         await waitFor(() => expect(wrapper.emitted().ready[0]).toEqual([true]));
     });
 
-    it("calls 'ready' callback with value 'false' when touch was called with validation errors", async () => {
+    it('calls "ready" callback with value "false" when touch was called with validation errors', async () => {
         const wrapper = mountComponent();
 
         wrapper.vm.touch();
 
         await waitFor(() =>
             expect(wrapper.emitted().ready[0]).toEqual([false])
+        );
+    });
+
+    it('Show validation error if link is not valid', async () => {
+        const { queryByTestId, getByRole } = render(
+            CourseInputForm,
+            { props: { course: {} } },
+            (localVue) => {
+                localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
+            }
+        );
+
+        expect(queryByTestId('inputFieldError')).not.toBeInTheDocument();
+
+        const linkInput = getByRole(
+            'textbox',
+            { name: 'Weiterführender Link' }
+        );
+        await fireEvent.update(linkInput, 'invalid');
+
+        const errorField = queryByTestId('inputFieldError');
+        expect(errorField).toBeInTheDocument();
+        expect(errorField).toHaveTextContent(
+            'Der Link muss ein gültiger URL sein, mit den Protokollen ' +
+            '\'http\' oder \'https\' beginnen und darf nur maximal 1000 ' +
+            'Zeichen lang sein.'
+        );
+    });
+
+    it('Show validation error if link does not start with http or https', async () => {
+        const { queryByTestId, getByRole } = render(
+            CourseInputForm,
+            { props: { course: {} } },
+            (localVue) => {
+                localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
+            }
+        );
+
+        expect(queryByTestId('inputFieldError')).not.toBeInTheDocument();
+
+        const linkInput = getByRole(
+            'textbox',
+            { name: 'Weiterführender Link' }
+        );
+        await fireEvent.update(linkInput, 'ftp://link.com');
+
+        const errorField = queryByTestId('inputFieldError');
+        expect(errorField).toBeInTheDocument();
+        expect(errorField).toHaveTextContent(
+            'Der Link muss ein gültiger URL sein, mit den Protokollen ' +
+            '\'http\' oder \'https\' beginnen und darf nur maximal 1000 ' +
+            'Zeichen lang sein.'
+        );
+    });
+
+    it('Show validation error if link is longer then 1000 characters', async () => {
+        const { queryByTestId, getByRole } = render(
+            CourseInputForm,
+            { props: { course: {} } },
+            (localVue) => {
+                localVue.use(Vuelidate);
+                localVue.component('v-select', vSelect);
+            }
+        );
+
+        const linkInput = getByRole(
+            'textbox',
+            { name: 'Weiterführender Link' }
+        );
+        await fireEvent.update(linkInput, `https://${getRandomString(1000 - 11)}.de`);
+
+        expect(queryByTestId('inputFieldError')).not.toBeInTheDocument();
+
+        await fireEvent.update(linkInput, `https://${getRandomString(1001 - 11)}.de`);
+
+        const errorField = queryByTestId('inputFieldError');
+        expect(errorField).toBeInTheDocument();
+        expect(errorField).toHaveTextContent(
+            'Der Link muss ein gültiger URL sein, mit den Protokollen ' +
+            '\'http\' oder \'https\' beginnen und darf nur maximal 1000 ' +
+            'Zeichen lang sein.'
         );
     });
 

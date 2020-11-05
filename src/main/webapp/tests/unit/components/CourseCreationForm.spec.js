@@ -199,50 +199,6 @@ describe('CourseCreationForm.vue', () => {
         expect(endInput.classList).toContain('is-invalid');
     });
 
-    it('it does not show validation error when link is valid', async () => {
-        const { getByRole } = setupComponent();
-
-        const linkInput = getByRole('textbox', {
-            name: 'Weiterführender Link'
-        });
-        await fireEvent.update(linkInput, 'https://tarent.de');
-
-        expect(linkInput.classList).toContain('is-valid');
-    });
-
-    it('shows validation error when link is invalid', async () => {
-        const { getByRole } = setupComponent();
-
-        const linkInput = getByRole('textbox', {
-            name: 'Weiterführender Link'
-        });
-        await fireEvent.update(linkInput, 'localhost');
-
-        expect(linkInput.classList).toContain('is-invalid');
-    });
-
-    it('shows validation error when link protocol is not http or https', async () => {
-        const { getByRole } = setupComponent();
-
-        const linkInput = getByRole('textbox', {
-            name: 'Weiterführender Link'
-        });
-        await fireEvent.update(linkInput, 'ftp://tarent.de');
-
-        expect(linkInput.classList).toContain('is-invalid');
-    });
-
-    it('shows validation error when link length is > 1000 characters', async () => {
-        const { getByRole } = setupComponent();
-
-        const link = getByRole('textbox', {
-            name: 'Weiterführender Link'
-        });
-        await fireEvent.update(link, `https://${'a'.repeat(1001 - 11)}.de`);
-
-        expect(link.classList).toContain('is-invalid');
-    });
-
     it('shows no validation error when link length is 1000 characters', async () => {
         const { getByRole } = setupComponent();
 
