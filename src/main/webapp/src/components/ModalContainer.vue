@@ -1,23 +1,33 @@
 <template>
-    <div data-testid="confirmModal" class="confirm-modal-overlay">
-        <div class="confirm-modal-container">
-            <div data-testid="confirmModalTitle" class="confirm-modal-title">
+    <div
+        v-if="visible"
+        data-testid="ModalContainer"
+        class="container-modal-overlay"
+    >
+        <div class="container-modal-container">
+            <div
+                data-testid="modalContainerTitle"
+                class="container-modal-title"
+            >
                 {{ modalTitle }}
                 <span :title="extraTitle" class="title-bold">
                     {{ extraTitle }}
                 </span>
             </div>
-            <div
-                data-testid="confirmModalContent"
-                class="confirm-modal-content"
-            >
-                {{ text }}
-            </div>
-            <div class="confirm-modal-footer">
-                <button @click="$emit('cancel')" class="button secondary">
+            <slot></slot>
+            <div class="container-modal-footer">
+                <button
+                    @click="hideModal"
+                    class="button secondary"
+                    id="cancel-button"
+                >
                     {{ cancelButtonTitle }}
                 </button>
-                <button @click="$emit('confirm')" class="button primary">
+                <button
+                    @click="$emit('confirm')"
+                    class="button primary"
+                    id="confirm-button"
+                >
                     {{ confirmButtonTitle }}
                 </button>
             </div>
@@ -43,17 +53,26 @@ export default {
         cancelButtonTitle: {
             default: 'NEIN',
             type: String
+        }
+    },
+    data() {
+        return {
+            visible: false
+        };
+    },
+    methods: {
+        showModal() {
+            this.visible = true;
         },
-        text: {
-            default: 'Sind Sie sicher?',
-            type: String
+        hideModal() {
+            this.visible = false;
         }
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.confirm-modal-overlay {
+.container-modal-overlay {
     background: $overlay-background;
     bottom: 0;
     left: 0;
@@ -62,25 +81,25 @@ export default {
     top: 0;
     z-index: 9999;
 }
-.confirm-modal-container {
+.container-modal-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: $container-s;
+    width: $container-m;
     background-color: $white;
     padding: $space-s;
     height: auto;
-    max-height: 500px;
+    max-height: $container-l;
     overflow-y: auto;
     border-radius: $border-radius-s;
     line-height: 1.6;
 }
-.confirm-modal-title {
+.container-modal-title {
     font-size: $font-l;
     font-weight: $normal;
     margin-bottom: $space-s;
-    max-width: 490px;
+    max-width: $container-m;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -88,7 +107,7 @@ export default {
 .title-bold {
     font-weight: $bold;
 }
-.confirm-modal-footer {
+.container-modal-footer {
     margin-top: $space-xl;
     margin-right: $space-xs;
     display: flex;

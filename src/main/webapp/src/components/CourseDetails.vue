@@ -1,18 +1,37 @@
 <template>
     <div class="course-details-container">
-        <ConfirmModal
-            @cancel="showModal = false"
+        <ModalContainer
+            ref="confirmDeleteModal"
             @confirm="deleteCourse(course.id)"
-            v-if="showModal"
             confirmButtonTitle="LÖSCHEN"
             cancelButtonTitle="ABBRECHEN"
             modalTitle="Veranstaltung löschen - "
             :extraTitle="course.title"
-            text="Möchtest Du die Veranstaltung wirklich löschen?"
-        />
+        >
+            <div>Möchtest Du die Veranstaltung wirklich löschen?</div>
+        </ModalContainer>
+
+        <ModalContainer
+            ref="feedbackModal"
+            @confirm="addFeedback"
+            confirmButtonTitle="SPEICHERN"
+            cancelButtonTitle="ABBRECHEN"
+            modalTitle="Feedback zur Veranstaltung - "
+            :extraTitle="course.title"
+        >
+            <FeedbackForm
+                ref="feedbackForm"
+                @feedback="setFeedback"
+                @ready="setFeedbackValidationStatus"
+            />
+        </ModalContainer>
         <div class="course-details-nav">
             <div class="nav-item">
-                <button class="button with-icon" @click="$router.push('/')">
+                <button
+                    id="back-button"
+                    class="button with-icon"
+                    @click="$router.push('/')"
+                >
                     <img
                         class="button-icon"
                         src="../assets/images/arrow-left.svg"
@@ -22,6 +41,18 @@
             </div>
             <div class="nav-item">
                 <button
+                    id="add-feedback-button"
+                    class="button with-icon"
+                    @click="$refs.feedbackModal.showModal()"
+                >
+                    <img
+                        class="button-icon"
+                        src="../assets/images/chat-text.svg"
+                    />
+                    FEEDBACK
+                </button>
+                <button
+                    id="edit-course-button"
                     class="button with-icon"
                     @click="
                         $router.push({
@@ -36,11 +67,13 @@
                     />
                     BEARBEITEN
                 </button>
-                <button class="button with-icon" @click="showModal = true">
-                    <img
-                        class="button-icon"
-                        src="../assets/images/trash.svg"
-                    />LÖSCHEN
+                <button
+                    id="delete-course-button"
+                    class="button with-icon"
+                    @click="$refs.confirmDeleteModal.showModal()"
+                >
+                    <img class="button-icon" src="../assets/images/trash.svg" />
+                    LÖSCHEN
                 </button>
             </div>
         </div>
@@ -173,14 +206,16 @@
                         v-if="course.startDate"
                         data-testid="startDateSummary"
                         class="course-details-summary-icon-text"
-                        >{{ course.startDate | formatDate }}
+                    >
+                        {{ course.startDate | formatDate }}
                     </span>
                     <span class="hyphen" v-if="course.endDate">-</span>
                     <span
                         v-if="course.endDate"
                         data-testid="endDate"
                         class="course-details-summary-icon-text"
-                        >{{ course.endDate | formatDate }}
+                    >
+                        {{ course.endDate | formatDate }}
                     </span>
                 </div>
 
@@ -262,17 +297,23 @@
 <script>
 import coffeeImg from '@/assets/images/coffee.jpg';
 import signsImg from '@/assets/images/signs.jpg';
-import { deleteCourse, getCourse } from '@/services/BackendService';
-import ConfirmModal from './ConfirmModal';
+import {
+    deleteCourse,
+    getCourse,
+    createFeedback
+} from '@/services/BackendService';
+import ModalContainer from './ModalContainer';
+import FeedbackForm from './FeedbackForm';
 import handleError from '@/components/handleError';
 
 export default {
     name: 'CourseDetails',
-    components: { ConfirmModal },
+    components: { ModalContainer, FeedbackForm },
     data: function () {
         return {
             course: {},
-            showModal: false
+            feedback: {},
+            feedbackValidationStatus: false
         };
     },
     props: {
@@ -305,12 +346,29 @@ export default {
         deleteCourse: function (courseId) {
             deleteCourse(courseId)
                 .then(() => {
-                    this.showModal = false;
+                    this.$refs.confirmDeleteModal.hideModal();
                     this.$router.push('/');
                 })
                 .catch(() =>
                     console.error(`${courseId} could not be deleted)`)
                 );
+        },
+        setFeedback: function (feedback) {
+            this.feedback = feedback;
+        },
+        setFeedbackValidationStatus: function (feedbackValidationStatus) {
+            this.feedbackValidationStatus = feedbackValidationStatus;
+        },
+
+        addFeedback: function () {
+            this.$refs.feedbackForm.touch();
+            if (this.feedbackValidationStatus) {
+                createFeedback(this.courseId, this.feedback)
+                    .then(() => {
+                        this.$refs.feedbackModal.hideModal();
+                    })
+                    .catch((error) => handleError(this, error));
+            }
         }
     },
     mounted: function () {
@@ -336,7 +394,7 @@ export default {
     justify-content: space-between;
     align-items: center;
 }
-.nav-item > button:first-child {
+.nav-item > button:not(:last-child) {
     margin-right: $space-s;
 }
 
@@ -373,7 +431,7 @@ export default {
     background: $light-grey;
     padding: 0 $space-xs;
     font-size: $font-s;
-    font-weight: $bold;
+    font-weight: $normal;
     line-height: $space-l;
     border-radius: $border-radius-xs;
     margin: 0 $space-xs $space-xs 0;

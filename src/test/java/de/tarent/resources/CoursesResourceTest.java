@@ -431,7 +431,7 @@ public class CoursesResourceTest {
                 .body("link", equalTo(link));
     }
 
-    private Course buildBasicValidCourse() {
+    static Course buildBasicValidCourse() {
         final Course course = new Course();
         course.title = "CreatedQuarkusCourse";
         course.organizer = "Norbert Neuorganizer";

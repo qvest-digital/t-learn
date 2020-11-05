@@ -22,13 +22,15 @@ describe('InputField.vue', () => {
                     errorMessage: 'irrelevant'
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
-            });
+            }
+        );
 
         getByLabelText(label, { for: id });
         const inputElement = getByRole('textbox', {
-            id: id, placeholder: placeholder
+            id: id,
+            placeholder: placeholder
         });
         expect(inputElement.name).toBe(id);
         expect(queryByTestId('inputFieldError')).not.toBeInTheDocument();
@@ -42,13 +44,14 @@ describe('InputField.vue', () => {
                     id: 'irrelevant',
                     label: 'irrelevant',
                     placeholder: 'irrelevant',
-                    validations: {maxLength: maxLength(255)},
+                    validations: { maxLength: maxLength(255) },
                     errorMessage: 'irrelevant'
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
-            });
+            }
+        );
 
         expect(queryByTestId('inputFieldError')).not.toBeInTheDocument();
 
@@ -59,7 +62,7 @@ describe('InputField.vue', () => {
     });
 
     test('Display error if input text is above 255 characters', async () => {
-        const errorMessage = 'Input length is too high'
+        const errorMessage = 'Input length is too high';
 
         const { getByRole, queryByTestId } = render(
             InputField,
@@ -68,13 +71,14 @@ describe('InputField.vue', () => {
                     id: 'irrelevant',
                     label: 'irrelevant',
                     placeholder: 'irrelevant',
-                    validations: {maxLength: maxLength(255)},
+                    validations: { maxLength: maxLength(255) },
                     errorMessage: errorMessage
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
-            });
+            }
+        );
 
         expect(queryByTestId('inputFieldError')).not.toBeInTheDocument();
 
@@ -101,12 +105,12 @@ describe('InputField.vue', () => {
                     errorMessage: 'irrelevant'
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
-            });
+            }
+        );
 
         const inputElement = getByRole('textbox');
         expect(inputElement.value).toBe(input);
     });
-
 });

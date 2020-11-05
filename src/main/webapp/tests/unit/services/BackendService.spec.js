@@ -5,12 +5,17 @@ import {
     getCourses,
     getCourse,
     createCourse,
-    updateCourse
+    updateCourse,
+    createFeedback
 } from '@/services/BackendService';
 
 jest.mock('axios');
 
 describe('BackendService.js', () => {
+    afterEach(() => {
+        axios.post.mockReset();
+        axios.get.mockReset();
+    });
     it('requests course data from the server', async () => {
         axios.get.mockImplementationOnce(() =>
             Promise.resolve({
@@ -108,5 +113,23 @@ describe('BackendService.js', () => {
         const categories = await getCategories();
         expect(axios.get).toHaveBeenCalledWith('categories');
         expect(categories.data).toHaveLength(2);
+    });
+    it('sends course feedback data to the server', async () => {
+        const feedback = {
+            participantName: 'user',
+            dislikes: '',
+            likes: 'good',
+            recommendation: true
+        };
+
+        axios.post.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: feedback
+            })
+        );
+
+        const response = await createFeedback(2, feedback);
+        expect(axios.post).toHaveBeenCalledWith('courses/2/feedback', feedback);
+        expect(response.data).toEqual(feedback);
     });
 });

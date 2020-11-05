@@ -16,16 +16,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.EnumType.STRING;
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 @Entity
 @StartDateBeforeEndDate
-@EqualsAndHashCode(exclude = "categoryList")
+@EqualsAndHashCode
 @ToString
 public class Course extends PanacheEntity {
 
@@ -64,6 +66,7 @@ public class Course extends PanacheEntity {
     public Boolean deleted;
 
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     @ManyToMany
     @JoinTable(
             name = "course_category",
@@ -71,7 +74,15 @@ public class Course extends PanacheEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     public List<Category> categoryList;
 
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @OneToMany(cascade = ALL)
+    @JoinColumn(name = "course_id", nullable = false)
+    @OrderBy("feedbackTime DESC")
+    public Set<ParticipantFeedback> participantFeedback;
+
     @Transient
+    @EqualsAndHashCode.Exclude
     public List<String> categoryNames;
 
     public void mapToKnownCategories() {

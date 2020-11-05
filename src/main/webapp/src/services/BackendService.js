@@ -23,3 +23,7 @@ export function deleteCourse(courseId) {
 export function getCategories() {
     return axios.get('categories');
 }
+
+export function createFeedback(courseId, feedback) {
+    return axios.post(`courses/${courseId}/feedback`, feedback);
+}
