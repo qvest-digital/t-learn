@@ -91,6 +91,13 @@
                             }}
                         </span>
                     </div>
+                    <div class="course-card-feedback-container">
+                        <div class="course-card-feedback-text-container">
+                            <img src="../assets/images/chat-text.svg" />
+                            <span> Feedback </span>
+                        </div>
+                        <FeedbackCounter :courseId="course.id" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,11 +109,13 @@ import coffeeImg from '../assets/images/coffee.jpg';
 import signsImg from '../assets/images/signs.jpg';
 import { deleteCourse, getCourses } from '@/services/BackendService';
 import ModalContainer from './ModalContainer';
+import FeedbackCounter from './FeedbackCounter';
 
 export default {
     name: 'CourseOverview',
     components: {
-        ModalContainer
+        ModalContainer,
+        FeedbackCounter
     },
     data: function () {
         return {
@@ -186,6 +195,20 @@ export default {
 }
 .course-card-text {
     margin-bottom: $space-m;
+    font-size: $font-s;
+}
+.course-card-feedback-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.course-card-feedback-text-container {
+    display: flex;
+    align-items: center;
+    span {
+        font-size: $font-s;
+        margin-left: $space-xs;
+    }
 }
 
 // card images

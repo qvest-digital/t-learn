@@ -124,6 +124,49 @@
                 <p class="course-details-content-text">
                     {{ course.description }}
                 </p>
+                <div v-if="feedbackList.length">
+                    <div class="course-details-feedback-counter-container">
+                        <div
+                            data-testid="feedback"
+                            class="course-details-content-feedback-title"
+                        >
+                            Feedback
+                        </div>
+
+                        <FeedbackCounter :feedbackList="feedbackList" />
+                    </div>
+                    <details class="course-feedback-details-container" open>
+                        <summary
+                            class="summary"
+                            @click="toggleDisplay = !toggleDisplay"
+                        >
+                            {{
+                                toggleDisplay
+                                    ? 'Weniger anzeigen'
+                                    : 'Mehr anzeigen'
+                            }}
+                            <img
+                                v-if="toggleDisplay"
+                                src="../assets/images/chevron-up.svg"
+                            />
+                            <img
+                                v-else
+                                src="../assets/images/chevron-down.svg"
+                            />
+                        </summary>
+                        <div
+                            v-for="(feedbackItem, index) in feedbackList"
+                            :key="feedbackItem.feedbackTime"
+                            class="course-details-feedback-details"
+                        >
+                            <FeedbackDetails
+                                :index="index"
+                                :feedbackLength="feedbackList.length"
+                                :feedback="feedbackItem"
+                            />
+                        </div>
+                    </details>
+                </div>
             </div>
 
             <div class="course-details-summary-container">
@@ -300,20 +343,30 @@ import signsImg from '@/assets/images/signs.jpg';
 import {
     deleteCourse,
     getCourse,
-    createFeedback
+    createFeedback,
+    getCourseFeedback
 } from '@/services/BackendService';
 import ModalContainer from './ModalContainer';
 import FeedbackForm from './FeedbackForm';
 import handleError from '@/components/handleError';
+import FeedbackDetails from './FeedbackDetails';
+import FeedbackCounter from './FeedbackCounter';
 
 export default {
     name: 'CourseDetails',
-    components: { ModalContainer, FeedbackForm },
+    components: {
+        ModalContainer,
+        FeedbackForm,
+        FeedbackDetails,
+        FeedbackCounter
+    },
     data: function () {
         return {
             course: {},
-            feedback: {},
-            feedbackValidationStatus: false
+            feedbackValidationStatus: false,
+            feedbackList: [],
+            showModal: false,
+            toggleDisplay: true
         };
     },
     props: {
@@ -365,14 +418,23 @@ export default {
             if (this.feedbackValidationStatus) {
                 createFeedback(this.courseId, this.feedback)
                     .then(() => {
+                        this.loadCourseFeedback(this.courseId);
                         this.$refs.feedbackModal.hideModal();
                     })
                     .catch((error) => handleError(this, error));
             }
+        },
+        loadCourseFeedback: function (courseId) {
+            getCourseFeedback(courseId)
+                .then(({ data }) => {
+                    this.feedbackList = data;
+                })
+                .catch((error) => handleError(this, error));
         }
     },
     mounted: function () {
         this.loadCourse(this.courseId);
+        this.loadCourseFeedback(this.courseId);
     }
 };
 </script>
@@ -446,6 +508,43 @@ export default {
     font-size: $font-s;
     line-height: 1.57;
     margin-bottom: $space-m;
+}
+.course-details-feedback-counter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.course-details-content-feedback-title {
+    font-size: $font-l;
+    font-weight: $normal;
+}
+.course-feedback-details-container {
+    margin-top: $space-m;
+}
+.course-details-feedback-details {
+    margin-bottom: $space-l;
+}
+.summary {
+    outline: 0;
+    cursor: pointer;
+    font-size: $font-s;
+    color: $dark-grey;
+    text-decoration: underline;
+    display: flex;
+    align-items: center;
+    margin-bottom: $space-l;
+
+    img {
+        margin-left: $space-xs;
+        height: 24px;
+        width: 24px;
+        //change svg color to $dark-grey #3c3c3b
+        filter: invert(21%) sepia(6%) saturate(104%) hue-rotate(22deg)
+            brightness(92%) contrast(87%);
+    }
+}
+.summary::-webkit-details-marker {
+    display: none;
 }
 // course summary
 .course-details-summary-container {

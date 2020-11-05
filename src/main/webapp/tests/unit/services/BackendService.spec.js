@@ -6,7 +6,8 @@ import {
     getCourse,
     createCourse,
     updateCourse,
-    createFeedback
+    createFeedback,
+    getCourseFeedback
 } from '@/services/BackendService';
 
 jest.mock('axios');
@@ -131,5 +132,34 @@ describe('BackendService.js', () => {
         const response = await createFeedback(2, feedback);
         expect(axios.post).toHaveBeenCalledWith('courses/2/feedback', feedback);
         expect(response.data).toEqual(feedback);
+    });
+
+    it('requests specific course feedback from the server', async () => {
+        const feedbackList = [
+            {
+                participant_name: 'User1',
+                dislikes: 'bad',
+                likes: '',
+                recommendation: false,
+                feedbackTime: '2012-12-12T09:55:00Z'
+            },
+            {
+                participant_name: 'User2',
+                dislikes: '',
+                likes: 'good',
+                recommendation: true,
+                feedbackTime: '2012-12-12T09:56:00Z'
+            }
+        ];
+        axios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: feedbackList
+            })
+        );
+
+        const response = await getCourseFeedback(1);
+        expect(axios.get).toHaveBeenCalledWith('courses/1/feedback');
+        expect(response.data).toHaveLength(2);
+        expect(response.data).toEqual([...feedbackList]);
     });
 });

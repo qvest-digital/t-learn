@@ -1,7 +1,11 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render } from '@testing-library/vue';
+import { fireEvent, render, waitFor } from '@testing-library/vue';
 import CourseOverview from '@/components/CourseOverview.vue';
-import { deleteCourse, getCourses } from '@/services/BackendService';
+import {
+    deleteCourse,
+    getCourses,
+    getCourseFeedback
+} from '@/services/BackendService';
 import routes from '@/routes';
 import Vue from 'vue';
 import { dateFormatFilter } from '@/filter/dateformatFilter';
@@ -14,10 +18,13 @@ describe('CourseOverview.vue', () => {
     afterEach(() => {
         getCourses.mockReset();
         deleteCourse.mockReset();
+        getCourseFeedback.mockReset();
     });
 
     it('requests and displays course data from server', async () => {
-        mockGetCourses();
+        await waitFor(() => {
+            mockGetCoursesAndFeedback();
+        });
 
         const { findAllByText } = setupComponent();
 
@@ -28,7 +35,9 @@ describe('CourseOverview.vue', () => {
     });
 
     it("deletes course on server side when 'LÖSCHEN' button is clicked", async () => {
-        mockGetCourses();
+        await waitFor(() => {
+            mockGetCoursesAndFeedback();
+        });
         deleteCourse.mockImplementationOnce(() => Promise.resolve({}));
 
         const {
@@ -53,8 +62,9 @@ describe('CourseOverview.vue', () => {
     });
 
     it("does not delete anything when 'ABBRECHEN' button was clicked when deleting", async () => {
-        mockGetCourses();
-
+        await waitFor(() => {
+            mockGetCoursesAndFeedback();
+        });
         const {
             findAllByText,
             findAllByRole,
@@ -76,7 +86,27 @@ describe('CourseOverview.vue', () => {
         expect(titles).toHaveLength(2);
     });
 
-    function mockGetCourses() {
+    function mockGetCoursesAndFeedback() {
+        getCourseFeedback.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: [
+                    {
+                        participant_name: 'User3',
+                        dislikes: 'bad',
+                        likes: '',
+                        recommendation: true,
+                        feedbackTime: '2012-12-12T09:55:00Z'
+                    },
+                    {
+                        participant_name: 'User4',
+                        dislikes: '',
+                        likes: 'good',
+                        recommendation: true,
+                        feedbackTime: '2012-12-12T09:56:00Z'
+                    }
+                ]
+            })
+        );
         getCourses.mockImplementationOnce(() =>
             Promise.resolve({
                 data: [
