@@ -5,12 +5,12 @@ module.exports = {
             title: 't-learn'
         }
     },
-    chainWebpack: config => {
+    chainWebpack: (config) => {
         config.module
             .rule('vue')
             .use('vue-loader')
             .loader('vue-loader')
-            .tap(options => {
+            .tap((options) => {
                 options.transformAssetUrls = {
                     img: 'src',
                     image: 'xlink:href',

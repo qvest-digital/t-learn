@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-    data: function() {
+    data: function () {
         return {
             internalValue: this.value,
             internalOptions: this.options

@@ -4,6 +4,10 @@ import routes from '../../src/routes';
 import App from '../../src/App';
 import Vuelidate from 'vuelidate';
 import vSelect from 'vue-select';
+import Vue from 'vue';
+import { dateFormatFilter } from '@/filter/dateformatFilter';
+
+Vue.filter('formatDate', dateFormatFilter);
 
 describe('App.vue', () => {
     it('test navigation to overview', async () => {
@@ -30,7 +34,7 @@ describe('App.vue', () => {
             {
                 routes: routes
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
                 localVue.component('v-select', vSelect);
             }

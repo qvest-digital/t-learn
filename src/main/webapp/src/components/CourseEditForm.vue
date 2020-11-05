@@ -1,10 +1,8 @@
 <template>
     <div class="course-edit-form-container">
         <div>
-            <div class="page-title">
-                Editieren einer Veranstaltung
-            </div>
-            <form @submit.prevent="update">
+            <div class="page-title">Editieren einer Veranstaltung</div>
+            <form novalidate @submit.prevent="update">
                 <div
                     v-show="hasError"
                     class="form-error-text"
@@ -17,13 +15,12 @@
                 <CourseInputForm
                     ref="courseForm"
                     :course="course"
-                    @ready="isReady => (isValid = isReady)"
+                    @ready="(isReady) => (isValid = isReady)"
                 />
 
                 <div class="form-footer">
                     <button
                         type="button"
-                        c
                         class="button secondary"
                         @click="
                             $router.push({
@@ -51,7 +48,7 @@ import handleError from '@/components/handleError';
 export default {
     name: 'CourseEditForm',
     components: { CourseInputForm },
-    data: function() {
+    data: function () {
         return {
             isValid: true,
             hasError: false,
@@ -64,12 +61,12 @@ export default {
         }
     },
     watch: {
-        courseId: function(courseId) {
+        courseId: function (courseId) {
             this.loadCourse(courseId);
         }
     },
     methods: {
-        update: function() {
+        update: function () {
             this.$refs.courseForm.touch();
 
             this.$nextTick(() => {
@@ -77,18 +74,17 @@ export default {
                     return false;
                 }
 
-                const id = this.courseId;
                 updateCourse(this.course)
                     .then(() => {
                         this.$router.push({
                             name: 'courseDetails',
-                            params: { courseId: id }
+                            params: { courseId: this.courseId }
                         });
                     })
                     .catch(this.handleError);
             });
         },
-        handleError: function(error) {
+        handleError: function (error) {
             if (error.response) {
                 console.error(error.response.data);
             } else {
@@ -98,15 +94,15 @@ export default {
             }
             this.hasError = true;
         },
-        loadCourse: function(courseId) {
+        loadCourse: function (courseId) {
             getCourse(courseId)
-                .then(response => {
+                .then((response) => {
                     this.course = response.data;
                 })
-                .catch(error => handleError(this, error));
+                .catch((error) => handleError(this, error));
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.loadCourse(this.courseId);
     }
 };
@@ -118,6 +114,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
+
 .form-footer {
     margin-top: $space-xl;
     margin-right: $space-xs;
