@@ -52,7 +52,7 @@ describe('CourseDetails.vue', () => {
                     };
                 }
             },
-            localVue => {
+            (localVue) => {
                 localVue.use(Vuelidate);
             }
         );

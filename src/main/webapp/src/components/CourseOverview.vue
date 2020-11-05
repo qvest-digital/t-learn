@@ -11,9 +11,7 @@
             modalTitle="Veranstaltung löschen - "
             :extraTitle="selectedCourse.title"
         >
-            <div>
-                Möchtest Du die Veranstaltung wirklich löschen?
-            </div>
+            <div>Möchtest Du die Veranstaltung wirklich löschen?</div>
         </ModalContainer>
         <div class="course-overview-container">
             <div v-for="course in courses" :key="course.id">
@@ -126,7 +124,7 @@ export default {
                     return coffeeImg;
             }
         },
-        onDeleteCourse: function(course) {
+        onDeleteCourse: function (course) {
             this.$refs.confirmDeleteModal.showModal();
             this.selectedCourse = course;
         },

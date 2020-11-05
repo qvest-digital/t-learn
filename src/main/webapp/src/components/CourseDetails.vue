@@ -8,9 +8,7 @@
             modalTitle="Veranstaltung löschen - "
             :extraTitle="course.title"
         >
-            <div>
-                Möchtest Du die Veranstaltung wirklich löschen?
-            </div>
+            <div>Möchtest Du die Veranstaltung wirklich löschen?</div>
         </ModalContainer>
 
         <ModalContainer
@@ -311,7 +309,7 @@ import handleError from '@/components/handleError';
 export default {
     name: 'CourseDetails',
     components: { ModalContainer, FeedbackForm },
-    data: function() {
+    data: function () {
         return {
             course: {},
             feedback: {},
@@ -355,21 +353,21 @@ export default {
                     console.error(`${courseId} could not be deleted)`)
                 );
         },
-        setFeedback: function(feedback) {
+        setFeedback: function (feedback) {
             this.feedback = feedback;
         },
-        setFeedbackValidationStatus: function(feedbackValidationStatus) {
+        setFeedbackValidationStatus: function (feedbackValidationStatus) {
             this.feedbackValidationStatus = feedbackValidationStatus;
         },
 
-        addFeedback: function() {
+        addFeedback: function () {
             this.$refs.feedbackForm.touch();
             if (this.feedbackValidationStatus) {
                 createFeedback(this.courseId, this.feedback)
                     .then(() => {
                         this.$refs.feedbackModal.hideModal();
                     })
-                    .catch(error => handleError(this, error));
+                    .catch((error) => handleError(this, error));
             }
         }
     },

@@ -26,7 +26,7 @@ function renderComponent() {
                 };
             }
         },
-        localVue => {
+        (localVue) => {
             localVue.use(Vuelidate);
         }
     );

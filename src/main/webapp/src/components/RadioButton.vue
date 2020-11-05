@@ -40,10 +40,10 @@ export default {
     },
     computed: {
         radioButtonValue: {
-            get: function() {
+            get: function () {
                 return this.value;
             },
-            set: function() {
+            set: function () {
                 this.$emit('change', this.label);
             }
         }

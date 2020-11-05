@@ -75,7 +75,7 @@
                     <label
                         :class="
                             validationStateClass('feedback.recommendation') +
-                                ' feedback-label required-label'
+                            ' feedback-label required-label'
                         "
                     >
                         Kannst Du die Teilnahme an dieser Fortbildung
@@ -123,7 +123,7 @@ export default {
     components: {
         RadioButton
     },
-    data: function() {
+    data: function () {
         return {
             feedback: {
                 participantName: '',
@@ -134,7 +134,7 @@ export default {
         };
     },
     methods: {
-        touch: function() {
+        touch: function () {
             this.$v.$touch();
             this.$emit('ready', !this.$v.$invalid);
         },
