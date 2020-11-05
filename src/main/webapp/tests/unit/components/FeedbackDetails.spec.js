@@ -17,7 +17,7 @@ function renderComponent() {
                 }
             }
         },
-        localVue => {
+        (localVue) => {
             localVue.filter('formatDate', dateFormatFilter);
         }
     );

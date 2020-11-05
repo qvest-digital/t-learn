@@ -418,6 +418,7 @@ export default {
             if (this.feedbackValidationStatus) {
                 createFeedback(this.courseId, this.feedback)
                     .then(() => {
+                        this.loadCourseFeedback(this.courseId);
                         this.$refs.feedbackModal.hideModal();
                     })
                     .catch((error) => handleError(this, error));

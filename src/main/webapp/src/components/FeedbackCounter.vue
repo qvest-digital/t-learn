@@ -35,16 +35,23 @@ export default {
             dislikes: 0
         };
     },
+    watch: {
+        feedbackList: function () {
+            this.countFeedback(this.feedbackList);
+        }
+    },
     methods: {
         loadCourseFeedbackCounter() {
             getCourseFeedback(this.courseId)
                 .then(({ data }) => {
                     this.countFeedback(data);
                 })
-                .catch(error => handleError(this, error));
+                .catch((error) => handleError(this, error));
         },
         countFeedback(feedbackList) {
-            feedbackList.forEach(feedback => {
+            this.likes = 0;
+            this.dislikes = 0;
+            feedbackList.forEach((feedback) => {
                 if (feedback.recommendation === true) {
                     this.likes++;
                 } else {
