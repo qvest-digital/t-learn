@@ -78,6 +78,7 @@ public class Course extends PanacheEntity {
     @EqualsAndHashCode.Exclude
     @OneToMany(cascade = ALL)
     @JoinColumn(name = "course_id", nullable = false)
+    @OrderBy("feedbackTime DESC")
     public Set<ParticipantFeedback> participantFeedback;
 
     @Transient

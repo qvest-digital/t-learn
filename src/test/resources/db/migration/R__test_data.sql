@@ -19,3 +19,7 @@ insert into course_category(category_id, course_id) values
 insert into participant_feedback(id, course_id, participant_name, likes, dislikes, recommendation, feedback_time)
 values (hibernate_sequence.NEXTVAL, (select id from course where title = 'Quarkus Into'), 'Freddy Feedback',
         'interesting framework', 'short live coding session', true, '2020-01-02T21:00:00+02:00');
+
+insert into participant_feedback(id, course_id, participant_name, likes, dislikes, recommendation, feedback_time)
+values (hibernate_sequence.NEXTVAL, (select id from course where title = 'Quarkus Into'), 'Francis Feedbacker',
+        'great speaker', 'catering', false, '2020-01-03T17:00:00+02:00');

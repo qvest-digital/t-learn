@@ -37,11 +37,11 @@ class ParticipantFeedbackResourceTest {
                 .when().get("/courses/{courseId}/feedback", course.id)
                 .then()
                 .statusCode(200)
-                .body("participantName", contains("Freddy Feedback"))
-                .body("likes", contains("interesting framework"))
-                .body("dislikes", contains("short live coding session"))
-                .body("recommendation", contains(true))
-                .body("feedbackTime", contains("2020-01-02T19:00:00Z"))
+                .body("participantName", contains("Francis Feedbacker", "Freddy Feedback"))
+                .body("likes", contains("great speaker", "interesting framework"))
+                .body("dislikes", contains("catering", "short live coding session"))
+                .body("recommendation", contains(false, true))
+                .body("feedbackTime", contains("2020-01-03T15:00:00Z", "2020-01-02T19:00:00Z"))
                 .body("any { it.any { it.key == 'id' }}", is(false));
     }
 
