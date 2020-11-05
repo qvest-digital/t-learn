@@ -140,6 +140,7 @@ export default {
         },
         setFeedbackRecommendation(value) {
             this.feedback.recommendation = value === 'Ja' ? true : false;
+            this.$emit('feedback', this.feedback);
         },
         validationStateClass
     },

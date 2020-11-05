@@ -60,7 +60,12 @@ describe('FeedbackForm.vue', () => {
     });
 
     it('should fill input fields with correct values', async () => {
-        const { getByRole, getByLabelText, getByText } = renderComponent();
+        const {
+            getByRole,
+            getByLabelText,
+            getByText,
+            emitted
+        } = renderComponent();
         const participantName = getByLabelText(/Wie lautet Dein Name?/i);
         await fireEvent.update(participantName, 'David');
         expect(
@@ -96,6 +101,15 @@ describe('FeedbackForm.vue', () => {
                 name: 'Ja'
             })
         ).toBeChecked();
+        expect(emitted().feedback.length).toEqual(1);
+        expect(emitted().feedback[0]).toEqual([
+            {
+                dislikes: 'nothing',
+                likes: 'good',
+                participantName: 'David',
+                recommendation: true
+            }
+        ]);
     });
 
     it('should display error message for participantName when text is too long', async () => {
